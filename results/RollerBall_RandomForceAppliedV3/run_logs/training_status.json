@@ -1,0 +1,38 @@
+{
+    "RollerBall": {
+        "checkpoints": [
+            {
+                "steps": 499989,
+                "file_path": "results\\RollerBall_RandomForceAppliedV3\\RollerBall\\RollerBall-499989.onnx",
+                "reward": 0.014197970858685256,
+                "creation_time": 1773558792.7096074,
+                "auxillary_file_paths": [
+                    "results\\RollerBall_RandomForceAppliedV3\\RollerBall\\RollerBall-499989.pt"
+                ]
+            },
+            {
+                "steps": 500010,
+                "file_path": "results\\RollerBall_RandomForceAppliedV3\\RollerBall\\RollerBall-500010.onnx",
+                "reward": 0.013897613260283399,
+                "creation_time": 1773558792.7610648,
+                "auxillary_file_paths": [
+                    "results\\RollerBall_RandomForceAppliedV3\\RollerBall\\RollerBall-500010.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500010,
+            "file_path": "results\\RollerBall_RandomForceAppliedV3\\RollerBall.onnx",
+            "reward": 0.013897613260283399,
+            "creation_time": 1773558792.7610648,
+            "auxillary_file_paths": [
+                "results\\RollerBall_RandomForceAppliedV3\\RollerBall\\RollerBall-500010.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
