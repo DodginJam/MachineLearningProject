@@ -20,6 +20,13 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    max_steps: 500000
+    max_steps: 7200000
     time_horizon: 128
     summary_freq: 10000
+
+environment_parameters:
+  force_multiplier:
+    sampler_type: uniform
+    sampler_parameters:
+      min_value: 1
+      max_value: 50

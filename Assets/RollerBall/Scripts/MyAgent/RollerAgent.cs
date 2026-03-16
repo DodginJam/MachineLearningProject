@@ -76,7 +76,8 @@ public class RollerAgent : Agent
             ResetAgent();
         }
 
-        ForceMultiplier = Random.Range(1, ForceMultiplierMaxRange);
+        ForceMultiplier = Academy.Instance.EnvironmentParameters.GetWithDefault("force_multiplier", Random.Range(10, 50));
+        Debug.Log($"ForceMode: {ForceMultiplier}");
 
         SetTargetToNewSpot();
     }

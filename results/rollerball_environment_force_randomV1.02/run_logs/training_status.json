@@ -1,0 +1,41 @@
+{
+    "force_multiplier": {
+        "lesson_num": 0
+    },
+    "RollerBall": {
+        "checkpoints": [
+            {
+                "steps": 499996,
+                "file_path": "results\\rollerball_environment_force_randomV1.02\\RollerBall\\RollerBall-499996.onnx",
+                "reward": 0.40989726605186544,
+                "creation_time": 1773605256.2219887,
+                "auxillary_file_paths": [
+                    "results\\rollerball_environment_force_randomV1.02\\RollerBall\\RollerBall-499996.pt"
+                ]
+            },
+            {
+                "steps": 500017,
+                "file_path": "results\\rollerball_environment_force_randomV1.02\\RollerBall\\RollerBall-500017.onnx",
+                "reward": 0.4099777562211768,
+                "creation_time": 1773605256.2754307,
+                "auxillary_file_paths": [
+                    "results\\rollerball_environment_force_randomV1.02\\RollerBall\\RollerBall-500017.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500017,
+            "file_path": "results\\rollerball_environment_force_randomV1.02\\RollerBall.onnx",
+            "reward": 0.4099777562211768,
+            "creation_time": 1773605256.2754307,
+            "auxillary_file_paths": [
+                "results\\rollerball_environment_force_randomV1.02\\RollerBall\\RollerBall-500017.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
