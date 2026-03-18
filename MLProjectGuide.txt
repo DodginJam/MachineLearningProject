@@ -1,0 +1,29 @@
+Anaconda Prompt - Activate Envionment:
+conda activate mlagents
+
+Anaconda Prompt - Run learning - The yaml file path and it's in-file name needs name on behaviour to match unity behaviour name
+mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun
+
+Behaviour Configs:
+C:\Unity Projects\Game Development Master UOG\Machine Learning and Data Analytics\MachineLearningProject\config
+
+Model Results:
+C:\Unity Projects\Game Development Master UOG\Machine Learning and Data Analytics\MachineLearningProject\results
+
+Unity Project:
+C:\Unity Projects\Game Development Master UOG\Machine Learning and Data Analytics\MachineLearningProject
+
+_____________________________
+
+Need to follow install guide on Unity Docs:
+https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/Installation.html
+
+Also download repo for usage of files:
+https://github.com/Unity-Technologies/ml-agents
+
+File in question to be placed in folder of project (not the assets folder) from the Github repo:
+config
+results
+
+File in question to be placed in assets folder of project from the GitHubs assets folder:
+ML-Agents
