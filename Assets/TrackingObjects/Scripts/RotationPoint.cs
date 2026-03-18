@@ -22,40 +22,38 @@ public class RotationPoint
 
     [field: SerializeField]
     public RotationAxis RotateAround
-    {  get; private set; }
-
-    [field:SerializeField]
-    public float CurrentAngle
     { get; private set; }
+
+    [field: SerializeField]
+    public float RotationSpeed
+    { get; private set; }
+
+    private float currentAngle;
 
     public enum RotationAxis
     {
         X, Y, Z
     }
 
-    public void SetAngle()
+    public void SetAngle(float newAngle)
     {
         if (!LimitRotation)
         {
-            if (CurrentAngle < 0)
-            {
-                CurrentAngle = CurrentAngle % 360;
-                CurrentAngle += 360;
-            }
-            else if (CurrentAngle >= 360)
-            {
-                CurrentAngle = CurrentAngle % 360;
-            }
+            newAngle %= 360f;
+            if (newAngle < 0) newAngle += 360f;
+        }
+        else
+        {
+            newAngle = Mathf.Clamp(newAngle, AngleLimitLower, AngleLimitUpper);
         }
 
-        float newAngle = LimitRotation ? Mathf.Clamp(CurrentAngle, AngleLimitLower, AngleLimitUpper) : CurrentAngle;
+        currentAngle = newAngle;
 
-        Vector3 newLocalRotation = GetAdjustedVector3(newAngle);
-
+        Vector3 newLocalRotation = SetAdjustedVector3(currentAngle);
         ObjectToAngle.localRotation = Quaternion.Euler(newLocalRotation);
     }
 
-    Vector3 GetAdjustedVector3(float newAngle)
+    Vector3 SetAdjustedVector3(float newAngle)
     {
         if (RotateAround == RotationAxis.X)
         {
@@ -63,11 +61,16 @@ public class RotationPoint
         }
         else if (RotateAround == RotationAxis.Y)
         {
-            return new Vector3(0, newAngle , 0);
+            return new Vector3(0, newAngle, 0);
         }
         else
         {
             return new Vector3(0, 0, newAngle);
         }
+    }
+
+    public float GetLocalAngleRotation()
+    {
+        return currentAngle;
     }
 }

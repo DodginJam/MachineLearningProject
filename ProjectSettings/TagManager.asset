@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - symbol_X_Goal
+  - symbol_O_Goal
+  - symbol_O
+  - agent
+  - ground
+  - symbol_X
+  - wall
+  - tile
+  - goal
+  - block
   layers:
   - Default
   - TransparentFX
@@ -11,8 +21,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Target
+  - Wall
   - 
   - 
   - 

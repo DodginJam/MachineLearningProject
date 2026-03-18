@@ -1,0 +1,29 @@
+{
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 64051,
+                "file_path": "results\\detector_run_V_0.1\\Tracker\\Tracker-64051.onnx",
+                "reward": null,
+                "creation_time": 1773822046.2405274,
+                "auxillary_file_paths": [
+                    "results\\detector_run_V_0.1\\Tracker\\Tracker-64051.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 64051,
+            "file_path": "results\\detector_run_V_0.1\\Tracker.onnx",
+            "reward": null,
+            "creation_time": 1773822046.2405274,
+            "auxillary_file_paths": [
+                "results\\detector_run_V_0.1\\Tracker\\Tracker-64051.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

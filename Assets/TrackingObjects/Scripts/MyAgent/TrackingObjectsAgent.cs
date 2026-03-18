@@ -2,6 +2,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TrackingObjectsAgent : Agent
 {
@@ -13,10 +14,26 @@ public class TrackingObjectsAgent : Agent
     public RotationPoint Pitcher
     { get; private set; }
 
+    [field: SerializeField]
+    public Transform Target
+    { get; private set; }
+
+    [field: SerializeField]
+    public DetectFacingTarget TargetDetector
+    { get; private set; }
+
+    /// <summary>
+    /// The training area mesh renderer can be used to access the bounds to ensure the target is spawned at a random point on the surface.
+    /// </summary>
+    [field: SerializeField]
+    public MeshRenderer TrainingArea
+    { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Rotator.SetAngle(Random.Range(0f, 359.9999f));
+        // Pitcher.SetAngle(Random.Range(Pitcher.AngleLimitLower, Pitcher.AngleLimitUpper));
     }
 
     /// <summary>
@@ -24,7 +41,7 @@ public class TrackingObjectsAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-
+        SetTargetToNewSpot();
     }
 
     /// <summary>
@@ -33,7 +50,9 @@ public class TrackingObjectsAgent : Agent
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
     {
-
+        sensor.AddObservation(Rotator.GetLocalAngleRotation()); // Index 0
+        sensor.AddObservation(Pitcher.GetLocalAngleRotation()); // Index 1
+        sensor.AddObservation(Target.transform.localPosition - this.transform.localPosition); // Index 2, 3, 4
     }
 
     /// <summary>
@@ -42,7 +61,18 @@ public class TrackingObjectsAgent : Agent
     /// <param name="actionBuffers"></param>
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
+        float rotationalAmountToMove = actionBuffers.ContinuousActions[0];
+        float pitchAmountToMove = actionBuffers.ContinuousActions[1];
 
+        Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationalAmountToMove * Rotator.RotationSpeed));
+        Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchAmountToMove * Pitcher.RotationSpeed));
+
+        if (TargetDetector.TargetDetected)
+        {
+            TargetDetector.TargetDetected = false;
+            AddReward(1.0f);
+            EndEpisode();
+        }
     }
 
     /// <summary>
@@ -59,7 +89,25 @@ public class TrackingObjectsAgent : Agent
     // Update is called once per frame
     void Update()
     {
-        Rotator.SetAngle();
-        Pitcher.SetAngle();
+        
+    }
+
+    void SetTargetToNewSpot()
+    {
+        Bounds areaBounds = TrainingArea.bounds;
+        float minX = areaBounds.center.x - areaBounds.extents.x;
+        float maxX = areaBounds.center.x + areaBounds.extents.x;
+
+        float minZ = areaBounds.center.z - areaBounds.extents.z;
+        float maxZ = areaBounds.center.z + areaBounds.extents.z;
+
+        float xPosition = Random.Range(minX, maxX);
+        float zPosition = Random.Range(minZ, maxZ);
+
+        float yPosition = Target.transform.position.y + Random.Range(0, 2.5f);
+
+        Vector3 newPosition = new Vector3(xPosition, yPosition, zPosition);
+
+        Target.transform.position = newPosition;
     }
 }
