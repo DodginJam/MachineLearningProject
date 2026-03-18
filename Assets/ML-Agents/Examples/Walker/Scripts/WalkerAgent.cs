@@ -234,7 +234,7 @@ public class WalkerAgent : Agent
             );
         }
 
-        // b. Rotation alignment with target direction.
+        // b. ObjectToAngle alignment with target direction.
         //This reward will approach 1 if it faces the target direction perfectly and approach zero as it deviates
         var headForward = head.forward;
         headForward.y = 0;

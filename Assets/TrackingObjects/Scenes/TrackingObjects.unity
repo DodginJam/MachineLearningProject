@@ -361,6 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 208631370}
+  - component: {fileID: 208631371}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -385,6 +386,22 @@ Transform:
   - {fileID: 1732645710}
   m_Father: {fileID: 403555156}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &208631371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208631369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b29724baddfa457da6eeab446fa49ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxJointSpring: 0
+  jointDampen: 0
+  maxJointForceLimit: 0
+  bodyPartsList: []
 --- !u!1 &391255191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1150,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1955225563}
+  - component: {fileID: 1955225564}
+  - component: {fileID: 1955225566}
+  - component: {fileID: 1955225565}
   m_Layer: 0
   m_Name: TrackingAgent
   m_TagString: Untagged
@@ -1156,6 +1176,82 @@ Transform:
   - {fileID: 103896048}
   m_Father: {fileID: 1699816328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1955225564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955225562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e9871cb64cb784e92e6e1d694db4aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  <Rotator>k__BackingField:
+    <ObjectToAngle>k__BackingField: {fileID: 1888626608}
+    <LimitRotation>k__BackingField: 0
+    <AngleLimitLower>k__BackingField: 0
+    <AngleLimitUpper>k__BackingField: 0
+    <RotateAround>k__BackingField: 1
+    <CurrentAngle>k__BackingField: 0
+  <Pitcher>k__BackingField:
+    <ObjectToAngle>k__BackingField: {fileID: 403555156}
+    <LimitRotation>k__BackingField: 1
+    <AngleLimitLower>k__BackingField: -50
+    <AngleLimitUpper>k__BackingField: 50
+    <RotateAround>k__BackingField: 0
+    <CurrentAngle>k__BackingField: 0
+--- !u!114 &1955225565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955225562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: BufferSensor
+  m_ObservableSize: 0
+  m_MaxNumObservables: 0
+--- !u!114 &1955225566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955225562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: Tracker
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

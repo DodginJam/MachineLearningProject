@@ -7,7 +7,7 @@ namespace Unity.MLAgentsExamples
     /// </summary>
     public class OrientationCubeController : MonoBehaviour
     {
-        //Update position and Rotation
+        //Update position and ObjectToAngle
         public void UpdateOrientation(Transform rootBP, Transform target)
         {
             var dirVector = target.position - transform.position;
