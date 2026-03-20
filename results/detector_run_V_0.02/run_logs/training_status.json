@@ -1,0 +1,38 @@
+{
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 499899,
+                "file_path": "results\\detector_run_V_0.02\\Tracker\\Tracker-499899.onnx",
+                "reward": null,
+                "creation_time": 1774019989.8583121,
+                "auxillary_file_paths": [
+                    "results\\detector_run_V_0.02\\Tracker\\Tracker-499899.pt"
+                ]
+            },
+            {
+                "steps": 500027,
+                "file_path": "results\\detector_run_V_0.02\\Tracker\\Tracker-500027.onnx",
+                "reward": null,
+                "creation_time": 1774019989.9139285,
+                "auxillary_file_paths": [
+                    "results\\detector_run_V_0.02\\Tracker\\Tracker-500027.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500027,
+            "file_path": "results\\detector_run_V_0.02\\Tracker.onnx",
+            "reward": null,
+            "creation_time": 1774019989.9139285,
+            "auxillary_file_paths": [
+                "results\\detector_run_V_0.02\\Tracker\\Tracker-500027.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

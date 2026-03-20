@@ -1192,8 +1192,8 @@ Transform:
   m_GameObject: {fileID: 6722552146773323488}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.5, z: 3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1, y: 0.5, z: -1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 698357847878552168}
@@ -1470,14 +1470,14 @@ MonoBehaviour:
     <AngleLimitLower>k__BackingField: 0
     <AngleLimitUpper>k__BackingField: 0
     <RotateAround>k__BackingField: 1
-    <RotationSpeed>k__BackingField: 1
+    <RotationSpeed>k__BackingField: 200
   <Pitcher>k__BackingField:
     <ObjectToAngle>k__BackingField: {fileID: 2496370540905967532}
     <LimitRotation>k__BackingField: 1
     <AngleLimitLower>k__BackingField: -90
     <AngleLimitUpper>k__BackingField: 90
     <RotateAround>k__BackingField: 0
-    <RotationSpeed>k__BackingField: 1
+    <RotationSpeed>k__BackingField: 200
   <Target>k__BackingField: {fileID: 8281072680163161396}
   <TargetDetector>k__BackingField: {fileID: 2774225666729760548}
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
@@ -1503,7 +1503,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 36e319414a2687741b68bd7225948c6c, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Tracker

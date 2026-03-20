@@ -4,6 +4,9 @@ conda activate mlagents
 Anaconda Prompt - Run learning - The yaml file path and it's in-file name needs name on behaviour to match unity behaviour name
 mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun
 
+ToEditLine:
+mlagents-learn config/ppo/detector_config.yaml --run-id=detector_run_V_0.1
+
 Behaviour Configs:
 C:\Unity Projects\Game Development Master UOG\Machine Learning and Data Analytics\MachineLearningProject\config
 

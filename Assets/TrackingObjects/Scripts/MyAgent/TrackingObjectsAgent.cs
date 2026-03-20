@@ -41,7 +41,7 @@ public class TrackingObjectsAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        SetTargetToNewSpot();
+        SetTargetToNewSpot(1);
     }
 
     /// <summary>
@@ -50,9 +50,12 @@ public class TrackingObjectsAgent : Agent
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(Rotator.GetLocalAngleRotation()); // Index 0
-        sensor.AddObservation(Pitcher.GetLocalAngleRotation()); // Index 1
-        sensor.AddObservation(Target.transform.localPosition - this.transform.localPosition); // Index 2, 3, 4
+        sensor.AddObservation(Rotator.GetNormalisedRotationValue()); // Index 0
+        sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
+
+        // Where the target is relative to its current facing direction
+        Vector3 relativeDir = TargetDetector.transform.InverseTransformPoint(Target.position).normalized;
+        sensor.AddObservation(relativeDir); // Index 2, 3, 4
     }
 
     /// <summary>
@@ -61,11 +64,15 @@ public class TrackingObjectsAgent : Agent
     /// <param name="actionBuffers"></param>
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        float rotationalAmountToMove = actionBuffers.ContinuousActions[0];
-        float pitchAmountToMove = actionBuffers.ContinuousActions[1];
+        float rotationOutput = actionBuffers.ContinuousActions[0];
+        float pitchOutput = actionBuffers.ContinuousActions[1];
 
-        Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationalAmountToMove * Rotator.RotationSpeed));
-        Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchAmountToMove * Pitcher.RotationSpeed));
+        Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
+        Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
+
+        // Small incentive to look at the target.
+        float dot = Vector3.Dot(TargetDetector.transform.forward, (Target.position - transform.position).normalized);
+        if (dot > 0) AddReward(dot * 0.001f);
 
         if (TargetDetector.TargetDetected)
         {
@@ -84,6 +91,8 @@ public class TrackingObjectsAgent : Agent
         ActionSegment<float> continuousActionsOut = actionsOut.ContinuousActions;
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
+
+        Debug.Log(Vector3.Dot(TargetDetector.transform.forward, (Target.position - transform.position).normalized));
     }
 
     // Update is called once per frame
@@ -92,7 +101,11 @@ public class TrackingObjectsAgent : Agent
         
     }
 
-    void SetTargetToNewSpot()
+    /// <summary>
+    /// Away from centre allows for deadspace where the agent is to not allow the target to be placed there.
+    /// </summary>
+    /// <param name="awayFromCentre"></param>
+    void SetTargetToNewSpot(float awayFromCentre = 1)
     {
         Bounds areaBounds = TrainingArea.bounds;
         float minX = areaBounds.center.x - areaBounds.extents.x;
@@ -101,12 +114,18 @@ public class TrackingObjectsAgent : Agent
         float minZ = areaBounds.center.z - areaBounds.extents.z;
         float maxZ = areaBounds.center.z + areaBounds.extents.z;
 
-        float xPosition = Random.Range(minX, maxX);
-        float zPosition = Random.Range(minZ, maxZ);
+        Vector3 newPosition = Vector3.zero;
 
-        float yPosition = Target.transform.position.y + Random.Range(0, 2.5f);
+        do
+        {
+            float xPosition = Random.Range(minX, maxX);
+            float zPosition = Random.Range(minZ, maxZ);
 
-        Vector3 newPosition = new Vector3(xPosition, yPosition, zPosition);
+            float yPosition = TrainingArea.transform.position.y + Random.Range(0.5f, 2.5f);
+
+            newPosition = new Vector3(xPosition, yPosition, zPosition);
+        }
+        while (Vector3.Distance(newPosition, transform.position) < 1f);
 
         Target.transform.position = newPosition;
     }

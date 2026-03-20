@@ -1,4 +1,5 @@
 using System;
+using Unity.AppUI.UI;
 using UnityEngine;
 
 [Serializable]
@@ -72,5 +73,17 @@ public class RotationPoint
     public float GetLocalAngleRotation()
     {
         return currentAngle;
+    }
+
+    public float GetNormalisedRotationValue()
+    {
+        if (LimitRotation)
+        {
+            return (GetLocalAngleRotation() - AngleLimitLower) / (AngleLimitUpper - AngleLimitLower);
+        }
+        else
+        {
+            return GetLocalAngleRotation() / 360f;
+        }
     }
 }
