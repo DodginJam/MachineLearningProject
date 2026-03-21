@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec052570ddb5dab40872410cc0586799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TimeScale>k__BackingField: 1
+  <TimeScale>k__BackingField: 20
 --- !u!4 &1471095749
 Transform:
   m_ObjectHideFlags: 0

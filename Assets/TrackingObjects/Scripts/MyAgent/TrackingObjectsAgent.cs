@@ -41,7 +41,7 @@ public class TrackingObjectsAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        SetTargetToNewSpot(1);
+        SetTargetToNewSpot();
     }
 
     /// <summary>
@@ -70,9 +70,11 @@ public class TrackingObjectsAgent : Agent
         Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
         Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
 
+        /*
         // Small incentive to look at the target.
         float dot = Vector3.Dot(TargetDetector.transform.forward, (Target.position - transform.position).normalized);
         if (dot > 0) AddReward(dot * 0.001f);
+        */
 
         if (TargetDetector.TargetDetected)
         {
@@ -105,7 +107,7 @@ public class TrackingObjectsAgent : Agent
     /// Away from centre allows for deadspace where the agent is to not allow the target to be placed there.
     /// </summary>
     /// <param name="awayFromCentre"></param>
-    void SetTargetToNewSpot(float awayFromCentre = 1)
+    void SetTargetToNewSpot()
     {
         Bounds areaBounds = TrainingArea.bounds;
         float minX = areaBounds.center.x - areaBounds.extents.x;
