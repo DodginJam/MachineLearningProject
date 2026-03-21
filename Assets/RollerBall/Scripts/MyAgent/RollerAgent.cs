@@ -24,7 +24,7 @@ public class RollerAgent : Agent
     /// <summary>
     /// The target that the roller agent is to locate and find.
     /// </summary>
-    [field: SerializeField, Header("Roller Agent Properties")]
+    [field: SerializeField, Header("Roller TrackingAgent Properties")]
     public Transform Target
     { get; set; }
 
@@ -67,7 +67,7 @@ public class RollerAgent : Agent
     }
 
     /// <summary>
-    /// Called at the beginning of an Agent's episode, including at the beginning of the simulation
+    /// Called at the beginning of an TrackingAgent's episode, including at the beginning of the simulation
     /// </summary>
     public override void OnEpisodeBegin()
     {
@@ -83,7 +83,7 @@ public class RollerAgent : Agent
     }
 
     /// <summary>
-    /// Called every step that the Agent requests a decision. This is one possible way for collecting the Agent's observations of the environment.
+    /// Called every step that the TrackingAgent requests a decision. This is one possible way for collecting the TrackingAgent's observations of the environment.
     /// </summary>
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
@@ -101,7 +101,7 @@ public class RollerAgent : Agent
     }
 
     /// <summary>
-    /// Called every time the Agent receives an action to take. Receives the action chosen by the Agent. It is also common to assign a reward in this method.
+    /// Called every time the TrackingAgent receives an action to take. Receives the action chosen by the TrackingAgent. It is also common to assign a reward in this method.
     /// </summary>
     /// <param name="actionBuffers"></param>
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -134,7 +134,7 @@ public class RollerAgent : Agent
     }
 
     /// <summary>
-    /// When the Behavior Type is set to Heuristic Only in the Behavior Parameters of the Agent, the Agent will use the Heuristic() method to generate the actions of the Agent. As such, the Heuristic() method writes to the array of floats provided to the Heuristic method as argument. Note: Do not create a new float array of action in the Heuristic() method, as this will prevent writing floats to the original action array.
+    /// When the Behavior Type is set to Heuristic Only in the Behavior Parameters of the TrackingAgent, the TrackingAgent will use the Heuristic() method to generate the actions of the TrackingAgent. As such, the Heuristic() method writes to the array of floats provided to the Heuristic method as argument. Note: Do not create a new float array of action in the Heuristic() method, as this will prevent writing floats to the original action array.
     /// </summary>
     /// <param name="actionsOut"></param>
     public override void Heuristic(in ActionBuffers actionsOut)
