@@ -75,8 +75,8 @@ public class TrackingObjectsAgent : Agent
         sensor.AddObservation(Rotator.GetNormalisedRotationValue()); // Index 0
         sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
 
-        Debug.Log($"Max Number of Allowed Observations: {BufferSensorComp.MaxNumObservables}");
-        Debug.Log($"Visable Targers Count: {VisableTargets.Count}");
+        // Debug.Log($"Max Number of Allowed Observations: {BufferSensorComp.MaxNumObservables}");
+        // Debug.Log($"Visable Targers Count: {VisableTargets.Count}");
 
         // Adding observations into the buffer sensor.
         for (int i = 0; i < VisableTargets.Count; i++)
