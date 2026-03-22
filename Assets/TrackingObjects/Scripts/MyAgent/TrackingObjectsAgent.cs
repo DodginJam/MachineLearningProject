@@ -62,7 +62,7 @@ public class TrackingObjectsAgent : Agent
 
         // Set a random amount of targets to be visable.
         int visableTargetsForEpisode = Random.Range(1, AllTargets.Length);
-        for (int i = 0; i <= visableTargetsForEpisode; i++)
+        for (int i = 0; i < visableTargetsForEpisode; i++)
         {
             VisableTargets.Add(AllTargets[i]);
             VisableTargets[i].gameObject.SetActive(true);
@@ -87,7 +87,7 @@ public class TrackingObjectsAgent : Agent
         // Adding observations into the buffer sensor.
         for (int i = 0; i < VisableTargets.Count; i++)
         {
-            if (i > BufferSensorComp.MaxNumObservables)
+            if (i >= BufferSensorComp.MaxNumObservables)
             {
                 Debug.LogWarning("Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
                 break;
@@ -132,13 +132,13 @@ public class TrackingObjectsAgent : Agent
         nearestTarget.GetComponent<MeshRenderer>().material.color = Color.red;
 
         // Small incentive to look at the nearest target.
-        //float dot = Vector3.Dot(TargetDetector.transform.forward, (nearestTarget.position - transform.position).normalized);
-        //if (dot > 0) AddReward(dot * 0.001f);
+        // float dot = Vector3.Dot(TargetDetector.transform.forward, (nearestTarget.position - transform.position).normalized);
+        // if (dot > 0) AddReward(dot * 0.001f);
         
         // Rewarding if the nearest target has been detected.
-        if (TargetDetector.IsTargetDetected(out Transform dectectedTransfom) && dectectedTransfom == nearestTarget)
+        if (TargetDetector.IsTargetDetected(out Transform dectectedTransfom))
         {
-            AddReward(1.0f / InitialVisableTargets);
+            AddReward(0.5f / InitialVisableTargets);
 
             // Removing detected targets from being active and removing them from the visable list.
             dectectedTransfom.gameObject.SetActive(false);
@@ -149,6 +149,7 @@ public class TrackingObjectsAgent : Agent
 
         if (VisableTargets.Count <= 0)
         {
+            AddReward(0.5f);
             EndEpisode();
         }
     }
