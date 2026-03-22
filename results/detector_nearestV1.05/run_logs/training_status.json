@@ -1,0 +1,47 @@
+{
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 490253,
+                "file_path": "results\\detector_nearestV1.05\\Tracker\\Tracker-490253.onnx",
+                "reward": 9.200434534509052,
+                "creation_time": 1774176957.2475069,
+                "auxillary_file_paths": [
+                    "results\\detector_nearestV1.05\\Tracker\\Tracker-490253.pt"
+                ]
+            },
+            {
+                "steps": 499921,
+                "file_path": "results\\detector_nearestV1.05\\Tracker\\Tracker-499921.onnx",
+                "reward": 2.2104463279247284,
+                "creation_time": 1774177039.5609896,
+                "auxillary_file_paths": [
+                    "results\\detector_nearestV1.05\\Tracker\\Tracker-499921.pt"
+                ]
+            },
+            {
+                "steps": 502993,
+                "file_path": "results\\detector_nearestV1.05\\Tracker\\Tracker-502993.onnx",
+                "reward": 2.2104463279247284,
+                "creation_time": 1774177040.0888214,
+                "auxillary_file_paths": [
+                    "results\\detector_nearestV1.05\\Tracker\\Tracker-502993.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 502993,
+            "file_path": "results\\detector_nearestV1.05\\Tracker.onnx",
+            "reward": 2.2104463279247284,
+            "creation_time": 1774177040.0888214,
+            "auxillary_file_paths": [
+                "results\\detector_nearestV1.05\\Tracker\\Tracker-502993.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

@@ -4,6 +4,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 public class TrackingObjectsAgent : Agent
 {
     [field: SerializeField]
@@ -20,6 +21,9 @@ public class TrackingObjectsAgent : Agent
 
     public List<Transform> VisableTargets
     { get; private set; } = new List<Transform>();
+
+    public int InitialVisableTargets
+    { get; private set; }
 
     [field: SerializeField]
     public DetectFacingTarget TargetDetector
@@ -63,6 +67,8 @@ public class TrackingObjectsAgent : Agent
             VisableTargets.Add(AllTargets[i]);
             VisableTargets[i].gameObject.SetActive(true);
         }
+
+        InitialVisableTargets = VisableTargets.Count;
     }
 
     /// <summary>
@@ -123,14 +129,16 @@ public class TrackingObjectsAgent : Agent
                 nearestTarget = target;
             }
         }
+        nearestTarget.GetComponent<MeshRenderer>().material.color = Color.red;
+
         // Small incentive to look at the nearest target.
-        float dot = Vector3.Dot(TargetDetector.transform.forward, (nearestTarget.position - transform.position).normalized);
-        if (dot > 0) AddReward(dot * 0.001f);
+        //float dot = Vector3.Dot(TargetDetector.transform.forward, (nearestTarget.position - transform.position).normalized);
+        //if (dot > 0) AddReward(dot * 0.001f);
         
-        // Rewarding if a target has been detected.
-        if (TargetDetector.IsTargetDetected(out Transform dectectedTransfom))
+        // Rewarding if the nearest target has been detected.
+        if (TargetDetector.IsTargetDetected(out Transform dectectedTransfom) && dectectedTransfom == nearestTarget)
         {
-            AddReward(1.0f);
+            AddReward(1.0f / InitialVisableTargets);
 
             // Removing detected targets from being active and removing them from the visable list.
             dectectedTransfom.gameObject.SetActive(false);
@@ -174,6 +182,8 @@ public class TrackingObjectsAgent : Agent
         foreach (Transform target in AllTargets)
         {
             Vector3 newPosition = Vector3.zero;
+
+            target.GetComponent<MeshRenderer>().material.color = Color.yellow;
 
             do
             {
