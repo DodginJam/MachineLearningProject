@@ -1,0 +1,74 @@
+using System;
+using Unity.Mathematics;
+using Unity.MLAgents;
+using UnityEngine;
+
+public class FireSolution : MonoBehaviour
+{
+    [field:SerializeField]
+    public LayerMask LayersToHit
+    { get; private set; }
+
+    public bool TargetDetected
+    { get; set; }
+
+    public Target DetectedTarget
+    {  get; private set; }
+
+    [field: SerializeField]
+    public MeshRenderer MeshRendererRef
+    { get; private set; }
+
+    [field: SerializeField]
+    public Material NonFiringMaterial
+    { get; private set; }
+
+    [field: SerializeField]
+    public Material FiringMaterial
+    { get; private set; }
+
+    private void Awake()
+    {
+        
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        // Fire out a raycast to detect targets, while also hiting walls to allow obstacles like walls to block ray.
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, Mathf.Infinity, LayersToHit))
+        {
+            if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Target"))
+            {
+                if (hitInfo.transform.gameObject.TryGetComponent<Target>(out Target target))
+                {
+                    TargetDetected = true;
+                    DetectedTarget = target;
+                }
+            }
+        }
+    }
+
+    public bool IsTargetDetected(out Target detectedTarget)
+    {
+        detectedTarget = DetectedTarget;
+        return TargetDetected;
+    }
+
+    public void RemoveDetectedInfo()
+    {
+        TargetDetected = false;
+        DetectedTarget = null;
+    }
+
+    public void SetFiringMaterial(bool isFiring)
+    {
+        MeshRendererRef.material = isFiring ? FiringMaterial : NonFiringMaterial;
+    }
+}

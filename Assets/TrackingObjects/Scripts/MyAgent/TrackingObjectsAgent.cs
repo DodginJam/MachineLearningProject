@@ -16,17 +16,17 @@ public class TrackingObjectsAgent : Agent
     { get; private set; }
 
     [field: SerializeField]
-    public Transform[] AllTargets
+    public Target[] AllTargets
     { get; private set; }
 
-    public List<Transform> VisableTargets
-    { get; private set; } = new List<Transform>();
+    public List<Target> VisableTargets
+    { get; private set; } = new List<Target>();
 
     public int InitialVisableTargets
     { get; private set; }
 
     [field: SerializeField]
-    public DetectFacingTarget TargetDetector
+    public FireSolution FireSolutionRef
     { get; private set; }
 
     /// <summary>
@@ -38,6 +38,10 @@ public class TrackingObjectsAgent : Agent
 
     private BufferSensorComponent BufferSensorComp
     { get; set; }
+
+    [field: SerializeField]
+    public float DamagePerTick
+    { get; private set; } = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +58,7 @@ public class TrackingObjectsAgent : Agent
         SetTargetsToNewSpot();
 
         // Remove all targets from the scene and clear visable targets..
-        foreach(Transform target in AllTargets)
+        foreach(Target target in AllTargets)
         {
             target.gameObject.SetActive(false);
         }
@@ -65,7 +69,7 @@ public class TrackingObjectsAgent : Agent
         for (int i = 0; i < visableTargetsForEpisode; i++)
         {
             VisableTargets.Add(AllTargets[i]);
-            VisableTargets[i].gameObject.SetActive(true);
+            VisableTargets[i].Initialise();
         }
 
         InitialVisableTargets = VisableTargets.Count;
@@ -96,7 +100,7 @@ public class TrackingObjectsAgent : Agent
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
             // First 3 values as the normalised position of the target relative to the face of the agent.
-            Vector3 relativeDir = TargetDetector.transform.InverseTransformPoint(VisableTargets[i].position).normalized;
+            Vector3 relativeDir = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position).normalized;
             observationArray[0] = relativeDir.x;
             observationArray[1] = relativeDir.y;
             observationArray[2] = relativeDir.z;
@@ -117,12 +121,17 @@ public class TrackingObjectsAgent : Agent
         Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
         Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
 
+        // Applying the input for discrete actions.
+        int fireAction = actionBuffers.DiscreteActions[0];
+
+        FireSolutionRef.SetFiringMaterial(fireAction == 0 ? false : true);
+
         // To detect the nearest target to the agent.
-        Transform nearestTarget = null;
+        Target nearestTarget = null;
         float distanceToNearestTarget = float.MaxValue;
-        foreach(Transform target in VisableTargets)
+        foreach(Target target in VisableTargets)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             if (distanceToTarget < distanceToNearestTarget)
             {
                 distanceToNearestTarget = distanceToTarget;
@@ -131,25 +140,39 @@ public class TrackingObjectsAgent : Agent
         }
         nearestTarget.GetComponent<MeshRenderer>().material.color = Color.red;
 
-        // Small incentive to look at the nearest target.
-        // float dot = Vector3.Dot(TargetDetector.transform.forward, (nearestTarget.position - transform.position).normalized);
-        // if (dot > 0) AddReward(dot * 0.001f);
+        //Small incentive to look at the nearest target.
+        float dot = Vector3.Dot(FireSolutionRef.transform.forward, (nearestTarget.transform.position - transform.position).normalized);
+        if (dot > 0) AddReward(dot * 0.001f);
         
-        // Rewarding if the nearest target has been detected.
-        if (TargetDetector.IsTargetDetected(out Transform dectectedTransfom))
+        if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
         {
-            AddReward(0.5f / InitialVisableTargets);
+            // Rewarding if the nearest target has been detected
+            AddReward(0.001f);
 
-            // Removing detected targets from being active and removing them from the visable list.
-            dectectedTransfom.gameObject.SetActive(false);
-            bool wasVisableTargetRemoved = VisableTargets.Remove(dectectedTransfom);
-            if (wasVisableTargetRemoved == false) Debug.LogError("The detected target did not exist on the visable targets list.");
-            TargetDetector.RemoveDetectedInfo();
+            // Rewarding if the nearest target has been detected and fired upon.
+            if (fireAction == 1)
+            {
+                AddReward(0.01f);
+                detectedTarget.TakeDamage(DamagePerTick * Time.fixedDeltaTime);
+            }
+
+            if (detectedTarget.IsDead)
+            {
+                RemoveVisableTarget(detectedTarget);
+            }
+        }
+        else
+        {
+            // Punish firing without a target.
+            if (fireAction == 1)
+            {
+                AddReward(-0.001f);
+            }
         }
 
         if (VisableTargets.Count <= 0)
         {
-            AddReward(0.5f);
+            AddReward(1f);
             EndEpisode();
         }
     }
@@ -163,6 +186,19 @@ public class TrackingObjectsAgent : Agent
         ActionSegment<float> continuousActionsOut = actionsOut.ContinuousActions;
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
+
+        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+        discreteActions[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
+    }
+
+    void RemoveVisableTarget(Target detectedTransfom)
+    {
+        // Removing detected targets from the visable list.
+        bool wasVisableTargetRemoved = VisableTargets.Remove(detectedTransfom);
+        FireSolutionRef.RemoveDetectedInfo();
+
+        // Debug check.
+        if (wasVisableTargetRemoved == false) Debug.LogError("The detected target did not exist on the visable targets list.");
     }
 
     // Update is called once per frame
@@ -180,7 +216,7 @@ public class TrackingObjectsAgent : Agent
         float minZ = areaBounds.center.z - areaBounds.extents.z;
         float maxZ = areaBounds.center.z + areaBounds.extents.z;
 
-        foreach (Transform target in AllTargets)
+        foreach (Target target in AllTargets)
         {
             Vector3 newPosition = Vector3.zero;
 
@@ -197,7 +233,7 @@ public class TrackingObjectsAgent : Agent
             }
             while (Vector3.Distance(newPosition, this.transform.position) < 1f);
 
-            target.position = newPosition;
+            target.transform.position = newPosition;
         }
     }
 }
