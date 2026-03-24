@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+
 public class TrackingObjectsAgent : Agent
 {
-    [field: SerializeField]
+    [field: SerializeField, Header("Control Points")]
     public RotationPoint Rotator
     { get; private set; }
 
@@ -15,7 +14,7 @@ public class TrackingObjectsAgent : Agent
     public RotationPoint Pitcher
     { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Header("Target Data")]
     public Target[] AllTargets
     { get; private set; }
 
@@ -25,21 +24,21 @@ public class TrackingObjectsAgent : Agent
     public int InitialVisableTargets
     { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Header("Observation Assistance Scripts")]
     public FireSolution FireSolutionRef
     { get; private set; }
 
     /// <summary>
     /// The training area mesh renderer can be used to access the bounds to ensure the target is spawned at a random point on the surface.
     /// </summary>
-    [field: SerializeField]
+    [field: SerializeField, Header("Surface Ref")]
     public MeshRenderer TrainingArea
     { get; private set; }
 
     private BufferSensorComponent BufferSensorComp
     { get; set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Header("Agent Control Values")]
     public float DamagePerTick
     { get; private set; } = 0.5f;
 
@@ -120,8 +119,11 @@ public class TrackingObjectsAgent : Agent
         // Applying the input from continious actions.
         float rotationOutput = actionBuffers.ContinuousActions[0];
         float pitchOutput = actionBuffers.ContinuousActions[1];
-        Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
-        Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
+        Rotator.RotateAngle(rotationOutput, Rotator.RotationSpeed ,Time.fixedDeltaTime);
+        Pitcher.RotateAngle(pitchOutput, Pitcher.RotationSpeed, Time.fixedDeltaTime);
+
+        //Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
+        //Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
 
         // Applying the input for discrete actions.
         int fireAction = actionBuffers.DiscreteActions[0];
