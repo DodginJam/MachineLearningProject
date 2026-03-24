@@ -146,9 +146,11 @@ public class TrackingObjectsAgent : Agent
         //Small incentive to look at the nearest target.
         float dot = Vector3.Dot(FireSolutionRef.transform.forward, (nearestTarget.transform.position - transform.position).normalized);
         if (dot > 0) AddReward(dot * 0.001f);
-        
+
+        bool trackedtarget = false;
         if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
         {
+            trackedtarget = true;
             // Rewarding if a target has been detected
             AddReward(0.001f);
 
@@ -180,6 +182,8 @@ public class TrackingObjectsAgent : Agent
         {
             EndEpisode();
         }
+
+        Debug.Log($"Tracking Target: {trackedtarget}");
     }
 
     /// <summary>
