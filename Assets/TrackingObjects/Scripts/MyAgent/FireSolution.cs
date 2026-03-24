@@ -41,6 +41,8 @@ public class FireSolution : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.DrawRay(transform.position, transform.forward * 100f, Color.magenta);
+
         // Fire out a raycast to detect targets, while also hiting walls to allow obstacles like walls to block ray.
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, Mathf.Infinity, LayersToHit))
         {

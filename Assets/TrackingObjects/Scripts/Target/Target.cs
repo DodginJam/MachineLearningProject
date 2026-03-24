@@ -31,7 +31,6 @@ public class Target : MonoBehaviour
     public void TakeDamage(float damageToTake)
     {
         CurrentHealth = Mathf.Clamp01(CurrentHealth - damageToTake);
-        Debug.Log($"Current Health: {CurrentHealth}");
 
         if (CurrentHealth <= 0)
         {

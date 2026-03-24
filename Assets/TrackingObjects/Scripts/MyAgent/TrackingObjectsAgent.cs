@@ -104,6 +104,8 @@ public class TrackingObjectsAgent : Agent
             observationArray[0] = relativeDir.x;
             observationArray[1] = relativeDir.y;
             observationArray[2] = relativeDir.z;
+            // Also add the magnitude / length of the 
+            // observationArray[3] = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position).magnitude;
 
             BufferSensorComp.AppendObservation(observationArray);
         }
