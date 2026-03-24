@@ -54,6 +54,10 @@ public class FireSolution : MonoBehaviour
                     DetectedTarget = target;
                 }
             }
+            else
+            {
+                RemoveDetectedInfo();
+            }
         }
     }
 

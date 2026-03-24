@@ -142,7 +142,6 @@ public class TrackingObjectsAgent : Agent
                 nearestTarget = target;
             }
         }
-        nearestTarget.GetComponent<MeshRenderer>().material.color = Color.red;
 
         //Small incentive to look at the nearest target.
         float dot = Vector3.Dot(FireSolutionRef.transform.forward, (nearestTarget.transform.position - transform.position).normalized);
@@ -156,7 +155,7 @@ public class TrackingObjectsAgent : Agent
             // Rewarding if the target has been fired upon.
             if (fireAction == 1)
             {
-                AddReward(0.01f);
+                AddReward(0.1f);
                 detectedTarget.TakeDamage(DamagePerTick * Time.fixedDeltaTime);
             }
 
@@ -226,8 +225,6 @@ public class TrackingObjectsAgent : Agent
         {
             Vector3 newPosition = Vector3.zero;
 
-            target.GetComponent<MeshRenderer>().material.color = Color.yellow;
-
             do
             {
                 float xPosition = Random.Range(minX, maxX);
@@ -237,7 +234,7 @@ public class TrackingObjectsAgent : Agent
 
                 newPosition = new Vector3(xPosition, yPosition, zPosition);
             }
-            while (Vector3.Distance(newPosition, this.transform.position) < 1f);
+            while (Vector3.Distance(newPosition, this.transform.position) < 6f);
 
             target.transform.position = newPosition;
         }
