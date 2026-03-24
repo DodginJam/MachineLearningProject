@@ -1,0 +1,38 @@
+{
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 499875,
+                "file_path": "results\\detector_targets__with_healthV1.02\\Tracker\\Tracker-499875.onnx",
+                "reward": 2.0397269402551887,
+                "creation_time": 1774312429.9982007,
+                "auxillary_file_paths": [
+                    "results\\detector_targets__with_healthV1.02\\Tracker\\Tracker-499875.pt"
+                ]
+            },
+            {
+                "steps": 500003,
+                "file_path": "results\\detector_targets__with_healthV1.02\\Tracker\\Tracker-500003.onnx",
+                "reward": 2.0397269402551887,
+                "creation_time": 1774312430.1901925,
+                "auxillary_file_paths": [
+                    "results\\detector_targets__with_healthV1.02\\Tracker\\Tracker-500003.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500003,
+            "file_path": "results\\detector_targets__with_healthV1.02\\Tracker.onnx",
+            "reward": 2.0397269402551887,
+            "creation_time": 1774312430.1901925,
+            "auxillary_file_paths": [
+                "results\\detector_targets__with_healthV1.02\\Tracker\\Tracker-500003.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

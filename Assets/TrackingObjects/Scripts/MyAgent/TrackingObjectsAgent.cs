@@ -146,10 +146,10 @@ public class TrackingObjectsAgent : Agent
         
         if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
         {
-            // Rewarding if the nearest target has been detected
+            // Rewarding if a target has been detected
             AddReward(0.001f);
 
-            // Rewarding if the nearest target has been detected and fired upon.
+            // Rewarding if the target has been fired upon.
             if (fireAction == 1)
             {
                 AddReward(0.01f);
@@ -166,13 +166,15 @@ public class TrackingObjectsAgent : Agent
             // Punish firing without a target.
             if (fireAction == 1)
             {
-                AddReward(-0.001f);
+                AddReward(-0.01f);
             }
+
+            // Punish for no actions occuring.
+            AddReward(-0.0001f);
         }
 
         if (VisableTargets.Count <= 0)
         {
-            AddReward(1f);
             EndEpisode();
         }
     }
