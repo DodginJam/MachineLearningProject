@@ -42,6 +42,16 @@ public class TrackingObjectsAgent : Agent
     public float DamagePerTick
     { get; private set; } = 0.5f;
 
+    [field: SerializeField]
+    public float MaxTargetHeight
+    { get; private set; }
+
+    const float MinTargetHeight = 0.5f;
+
+    [field: SerializeField]
+    public float MaxDetectionRange
+    { get; private set; } = 100.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -98,13 +108,20 @@ public class TrackingObjectsAgent : Agent
 
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            // First 3 values as the normalised position of the target relative to the face of the agent.
-            Vector3 relativeDir = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position).normalized;
+            Vector3 localSpace = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position);
+
+            // First 3 values as the position of the target relative to the face of the agent.
+            Vector3 relativeDir = localSpace.normalized;
             observationArray[0] = relativeDir.x;
             observationArray[1] = relativeDir.y;
             observationArray[2] = relativeDir.z;
-            // Also add the magnitude / length of the 
-            // observationArray[3] = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position).magnitude;
+
+            // Magnitude / length set to a normalised value based on the max detection range.
+            observationArray[3] = localSpace.magnitude / MaxDetectionRange;
+
+            // Dot product to represent how the agent is facing the target.
+            float dot = Vector3.Dot(FireSolutionRef.transform.forward, (VisableTargets[i].transform.position - FireSolutionRef.transform.position).normalized);
+            observationArray[4] = dot;
 
             BufferSensorComp.AppendObservation(observationArray);
         }
@@ -130,39 +147,23 @@ public class TrackingObjectsAgent : Agent
 
         FireSolutionRef.SetFiringMaterial(fireAction == 0 ? false : true);
 
-        // To detect the nearest target to the agent.
-        Target nearestTarget = null;
-        float distanceToNearestTarget = float.MaxValue;
-        foreach(Target target in VisableTargets)
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            if (distanceToTarget < distanceToNearestTarget)
-            {
-                distanceToNearestTarget = distanceToTarget;
-                nearestTarget = target;
-            }
-        }
-
-        //Small incentive to look at the nearest target.
-        float dot = Vector3.Dot(FireSolutionRef.transform.forward, (nearestTarget.transform.position - transform.position).normalized);
-        if (dot > 0) AddReward(dot * 0.001f);
-
         bool trackedtarget = false;
         if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
         {
             trackedtarget = true;
             // Rewarding if a target has been detected
-            AddReward(0.001f);
+            AddReward(0.1f);
 
             // Rewarding if the target has been fired upon.
             if (fireAction == 1)
             {
-                AddReward(0.1f);
+                AddReward(0.2f);
                 detectedTarget.TakeDamage(DamagePerTick * Time.fixedDeltaTime);
             }
 
             if (detectedTarget.IsDead)
             {
+                AddReward(1.0f);
                 RemoveVisableTarget(detectedTarget);
             }
         }
@@ -171,11 +172,11 @@ public class TrackingObjectsAgent : Agent
             // Punish firing without a target.
             if (fireAction == 1)
             {
-                AddReward(-0.01f);
+                AddReward(-0.001f);
             }
 
             // Punish for no actions occuring.
-            AddReward(-0.0001f);
+            // AddReward(-0.0001f);
         }
 
         if (VisableTargets.Count <= 0)
@@ -234,7 +235,7 @@ public class TrackingObjectsAgent : Agent
                 float xPosition = Random.Range(minX, maxX);
                 float zPosition = Random.Range(minZ, maxZ);
 
-                float yPosition = TrainingArea.transform.position.y + Random.Range(0.5f, 2.5f);
+                float yPosition = TrainingArea.transform.position.y + Random.Range(MinTargetHeight, MaxTargetHeight);
 
                 newPosition = new Vector3(xPosition, yPosition, zPosition);
             }

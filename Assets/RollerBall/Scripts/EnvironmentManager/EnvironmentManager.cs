@@ -18,4 +18,9 @@ public class EnvironmentManager : MonoBehaviour
     {
         // Reset the scene here
     }
+
+    private void OnValidate()
+    {
+        Time.timeScale = TimeScale;
+    }
 }

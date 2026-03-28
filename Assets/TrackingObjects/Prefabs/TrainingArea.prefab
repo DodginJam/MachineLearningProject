@@ -1983,7 +1983,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 3000
   <Rotator>k__BackingField:
     <ObjectToAngle>k__BackingField: {fileID: 5551535672972209316}
     <LimitRotation>k__BackingField: 0
@@ -2006,7 +2006,9 @@ MonoBehaviour:
   - {fileID: 4616435116659532599}
   <FireSolutionRef>k__BackingField: {fileID: 2774225666729760548}
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
-  <DamagePerTick>k__BackingField: 1
+  <DamagePerTick>k__BackingField: 10
+  <MaxTargetHeight>k__BackingField: 75
+  <MaxDetectionRange>k__BackingField: 100
 --- !u!114 &8268060000890128691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2029,7 +2031,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: bdae0025734057945997bb037ca9f754, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 762a13137557d684988d5323a2c897e5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Tracker
@@ -2066,5 +2068,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: TargetTracker
-  m_ObservableSize: 3
+  m_ObservableSize: 5
   m_MaxNumObservables: 20
