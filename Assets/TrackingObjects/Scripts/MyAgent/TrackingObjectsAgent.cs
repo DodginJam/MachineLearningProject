@@ -94,9 +94,6 @@ public class TrackingObjectsAgent : Agent
         sensor.AddObservation(Rotator.GetNormalisedRotationValue()); // Index 0
         sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
 
-        // Debug.Log($"Max Number of Allowed Observations: {BufferSensorComp.MaxNumObservables}");
-        // Debug.Log($"Visable Targers Count: {VisableTargets.Count}");
-
         // Adding observations into the buffer sensor.
         for (int i = 0; i < VisableTargets.Count; i++)
         {
@@ -139,9 +136,6 @@ public class TrackingObjectsAgent : Agent
         Rotator.RotateAngle(rotationOutput, Rotator.RotationSpeed ,Time.fixedDeltaTime);
         Pitcher.RotateAngle(pitchOutput, Pitcher.RotationSpeed, Time.fixedDeltaTime);
 
-        //Rotator.SetAngle(Rotator.GetLocalAngleRotation() + (rotationOutput * Rotator.RotationSpeed * Time.fixedDeltaTime));
-        //Pitcher.SetAngle(Pitcher.GetLocalAngleRotation() + (pitchOutput * Pitcher.RotationSpeed * Time.fixedDeltaTime));
-
         // Applying the input for discrete actions.
         int fireAction = actionBuffers.DiscreteActions[0];
 
@@ -175,8 +169,28 @@ public class TrackingObjectsAgent : Agent
                 AddReward(-0.001f);
             }
 
-            // Punish for no actions occuring.
-            // AddReward(-0.0001f);
+            // Trying to reward based on the best dot product calculated.
+            float bestDotProduct = -1;
+            Target targetBest = null;
+            foreach(Target target in VisableTargets)
+            {
+                float dotProductNew = Vector3.Dot(FireSolutionRef.transform.forward, (target.transform.position - FireSolutionRef.transform.position).normalized);
+
+                if (dotProductNew > bestDotProduct)
+                {
+                    bestDotProduct = dotProductNew;
+                    targetBest = target;
+                }
+            }
+
+            if (targetBest != null && bestDotProduct > 0)
+            {
+                AddReward(0.01f * bestDotProduct);
+            }
+            else if (bestDotProduct <= 0)
+            {
+                AddReward(-0.001f);
+            }
         }
 
         if (VisableTargets.Count <= 0)
