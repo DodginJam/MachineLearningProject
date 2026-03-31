@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,20 +16,23 @@ public class Target : MonoBehaviour
     public MeshRenderer MeshRendererRef
     { get; private set; }
 
-    [field: SerializeField]
-    public Material DefaultMaterial
+    public Material SetMaterial
     { get; private set; }
 
     [field: SerializeField]
-    public Material ShotAtMaterial
+    public Material FriendlyMaterial
     { get; private set; }
 
-    private Coroutine MaterialChange
-    { get; set; }
+    [field: SerializeField]
+    public Material EnemyMaterial
+    { get; private set; }
+
+    public TargetType TargetTyping
+    { get; private set; }
 
     private void Awake()
     {
-        
+        Initialise();
     }
 
     public void Initialise()
@@ -36,7 +40,10 @@ public class Target : MonoBehaviour
         CurrentHealth = StartingHealth;
         gameObject.SetActive(true);
         IsDead = false;
-        MeshRendererRef.material = DefaultMaterial;
+
+        TargetTyping = UnityEngine.Random.Range(0, 2) == 0 ? TargetType.Enemy : TargetType.Friendly;
+        SetMaterial = TargetTyping == TargetType.Friendly ? FriendlyMaterial : EnemyMaterial;
+        MeshRendererRef.material = SetMaterial;
     }
 
     public void Die()
@@ -48,27 +55,10 @@ public class Target : MonoBehaviour
     public void TakeDamage(float damageToTake)
     {
         CurrentHealth = Mathf.Clamp01(CurrentHealth - damageToTake);
-        
-        if (MaterialChange != null)
-        {
-            StopCoroutine(MaterialChange);
-            MaterialChange = null;
-        }
-
-        MaterialChange = StartCoroutine(SetMaterialForFrame());
 
         if (CurrentHealth <= 0)
         {
             Die(); 
         }
-    }
-
-    IEnumerator SetMaterialForFrame()
-    {
-        MeshRendererRef.material = ShotAtMaterial;
-
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
-
-        MeshRendererRef.material = DefaultMaterial;
     }
 }

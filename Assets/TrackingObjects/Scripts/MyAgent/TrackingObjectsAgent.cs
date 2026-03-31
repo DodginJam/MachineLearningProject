@@ -141,6 +141,12 @@ public class TrackingObjectsAgent : Agent
 
         FireSolutionRef.SetFiringMaterial(fireAction == 0 ? false : true);
 
+        if (VisableTargets.Count <= 0)
+        {
+            Debug.Log($"No targets are visable to agent {transform.gameObject.name}");
+            return;
+        }
+
         bool trackedtarget = false;
         if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
         {
