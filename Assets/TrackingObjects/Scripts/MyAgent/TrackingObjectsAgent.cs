@@ -14,15 +14,12 @@ public class TrackingObjectsAgent : Agent
     public RotationPoint Pitcher
     { get; private set; }
 
-    [field: SerializeField, Header("Target Data")]
-    public Target[] AllTargets
-    { get; private set; }
-
-    public List<Target> VisableTargets
-    { get; private set; } = new List<Target>();
-
     [field: SerializeField, Header("Observation Assistance Scripts")]
     public FireSolution FireSolutionRef
+    { get; private set; }
+
+    [field: SerializeField]
+    public TargetManager TargetManager
     { get; private set; }
 
     /// <summary>
@@ -40,12 +37,6 @@ public class TrackingObjectsAgent : Agent
     { get; private set; } = 0.5f;
 
     [field: SerializeField]
-    public float MaxTargetHeight
-    { get; private set; }
-
-    const float MinTargetHeight = 0.5f;
-
-    [field: SerializeField]
     public float MaxDetectionRange
     { get; private set; } = 100.0f;
 
@@ -61,22 +52,11 @@ public class TrackingObjectsAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        SetTargetsToNewSpot();
+        TargetManager.SetTargetsToNewSpot(TrainingArea);
 
-        // Remove all targets from the scene and clear visable targets..
-        foreach(Target target in AllTargets)
-        {
-            target.gameObject.SetActive(false);
-        }
-        VisableTargets.Clear();
+        TargetManager.RemoveAndClearTargets();
 
-        // Set a random amount of targets to be visable.
-        int visableTargetsForEpisode = Random.Range(1, AllTargets.Length);
-        for (int i = 0; i < visableTargetsForEpisode; i++)
-        {
-            VisableTargets.Add(AllTargets[i]);
-            VisableTargets[i].Initialise();
-        }
+        TargetManager.SetRandomVisableTargets();
     }
 
     /// <summary>
@@ -90,7 +70,7 @@ public class TrackingObjectsAgent : Agent
         sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
 
         // Adding observations into the buffer sensor.
-        for (int i = 0; i < VisableTargets.Count; i++)
+        for (int i = 0; i < TargetManager.VisableTargets.Count; i++)
         {
             if (i >= BufferSensorComp.MaxNumObservables)
             {
@@ -100,7 +80,7 @@ public class TrackingObjectsAgent : Agent
 
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpace = FireSolutionRef.transform.InverseTransformPoint(VisableTargets[i].transform.position);
+            Vector3 localSpace = FireSolutionRef.transform.InverseTransformPoint(TargetManager.VisableTargets[i].transform.position);
 
             // First 3 values as the position of the target relative to the face of the agent.
             Vector3 relativeDir = localSpace.normalized;
@@ -112,7 +92,7 @@ public class TrackingObjectsAgent : Agent
             observationArray[3] = localSpace.magnitude / MaxDetectionRange;
 
             // Dot product to represent how the agent is facing the target.
-            float dot = Vector3.Dot(FireSolutionRef.transform.forward, (VisableTargets[i].transform.position - FireSolutionRef.transform.position).normalized);
+            float dot = Vector3.Dot(FireSolutionRef.transform.forward, (TargetManager.VisableTargets[i].transform.position - FireSolutionRef.transform.position).normalized);
             observationArray[4] = dot;
 
             BufferSensorComp.AppendObservation(observationArray);
@@ -136,7 +116,7 @@ public class TrackingObjectsAgent : Agent
 
         FireSolutionRef.SetFiringMaterial(fireAction == 0 ? false : true);
 
-        if (VisableTargets.Count <= 0)
+        if (TargetManager.VisableTargets.Count <= 0)
         {
             Debug.Log($"No targets are visable to agent {transform.gameObject.name}");
             return;
@@ -159,7 +139,7 @@ public class TrackingObjectsAgent : Agent
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
-                RemoveVisableTarget(detectedTarget);
+                TargetManager.RemoveVisableTarget(detectedTarget, FireSolutionRef);
             }
         }
         else
@@ -173,7 +153,7 @@ public class TrackingObjectsAgent : Agent
             // Trying to reward based on the best dot product calculated.
             float bestDotProduct = -1;
             Target targetBest = null;
-            foreach(Target target in VisableTargets)
+            foreach(Target target in TargetManager.VisableTargets)
             {
                 float dotProductNew = Vector3.Dot(FireSolutionRef.transform.forward, (target.transform.position - FireSolutionRef.transform.position).normalized);
 
@@ -194,7 +174,7 @@ public class TrackingObjectsAgent : Agent
             }
         }
 
-        if (VisableTargets.Count <= 0)
+        if (TargetManager.VisableTargets.Count <= 0)
         {
             EndEpisode();
         }
@@ -214,49 +194,5 @@ public class TrackingObjectsAgent : Agent
 
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
         discreteActions[0] = Input.GetKey(KeyCode.Space) ? 1 : 0;
-    }
-
-    void RemoveVisableTarget(Target detectedTransfom)
-    {
-        // Removing detected targets from the visable list.
-        bool wasVisableTargetRemoved = VisableTargets.Remove(detectedTransfom);
-        FireSolutionRef.RemoveDetectedInfo();
-
-        // Debug check.
-        if (wasVisableTargetRemoved == false) Debug.LogError("The detected target did not exist on the visable targets list.");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SetTargetsToNewSpot()
-    {
-        Bounds areaBounds = TrainingArea.bounds;
-        float minX = areaBounds.center.x - areaBounds.extents.x;
-        float maxX = areaBounds.center.x + areaBounds.extents.x;
-
-        float minZ = areaBounds.center.z - areaBounds.extents.z;
-        float maxZ = areaBounds.center.z + areaBounds.extents.z;
-
-        foreach (Target target in AllTargets)
-        {
-            Vector3 newPosition = Vector3.zero;
-
-            do
-            {
-                float xPosition = Random.Range(minX, maxX);
-                float zPosition = Random.Range(minZ, maxZ);
-
-                float yPosition = TrainingArea.transform.position.y + Random.Range(MinTargetHeight, MaxTargetHeight);
-
-                newPosition = new Vector3(xPosition, yPosition, zPosition);
-            }
-            while (Vector3.Distance(newPosition, this.transform.position) < 6f);
-
-            target.transform.position = newPosition;
-        }
     }
 }

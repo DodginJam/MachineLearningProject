@@ -249,6 +249,7 @@ Transform:
   m_Children:
   - {fileID: 2843641315746840889}
   - {fileID: 302193565604965786}
+  - {fileID: 2215840723176239323}
   - {fileID: 5061419702747180191}
   - {fileID: 3084852649697671582}
   - {fileID: 1288369921398363829}
@@ -509,6 +510,56 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2284646496417450130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2215840723176239323}
+  - component: {fileID: 8449372339676589122}
+  m_Layer: 0
+  m_Name: TargetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2215840723176239323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284646496417450130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 698357847878552168}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8449372339676589122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284646496417450130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d41dcda606153204ba2a319085f50143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <AllTargets>k__BackingField:
+  - {fileID: 2288400977453547959}
+  - {fileID: 8300230680014017718}
+  - {fileID: 5196867451200043933}
+  - {fileID: 2179165933676176148}
+  <MaxTargetHeight>k__BackingField: 75
 --- !u!1 &2544979976553240735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,15 +1429,10 @@ MonoBehaviour:
     <AngleLimitUpper>k__BackingField: 90
     <RotateAround>k__BackingField: 0
     <RotationSpeed>k__BackingField: 100
-  <AllTargets>k__BackingField:
-  - {fileID: 2288400977453547959}
-  - {fileID: 8300230680014017718}
-  - {fileID: 5196867451200043933}
-  - {fileID: 2179165933676176148}
   <FireSolutionRef>k__BackingField: {fileID: 2774225666729760548}
+  <TargetManager>k__BackingField: {fileID: 8449372339676589122}
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
   <DamagePerTick>k__BackingField: 10
-  <MaxTargetHeight>k__BackingField: 75
   <MaxDetectionRange>k__BackingField: 100
 --- !u!114 &8268060000890128691
 MonoBehaviour:
