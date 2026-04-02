@@ -21,9 +21,6 @@ public class TrackingObjectsAgent : Agent
     public List<Target> VisableTargets
     { get; private set; } = new List<Target>();
 
-    public int InitialVisableTargets
-    { get; private set; }
-
     [field: SerializeField, Header("Observation Assistance Scripts")]
     public FireSolution FireSolutionRef
     { get; private set; }
@@ -80,8 +77,6 @@ public class TrackingObjectsAgent : Agent
             VisableTargets.Add(AllTargets[i]);
             VisableTargets[i].Initialise();
         }
-
-        InitialVisableTargets = VisableTargets.Count;
     }
 
     /// <summary>
