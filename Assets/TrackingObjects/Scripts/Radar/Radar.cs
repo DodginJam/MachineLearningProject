@@ -81,11 +81,6 @@ public class Radar : MonoBehaviour
     public float TimeOutTarget
     { get; private set; } = 0.5f;
 
-    void Start()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         // Grab the data from the targets detected this frame.
@@ -97,8 +92,8 @@ public class Radar : MonoBehaviour
             // If targetItem is already contained in the master targetItem dict, simply update position and reset the last detected timer.
             if (DetectedTargets.ContainsKey(targetItem.Key))
             {
-                DetectedTargets[targetItem.Key].TargetPosition = targetItem.Value.TargetPosition;
-                DetectedTargets[targetItem.Key].TimeSinceLastDetection = 0;
+                DetectedTargets[targetItem.Key].SetTargetPosition(targetItem.Value.TargetPosition);
+                DetectedTargets[targetItem.Key].ResetTimeSinceLastDetection();
             }
             else
             {
@@ -118,7 +113,7 @@ public class Radar : MonoBehaviour
         // Progress the timeout timer on the remaining detected targets.
         foreach (var target in DetectedTargets)
         {
-            target.Value.TimeSinceLastDetection += Time.fixedDeltaTime;
+            target.Value.IncrementTimeSinceLastDetection(Time.fixedDeltaTime);
         }
 
         Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
@@ -212,6 +207,7 @@ public class Radar : MonoBehaviour
             foreach (KeyValuePair<int, TargetData> targetData in DetectedTargets)
             {
                 Gizmos.color = (targetData.Value.TargetType == TargetType.Friendly) ? Color.blue : Color.red;
+                Gizmos.DrawLine(transform.position, targetData.Value.TargetPosition);
                 Gizmos.DrawSphere(targetData.Value.TargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
             }
         }
@@ -243,8 +239,23 @@ public class TargetData
     { get; set; }
 
     public Vector3 TargetPosition
-    { get; set; }
+    { get; private set; }
 
     public float TimeSinceLastDetection
-    { get; set; }
+    { get; private set; }
+
+    public void SetTargetPosition(Vector3 newTargetPosition)
+    {
+        this.TargetPosition = newTargetPosition;
+    }
+
+    public void IncrementTimeSinceLastDetection(float timeToIncrease)
+    {
+        TimeSinceLastDetection += timeToIncrease;
+    }
+
+    public void ResetTimeSinceLastDetection()
+    {
+        TimeSinceLastDetection = 0;
+    }
 }
