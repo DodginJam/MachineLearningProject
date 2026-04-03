@@ -1,7 +1,10 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.AppUI.UI;
+using UnityEditor.PackageManager;
+using UnityEngine;
 
 public class RadarDetector : Detector
 {
@@ -71,7 +74,7 @@ public class RadarDetector : Detector
     private void FixedUpdate()
     {
         // Grab the data from the targets detected this frame.
-        Dictionary<int, TargetData> aqquiredTargets = RaycastForAndReturnTargets();
+        Dictionary<int, TargetData> aqquiredTargets = GetTargets();
 
         // Loop over the aqquired targets data.
         foreach (var targetItem in aqquiredTargets)
@@ -112,69 +115,124 @@ public class RadarDetector : Detector
     /// Returns a dictionary of targets the projected raycasts have found.
     /// </summary>
     /// <returns></returns>
-    protected override Dictionary<int, TargetData> RaycastForAndReturnTargets()
+    protected override Dictionary<int, TargetData> GetTargets()
+    {
+        // Generarting the directions for the raycast projection.
+        List<Vector3> directions = GenerateDirections(NumberOfRaysPerPoint, RadarAngleOfRays);
+
+        // Return the targets found via the raycasts.
+        return ProjectRaysForTargets(directions);
+    }
+
+    /// <summary>
+    /// Project the rays from a given heights in multiple directions.
+    /// </summary>
+    /// <param name="rayDirections"></param>
+    /// <returns></returns>
+    Dictionary<int, TargetData> ProjectRaysForTargets(List<Vector3> rayDirections)
     {
         Dictionary<int, TargetData> toBeAqquiredTargets = new Dictionary<int, TargetData>();
-
-        // Generarting the directions
-        List<Vector3> directions = new List<Vector3>();
-        for (int j = 0; j < NumberOfRaysPerPoint; j++)
-        {
-            float angle = (j / (float)NumberOfRaysPerPoint) * RadarAngleOfRays;
-
-            Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
-            directions.Add(dir);
-        }
 
         // Looping over the number of points the rays should be projected from.
         for (int i = 0; i < NumberOfStackRayOriginPoints; i++)
         {
             float rayHeight = Mathf.Lerp(0, RadarHeight, i / (float)(NumberOfStackRayOriginPoints - 1));
 
-            foreach (Vector3 direction in directions)
+            foreach (Vector3 direction in rayDirections)
             {
-                Ray ray = new Ray(
-                    transform.position + (Vector3.up * rayHeight),
-                    Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * direction
-                );
+                Ray ray = GenerateRay(rayHeight, direction);
 
-                Color rayColour = Color.grey;
-
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, DetectionDistance, MasksToDetect))
+                if (ProjectRay(ray, out RaycastHit hitInfo))
                 {
-                    GameObject hitGameObject = hitInfo.transform.gameObject;
-                    if (hitGameObject.TryGetComponent<Target>(out Target target))
-                    {
-                        if (!toBeAqquiredTargets.ContainsKey(hitGameObject.GetInstanceID()))
-                        {
-                            TargetData newData = new TargetData(target, target.TargetTyping, target.transform.position);
-
-                            toBeAqquiredTargets.Add(target.gameObject.GetInstanceID(), newData);
-                        }
-
-                        // Ray colour based on whether friendly or enemy detected.
-                        if (target.TargetTyping == TargetType.Enemy)
-                        {
-                            rayColour = Color.red;
-                        }
-                        else if (target.TargetTyping == TargetType.Friendly)
-                        {
-                            rayColour = Color.blue;
-                        }
-                    }
-                    else
-                    {
-                        rayColour = Color.yellow;
-                    }
+                    ValidateTarget(hitInfo, toBeAqquiredTargets);
                 }
 
-                Debug.DrawRay(transform.position + (Vector3.up * rayHeight), Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * (direction * DetectionDistance), rayColour);
+                DrawHitDebugRay(hitInfo, rayHeight, direction);
             }
         }
 
         return toBeAqquiredTargets;
     }
 
+    /// <summary>
+    /// Generate a ray in a given direction from a set height.
+    /// </summary>
+    /// <param name="rayHeight"></param>
+    /// <param name="rayDirection"></param>
+    /// <returns></returns>
+    Ray GenerateRay(float rayHeight, Vector3 rayDirection)
+    {
+        return new Ray(
+                    transform.position + (Vector3.up * rayHeight),
+                    Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * rayDirection
+                );
+    }
+
+    /// <summary>
+    /// Project the raycast and return the hit info.
+    /// </summary>
+    /// <param name="rayToProject"></param>
+    /// <param name="hitInfo"></param>
+    /// <returns></returns>
+    bool ProjectRay(Ray rayToProject, out RaycastHit hitInfo)
+    {
+        return Physics.Raycast(rayToProject, out hitInfo, DetectionDistance, MasksToDetect);
+    }
+
+    /// <summary>
+    /// Check a hit object for it is a target to be added to dictionary of aqquired targets.
+    /// </summary>
+    /// <param name="hitInfo"></param>
+    /// <param name="toBeAqquiredTargets"></param>
+    void ValidateTarget(RaycastHit hitInfo, Dictionary<int, TargetData> toBeAqquiredTargets)
+    {
+        GameObject hitGameObject = hitInfo.transform.gameObject;
+        if (hitGameObject.TryGetComponent<Target>(out Target target))
+        {
+            if (!toBeAqquiredTargets.ContainsKey(hitGameObject.GetInstanceID()))
+            {
+                TargetData newData = new TargetData(target, target.TargetTyping, target.transform.position);
+
+                toBeAqquiredTargets.Add(target.gameObject.GetInstanceID(), newData);
+            }
+        }
+    }
+
+    /// <summary>
+    /// For debugging, draw the colour of the ray to help visualise what was hit.
+    /// </summary>
+    /// <param name="hitInfo"></param>
+    /// <param name="rayHeight"></param>
+    /// <param name="direction"></param>
+    void DrawHitDebugRay(RaycastHit hitInfo, float rayHeight, Vector3 direction)
+    {
+        Color color = Color.grey;
+
+        if (hitInfo.transform != null)
+        {
+            if (hitInfo.transform.TryGetComponent<Target>(out Target target))
+            {
+                if (target.TargetTyping == TargetType.Enemy)
+                {
+                    color = Color.red;
+                }
+                else //(target.TargetTyping == TargetType.Friendly)
+                {
+                    color = Color.blue;
+                }
+            }
+            else
+            {
+                color = Color.yellow;
+            }
+        }
+
+        Debug.DrawRay(transform.position + (Vector3.up * rayHeight), Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * (direction * DetectionDistance), color);
+    }
+
+    /// <summary>
+    /// Apply rotation to the radar, keeping the values within a 360 degrees of radius.
+    /// </summary>
     void ApplyNewRotation()
     {
         // Rotation of the radar calulation.
@@ -198,5 +256,26 @@ public class RadarDetector : Detector
                 Gizmos.DrawSphere(targetData.Value.TargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
             }
         }
+    }
+
+    /// <summary>
+    /// Generate the directions within a given range of angle.
+    /// </summary>
+    /// <param name="numberOfDirections"></param>
+    /// <param name="angleRangeOfDirections"></param>
+    /// <returns></returns>
+    List<Vector3> GenerateDirections(int numberOfDirections, float angleRangeOfDirections)
+    {
+        List<Vector3> directions = new List<Vector3>();
+
+        for (int j = 0; j < numberOfDirections; j++)
+        {
+            float angle = (j / (float)numberOfDirections) * angleRangeOfDirections;
+
+            Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+            directions.Add(dir);
+        }
+
+        return directions;
     }
 }

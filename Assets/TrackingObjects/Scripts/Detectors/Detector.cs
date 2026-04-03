@@ -22,5 +22,5 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
     /// Returns a dictionary of targets the projected raycasts have found.
     /// </summary>
     /// <returns></returns>
-    protected abstract Dictionary<int, TargetData> RaycastForAndReturnTargets();
+    protected abstract Dictionary<int, TargetData> GetTargets();
 }
