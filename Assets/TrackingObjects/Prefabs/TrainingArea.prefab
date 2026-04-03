@@ -1421,14 +1421,14 @@ MonoBehaviour:
     <AngleLimitLower>k__BackingField: 0
     <AngleLimitUpper>k__BackingField: 0
     <RotateAround>k__BackingField: 1
-    <RotationSpeed>k__BackingField: 100
+    <RotationSpeed>k__BackingField: 500
   <Pitcher>k__BackingField:
     <ObjectToAngle>k__BackingField: {fileID: 2496370540905967532}
     <LimitRotation>k__BackingField: 1
     <AngleLimitLower>k__BackingField: -90
     <AngleLimitUpper>k__BackingField: 90
     <RotateAround>k__BackingField: 0
-    <RotationSpeed>k__BackingField: 100
+    <RotationSpeed>k__BackingField: 500
   <WeaponController>k__BackingField: {fileID: 2774225666729760548}
   <TargetDetector>k__BackingField: {fileID: 3161850511720872878}
   <TargetManager>k__BackingField: {fileID: 8449372339676589122}

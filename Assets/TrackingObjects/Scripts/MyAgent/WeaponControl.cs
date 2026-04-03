@@ -59,6 +59,10 @@ public class WeaponControl : MonoBehaviour
                 RemoveDetectedInfo();
             }
         }
+        else
+        {
+            RemoveDetectedInfo();
+        }
     }
 
     public bool IsTargetDetected(out Target detectedTarget)
