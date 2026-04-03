@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using System.Linq;
 
 public abstract class Detector : MonoBehaviour, ITargetDetector
 {

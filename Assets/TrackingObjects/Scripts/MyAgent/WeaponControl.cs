@@ -1,6 +1,3 @@
-using System;
-using Unity.Mathematics;
-using Unity.MLAgents;
 using UnityEngine;
 
 public class WeaponControl : MonoBehaviour
