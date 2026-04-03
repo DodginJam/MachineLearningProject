@@ -52,6 +52,12 @@ public class Target : MonoBehaviour, ITarget
         IsDead = true;
     }
 
+    public void Revive()
+    {
+        this.gameObject.SetActive(true);
+        IsDead = false;
+    }
+
     public void TakeDamage(float damageToTake)
     {
         CurrentHealth = Mathf.Clamp01(CurrentHealth - damageToTake);

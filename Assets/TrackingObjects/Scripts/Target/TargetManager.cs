@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    /// <summary>
+    /// Global list of targets in the scene for management, particualry around start / end episodes - NOT to be used by the agent for observations.
+    /// </summary>
     [field: SerializeField, Header("Target Data")]
     public Target[] AllTargets
     { get; private set; }
 
-    public List<Target> VisableTargets
-    { get; private set; } = new List<Target>();
-
+    /// <summary>
+    /// The max height at which the targets can be placed during runtime.
+    /// </summary>
     [field: SerializeField]
     public float MaxTargetHeight
     { get; private set; }
@@ -44,34 +47,11 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void RemoveAndClearTargets()
+    public void ActivateTargets()
     {
-        // Remove all targets from the scene and clear visable targets..
         foreach (Target target in AllTargets)
         {
-            target.gameObject.SetActive(false);
+            target.Revive();
         }
-        VisableTargets.Clear();
-    }
-
-    public void SetRandomVisableTargets()
-    {
-        // Set a random amount of targets to be visable.
-        int visableTargetsForEpisode = Random.Range(1, AllTargets.Length);
-        for (int i = 0; i < visableTargetsForEpisode; i++)
-        {
-            VisableTargets.Add(AllTargets[i]);
-            VisableTargets[i].Initialise();
-        }
-    }
-
-    public void RemoveVisableTarget(Target detectedTransfom, WeaponControl fireSolution)
-    {
-        // Removing detected targets from the visable list.
-        bool wasVisableTargetRemoved = VisableTargets.Remove(detectedTransfom);
-        fireSolution.RemoveDetectedInfo();
-
-        // Debug check.
-        if (wasVisableTargetRemoved == false) Debug.LogError("The detected target did not exist on the visable targets list.");
     }
 }

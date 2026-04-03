@@ -53,10 +53,7 @@ public class TrackAndFireAgent : Agent
     public override void OnEpisodeBegin()
     {
         TargetManager.SetTargetsToNewSpot(TrainingArea);
-
-        TargetManager.RemoveAndClearTargets();
-
-        TargetManager.SetRandomVisableTargets();
+        TargetManager.ActivateTargets();
     }
 
     /// <summary>
@@ -69,10 +66,12 @@ public class TrackAndFireAgent : Agent
         sensor.AddObservation(Rotator.GetNormalisedRotationValue()); // Index 0
         sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
 
+        int index = 0;
         // Adding observations into the buffer sensor.
-        for (int i = 0; i < TargetManager.VisableTargets.Count; i++)
+        foreach (var target in TargetDetector.DetectedTargets)
         {
-            if (i >= BufferSensorComp.MaxNumObservables)
+            index++;
+            if (index >= BufferSensorComp.MaxNumObservables)
             {
                 Debug.LogWarning("Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
                 break;
@@ -80,7 +79,7 @@ public class TrackAndFireAgent : Agent
 
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(TargetManager.VisableTargets[i].transform.position);
+            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(target.Value.TargetPosition);
 
             // First 3 values as the position of the target relative to the face of the agent.
             Vector3 relativeDir = localSpace.normalized;
@@ -92,7 +91,7 @@ public class TrackAndFireAgent : Agent
             observationArray[3] = localSpace.magnitude / TargetDetector.DetectionDistance;
 
             // Dot product to represent how the agent is facing the target.
-            float dot = Vector3.Dot(WeaponController.transform.forward, (TargetManager.VisableTargets[i].transform.position - WeaponController.transform.position).normalized);
+            float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.TargetPosition - WeaponController.transform.position).normalized);
             observationArray[4] = dot;
 
             BufferSensorComp.AppendObservation(observationArray);
@@ -116,10 +115,11 @@ public class TrackAndFireAgent : Agent
 
         WeaponController.SetFiringMaterial(fireAction == 0 ? false : true);
 
-        if (TargetManager.VisableTargets.Count <= 0)
+        if (TargetDetector.DetectedTargets.Count <= 0)
         {
-            Debug.Log($"No targets are visable to agent {transform.gameObject.name}");
-            return;
+            Debug.Log($"No targets are visable to agent {transform.gameObject.name} - ending episode.");
+            AddReward(1.0f);
+            EndEpisode();
         }
 
         bool trackedtarget = false;
@@ -139,7 +139,6 @@ public class TrackAndFireAgent : Agent
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
-                TargetManager.RemoveVisableTarget(detectedTarget, WeaponController);
             }
         }
         else
@@ -153,14 +152,14 @@ public class TrackAndFireAgent : Agent
             // Trying to reward based on the best dot product calculated.
             float bestDotProduct = -1;
             Target targetBest = null;
-            foreach(Target target in TargetManager.VisableTargets)
+            foreach(var target in TargetDetector.DetectedTargets)
             {
-                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.transform.position - WeaponController.transform.position).normalized);
+                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.TargetPosition - WeaponController.transform.position).normalized);
 
                 if (dotProductNew > bestDotProduct)
                 {
                     bestDotProduct = dotProductNew;
-                    targetBest = target;
+                    targetBest = target.Value.TargetObject;
                 }
             }
 
@@ -172,11 +171,6 @@ public class TrackAndFireAgent : Agent
             {
                 AddReward(-0.001f);
             }
-        }
-
-        if (TargetManager.VisableTargets.Count <= 0)
-        {
-            EndEpisode();
         }
 
         Debug.Log($"Tracking Target: {trackedtarget}");
