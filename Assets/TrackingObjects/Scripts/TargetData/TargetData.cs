@@ -20,12 +20,26 @@ public class TargetData
     public Vector3 TargetPosition
     { get; private set; }
 
+    public Vector3 PriorTargetPosition
+    { get; private set; }
+
     public float TimeSinceLastDetection
     { get; private set; }
 
-    public void SetTargetPosition(Vector3 newTargetPosition)
+    public void UpdateTargetData(Vector3 newTargetPosition)
+    {
+        SetPriorTargetPosition(this.TargetPosition);
+        SetTargetPosition(newTargetPosition);
+    }
+
+    void SetTargetPosition(Vector3 newTargetPosition)
     {
         this.TargetPosition = newTargetPosition;
+    }
+
+    void SetPriorTargetPosition(Vector3 newTargetPosition)
+    {
+        this.PriorTargetPosition = newTargetPosition;
     }
 
     public void IncrementTimeSinceLastDetection(float timeToIncrease)

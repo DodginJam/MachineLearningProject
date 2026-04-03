@@ -68,51 +68,56 @@ public class RadarDetector : Detector
     public float TimeOutTarget
     { get; private set; } = 0.5f;
 
+    [field: SerializeField, Header("Rays Display")]
+    public bool ShowRays
+    { get; private set; }
+
+    [field: SerializeField, Min(0.01f)]
+    public float RayDuration
+    { get; private set; }
+
     private void FixedUpdate()
     {
+        ApplyNewRotation();
+
         // Grab the data from the targets detected this frame.
-        Dictionary<int, TargetData> aqquiredTargets = GetTargets();
+        Dictionary<int, TargetData> aqquiredTargets = DetectAndReturnTargets();
+        AddOrUpdateTargetsToDictionary(aqquiredTargets);
 
-        // Loop over the aqquired targets data.
-        foreach (var targetItem in aqquiredTargets)
-        {
-            // If targetItem is already contained in the master targetItem dict, simply update position and reset the last detected timer.
-            if (DetectedTargets.ContainsKey(targetItem.Key))
-            {
-                DetectedTargets[targetItem.Key].SetTargetPosition(targetItem.Value.TargetPosition);
-                DetectedTargets[targetItem.Key].ResetTimeSinceLastDetection();
-            }
-            else
-            {
-                DetectedTargets.Add(targetItem.Key, targetItem.Value);
-            }
-        }
-        
         // Find the items that have timed out from last detection limit.
-        var itemsToRemove = DetectedTargets.Where((item) => item.Value.TimeSinceLastDetection > TimeOutTarget).ToList();
+        var itemsToRemove = GetTargetsToRemoveFromDictionary();
+        RemoveTargetsFromDictionary(itemsToRemove);
 
-        // Remove the items.
-        foreach(var item in itemsToRemove)
-        {
-            DetectedTargets.Remove(item.Key);
-        }
+        ProgressTimeoutOnDetectedTargets();
 
+        Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
+    }
+
+    protected override void UpdateTargetData(TargetData targetData)
+    {
+        targetData.UpdateTargetData(targetData.TargetPosition);
+        targetData.ResetTimeSinceLastDetection();
+    }
+
+    protected override List<KeyValuePair<int, TargetData>> GetTargetsToRemoveFromDictionary()
+    {
+        return DetectedTargets.Where((item) => item.Value.TimeSinceLastDetection > TimeOutTarget).ToList();
+    }
+
+    void ProgressTimeoutOnDetectedTargets()
+    {
         // Progress the timeout timer on the remaining detected targets.
         foreach (var target in DetectedTargets)
         {
             target.Value.IncrementTimeSinceLastDetection(Time.fixedDeltaTime);
         }
-
-        Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
-
-        ApplyNewRotation();
     }
 
     /// <summary>
     /// Returns a dictionary of targets the projected raycasts have found.
     /// </summary>
     /// <returns></returns>
-    protected override Dictionary<int, TargetData> GetTargets()
+    protected override Dictionary<int, TargetData> DetectAndReturnTargets()
     {
         // Generarting the directions for the raycast projection.
         List<Vector3> directions = GenerateDirections(NumberOfRaysPerPoint, RadarAngleOfRays);
@@ -203,7 +208,7 @@ public class RadarDetector : Detector
     /// <param name="direction"></param>
     void DrawHitDebugRay(RaycastHit hitInfo, float rayHeight, Vector3 direction)
     {
-        Color color = Color.grey;
+        Color color = new Color(1, 1, 1, 0.05f);
 
         if (hitInfo.transform != null)
         {
@@ -220,11 +225,14 @@ public class RadarDetector : Detector
             }
             else
             {
-                color = Color.yellow;
+                color = new Color(1, 0.92f, 0.016f, 0.05f);
             }
         }
 
-        Debug.DrawRay(transform.position + (Vector3.up * rayHeight), Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * (direction * DetectionDistance), color);
+        if (ShowRays)
+        {
+            Debug.DrawRay(transform.position + (Vector3.up * rayHeight), Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * (direction * DetectionDistance), color, RayDuration);
+        }
     }
 
     /// <summary>
