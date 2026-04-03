@@ -90,7 +90,7 @@ public class RadarDetector : Detector
 
         ProgressTimeoutOnDetectedTargets();
 
-        Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
+        // Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
     }
 
     protected override void UpdateTargetData(TargetData targetData)

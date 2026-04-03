@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour
@@ -46,11 +47,18 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void ActivateTargets()
+    public void ActivateTargets(int amountToActivate)
     {
-        foreach (Target target in AllTargets)
+        amountToActivate = Mathf.Clamp(amountToActivate, 1, AllTargets.Length);
+
+        for (int i = 0; i < amountToActivate; i++)
         {
-            target.Revive();
+            AllTargets[i].Revive();
         }
+    }
+
+    public bool AreAllTargetsInactive()
+    {
+        return AllTargets.All((target) => target.transform.gameObject.activeSelf == false);
     }
 }

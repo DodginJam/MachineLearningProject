@@ -52,7 +52,7 @@ public class TrackAndFireAgent : Agent
     public override void OnEpisodeBegin()
     {
         TargetManager.SetTargetsToNewSpot(TrainingArea);
-        TargetManager.ActivateTargets();
+        TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
     }
 
     /// <summary>
@@ -114,41 +114,44 @@ public class TrackAndFireAgent : Agent
 
         WeaponController.SetFiringMaterial(fireAction == 0 ? false : true);
 
-        if (TargetDetector.DetectedTargets.Count <= 0)
-        {
-            Debug.Log($"No targets are visable to agent {transform.gameObject.name} - ending episode.");
-            AddReward(1.0f);
-            EndEpisode();
-        }
 
-        bool trackedtarget = false;
+        // If a target has been detected by the weapon controller...
         if (WeaponController.IsTargetDetected(out Target detectedTarget))
         {
-            trackedtarget = true;
-            // Rewarding if a target has been detected
-            AddReward(0.1f);
+            // Reward for maintaining detection.
+            AddReward(0.01f);
 
-            // Rewarding if the target has been fired upon.
+            // Further reward if the target has been fired upon...
             if (fireAction == 1)
             {
-                AddReward(0.2f);
+                AddReward(0.02f);
                 detectedTarget.TakeDamage(DamagePerTick * Time.fixedDeltaTime);
             }
 
+            // Bigger reward if the action resulted in the target death.
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
             }
         }
-        else
+        else // If the target was not detected...
         {
-            // Punish firing without a target.
+            // Check if all the targeted have been set to inactive for end episode and big reward (as from the target manager global list of targets).
+            if (TargetManager.AreAllTargetsInactive())
+            {
+                Debug.Log($"All targets are inactive for {transform.gameObject.name} - ending episode.");
+                AddReward(1.0f);
+                EndEpisode();
+                return;
+            }
+
+            // Punish blind firing for when a target in sight of the detector.
             if (fireAction == 1)
             {
                 AddReward(-0.001f);
             }
 
-            // Trying to reward based on the best dot product calculated.
+            // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
             float bestDotProduct = -1;
             Target targetBest = null;
             foreach(var target in TargetDetector.DetectedTargets)
@@ -171,8 +174,6 @@ public class TrackAndFireAgent : Agent
                 AddReward(-0.001f);
             }
         }
-
-        Debug.Log($"Tracking Target: {trackedtarget}");
     }
 
     /// <summary>
