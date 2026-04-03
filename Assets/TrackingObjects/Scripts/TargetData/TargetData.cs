@@ -29,18 +29,8 @@ public class TargetData
 
     public void UpdateTargetData(Vector3 newTargetPosition)
     {
-        SetPriorTargetPosition(this.CurrentTargetPosition);
-        SetTargetPosition(newTargetPosition);
-    }
-
-    void SetTargetPosition(Vector3 newTargetPosition)
-    {
+        this.PriorTargetPosition = this.CurrentTargetPosition;
         this.CurrentTargetPosition = newTargetPosition;
-    }
-
-    void SetPriorTargetPosition(Vector3 newTargetPosition)
-    {
-        this.PriorTargetPosition = newTargetPosition;
     }
 
     public void IncrementTimeSinceLastDetection(float timeToIncrease)
