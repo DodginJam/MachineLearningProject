@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TargetData
@@ -6,7 +7,7 @@ public class TargetData
     {
         this.TargetObject = target;
         this.TargetType = targetType;
-        this.TargetPosition = targetPosition;
+        this.CurrentTargetPosition = targetPosition;
 
         this.TimeSinceLastDetection = 0;
     }
@@ -17,7 +18,7 @@ public class TargetData
     public TargetType TargetType
     { get; set; }
 
-    public Vector3 TargetPosition
+    public Vector3 CurrentTargetPosition
     { get; private set; }
 
     public Vector3 PriorTargetPosition
@@ -28,13 +29,13 @@ public class TargetData
 
     public void UpdateTargetData(Vector3 newTargetPosition)
     {
-        SetPriorTargetPosition(this.TargetPosition);
+        SetPriorTargetPosition(this.CurrentTargetPosition);
         SetTargetPosition(newTargetPosition);
     }
 
     void SetTargetPosition(Vector3 newTargetPosition)
     {
-        this.TargetPosition = newTargetPosition;
+        this.CurrentTargetPosition = newTargetPosition;
     }
 
     void SetPriorTargetPosition(Vector3 newTargetPosition)
@@ -50,5 +51,10 @@ public class TargetData
     public void ResetTimeSinceLastDetection()
     {
         TimeSinceLastDetection = 0;
+    }
+
+    public void CalculatePredictedLocation()
+    {
+        throw new NotImplementedException("Not implemented the calculation of the predicted location - should use prior target position and current target position.");
     }
 }

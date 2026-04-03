@@ -78,7 +78,7 @@ public class TrackAndFireAgent : Agent
 
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(target.Value.TargetPosition);
+            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
 
             // First 3 values as the position of the target relative to the face of the agent.
             Vector3 relativeDir = localSpace.normalized;
@@ -90,7 +90,7 @@ public class TrackAndFireAgent : Agent
             observationArray[3] = localSpace.magnitude / TargetDetector.DetectionDistance;
 
             // Dot product to represent how the agent is facing the target.
-            float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.TargetPosition - WeaponController.transform.position).normalized);
+            float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
             observationArray[4] = dot;
 
             BufferSensorComp.AppendObservation(observationArray);
@@ -153,7 +153,7 @@ public class TrackAndFireAgent : Agent
             Target targetBest = null;
             foreach(var target in TargetDetector.DetectedTargets)
             {
-                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.TargetPosition - WeaponController.transform.position).normalized);
+                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
 
                 if (dotProductNew > bestDotProduct)
                 {

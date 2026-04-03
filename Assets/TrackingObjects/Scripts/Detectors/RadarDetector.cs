@@ -95,7 +95,7 @@ public class RadarDetector : Detector
 
     protected override void UpdateTargetData(TargetData targetData)
     {
-        targetData.UpdateTargetData(targetData.TargetPosition);
+        targetData.UpdateTargetData(targetData.CurrentTargetPosition);
         targetData.ResetTimeSinceLastDetection();
     }
 
@@ -257,8 +257,8 @@ public class RadarDetector : Detector
             foreach (KeyValuePair<int, TargetData> targetData in DetectedTargets)
             {
                 Gizmos.color = (targetData.Value.TargetType == TargetType.Friendly) ? Color.blue : Color.red;
-                Gizmos.DrawLine(transform.position, targetData.Value.TargetPosition);
-                Gizmos.DrawSphere(targetData.Value.TargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
+                Gizmos.DrawLine(transform.position, targetData.Value.CurrentTargetPosition);
+                Gizmos.DrawSphere(targetData.Value.CurrentTargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
             }
         }
     }
