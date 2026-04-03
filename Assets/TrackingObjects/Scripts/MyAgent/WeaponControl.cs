@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using Unity.MLAgents;
 using UnityEngine;
 
-public class FireSolution : MonoBehaviour
+public class WeaponControl : MonoBehaviour
 {
     [field:SerializeField]
     public LayerMask LayersToHit

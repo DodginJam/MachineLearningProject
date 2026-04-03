@@ -3,27 +3,14 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class Radar : MonoBehaviour
+public class RadarDetector : Detector
 {
-    /// <summary>
-    /// The master set of detected active targets by the radar.
-    /// </summary>
-    public Dictionary<int, TargetData> DetectedTargets
-    { get; private set; } = new Dictionary<int, TargetData>();
-
     /// <summary>
     /// The max height at which raycasts are to be sent from, starting from the transform base.
     /// </summary>
     [field: SerializeField]
     public float RadarHeight
     { get; private set; } = 50.0f;
-
-    /// <summary>
-    /// The max distance at which the rays are projected.
-    /// </summary>
-    [field: SerializeField]
-    public float DetectionDistance
-    { get; private set; } = 100.0f;
 
     /// <summary>
     /// The current rotation that rays are sent from, considered the "facing" direction of the radar.
@@ -84,7 +71,7 @@ public class Radar : MonoBehaviour
     private void FixedUpdate()
     {
         // Grab the data from the targets detected this frame.
-        Dictionary<int, TargetData> aqquiredTargets = DetectTargetsViaRayCasts();
+        Dictionary<int, TargetData> aqquiredTargets = RaycastForAndReturnTargets();
 
         // Loop over the aqquired targets data.
         foreach (var targetItem in aqquiredTargets)
@@ -125,7 +112,7 @@ public class Radar : MonoBehaviour
     /// Returns a dictionary of targets the projected raycasts have found.
     /// </summary>
     /// <returns></returns>
-    Dictionary<int, TargetData> DetectTargetsViaRayCasts()
+    protected override Dictionary<int, TargetData> RaycastForAndReturnTargets()
     {
         Dictionary<int, TargetData> toBeAqquiredTargets = new Dictionary<int, TargetData>();
 
@@ -151,7 +138,7 @@ public class Radar : MonoBehaviour
                     Quaternion.Euler(XRotation, RadarRotationCurrent, ZRotation) * direction
                 );
 
-                Color rayColour = Color.white;
+                Color rayColour = Color.grey;
 
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, DetectionDistance, MasksToDetect))
                 {
@@ -211,51 +198,5 @@ public class Radar : MonoBehaviour
                 Gizmos.DrawSphere(targetData.Value.TargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
             }
         }
-    }
-}
-
-public enum TargetType
-{
-    NonTarget,
-    Friendly,
-    Enemy
-}
-
-public class TargetData
-{
-    public TargetData(Target target, TargetType targetType, Vector3 targetPosition)
-    {
-        this.TargetObject = target;
-        this.TargetType = targetType;
-        this.TargetPosition = targetPosition;
-
-        this.TimeSinceLastDetection = 0;
-    }
-
-    public Target TargetObject
-    { get; set; }
-
-    public TargetType TargetType
-    { get; set; }
-
-    public Vector3 TargetPosition
-    { get; private set; }
-
-    public float TimeSinceLastDetection
-    { get; private set; }
-
-    public void SetTargetPosition(Vector3 newTargetPosition)
-    {
-        this.TargetPosition = newTargetPosition;
-    }
-
-    public void IncrementTimeSinceLastDetection(float timeToIncrease)
-    {
-        TimeSinceLastDetection += timeToIncrease;
-    }
-
-    public void ResetTimeSinceLastDetection()
-    {
-        TimeSinceLastDetection = 0;
     }
 }

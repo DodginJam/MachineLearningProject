@@ -4,7 +4,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
-public class TrackingObjectsAgent : Agent
+public class TrackAndFireAgent : Agent
 {
     [field: SerializeField, Header("Control Points")]
     public RotationPoint Rotator
@@ -14,11 +14,15 @@ public class TrackingObjectsAgent : Agent
     public RotationPoint Pitcher
     { get; private set; }
 
-    [field: SerializeField, Header("Observation Assistance Scripts")]
-    public FireSolution FireSolutionRef
+    [field: SerializeField, Header("Firing Assistance Scripts")]
+    public WeaponControl WeaponController
     { get; private set; }
 
-    [field: SerializeField]
+    [field: SerializeField, Header("Target Detection Scripts")]
+    public Detector TargetDetector
+    { get; private set; }
+
+    [field: SerializeField, Header("Managers Targets in the Environment in Episodes")]
     public TargetManager TargetManager
     { get; private set; }
 
@@ -35,10 +39,6 @@ public class TrackingObjectsAgent : Agent
     [field: SerializeField, Header("Agent Control Values")]
     public float DamagePerTick
     { get; private set; } = 0.5f;
-
-    [field: SerializeField]
-    public float MaxDetectionRange
-    { get; private set; } = 100.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,7 +80,7 @@ public class TrackingObjectsAgent : Agent
 
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpace = FireSolutionRef.transform.InverseTransformPoint(TargetManager.VisableTargets[i].transform.position);
+            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(TargetManager.VisableTargets[i].transform.position);
 
             // First 3 values as the position of the target relative to the face of the agent.
             Vector3 relativeDir = localSpace.normalized;
@@ -89,10 +89,10 @@ public class TrackingObjectsAgent : Agent
             observationArray[2] = relativeDir.z;
 
             // Magnitude / length set to a normalised value based on the max detection range.
-            observationArray[3] = localSpace.magnitude / MaxDetectionRange;
+            observationArray[3] = localSpace.magnitude / TargetDetector.DetectionDistance;
 
             // Dot product to represent how the agent is facing the target.
-            float dot = Vector3.Dot(FireSolutionRef.transform.forward, (TargetManager.VisableTargets[i].transform.position - FireSolutionRef.transform.position).normalized);
+            float dot = Vector3.Dot(WeaponController.transform.forward, (TargetManager.VisableTargets[i].transform.position - WeaponController.transform.position).normalized);
             observationArray[4] = dot;
 
             BufferSensorComp.AppendObservation(observationArray);
@@ -114,7 +114,7 @@ public class TrackingObjectsAgent : Agent
         // Applying the input for discrete actions.
         int fireAction = actionBuffers.DiscreteActions[0];
 
-        FireSolutionRef.SetFiringMaterial(fireAction == 0 ? false : true);
+        WeaponController.SetFiringMaterial(fireAction == 0 ? false : true);
 
         if (TargetManager.VisableTargets.Count <= 0)
         {
@@ -123,7 +123,7 @@ public class TrackingObjectsAgent : Agent
         }
 
         bool trackedtarget = false;
-        if (FireSolutionRef.IsTargetDetected(out Target detectedTarget))
+        if (WeaponController.IsTargetDetected(out Target detectedTarget))
         {
             trackedtarget = true;
             // Rewarding if a target has been detected
@@ -139,7 +139,7 @@ public class TrackingObjectsAgent : Agent
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
-                TargetManager.RemoveVisableTarget(detectedTarget, FireSolutionRef);
+                TargetManager.RemoveVisableTarget(detectedTarget, WeaponController);
             }
         }
         else
@@ -155,7 +155,7 @@ public class TrackingObjectsAgent : Agent
             Target targetBest = null;
             foreach(Target target in TargetManager.VisableTargets)
             {
-                float dotProductNew = Vector3.Dot(FireSolutionRef.transform.forward, (target.transform.position - FireSolutionRef.transform.position).normalized);
+                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.transform.position - WeaponController.transform.position).normalized);
 
                 if (dotProductNew > bestDotProduct)
                 {

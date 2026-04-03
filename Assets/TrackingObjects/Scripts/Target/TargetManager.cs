@@ -65,7 +65,7 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void RemoveVisableTarget(Target detectedTransfom, FireSolution fireSolution)
+    public void RemoveVisableTarget(Target detectedTransfom, WeaponControl fireSolution)
     {
         // Removing detected targets from the visable list.
         bool wasVisableTargetRemoved = VisableTargets.Remove(detectedTransfom);

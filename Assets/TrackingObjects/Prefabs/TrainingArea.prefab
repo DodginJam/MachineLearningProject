@@ -571,7 +571,7 @@ GameObject:
   - component: {fileID: 5806743175293836426}
   - component: {fileID: 2774225666729760548}
   m_Layer: 0
-  m_Name: RaySender
+  m_Name: WeaponTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1414,7 +1414,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 10000
   <Rotator>k__BackingField:
     <ObjectToAngle>k__BackingField: {fileID: 5551535672972209316}
     <LimitRotation>k__BackingField: 0
@@ -1429,11 +1429,11 @@ MonoBehaviour:
     <AngleLimitUpper>k__BackingField: 90
     <RotateAround>k__BackingField: 0
     <RotationSpeed>k__BackingField: 100
-  <FireSolutionRef>k__BackingField: {fileID: 2774225666729760548}
+  <WeaponController>k__BackingField: {fileID: 2774225666729760548}
+  <TargetDetector>k__BackingField: {fileID: 3161850511720872878}
   <TargetManager>k__BackingField: {fileID: 8449372339676589122}
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
   <DamagePerTick>k__BackingField: 10
-  <MaxDetectionRange>k__BackingField: 100
 --- !u!114 &8268060000890128691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1699,6 +1699,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+--- !u!114 &3161850511720872878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+  m_PrefabInstance: {fileID: 4508664185542212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0071106000602f44c98258724b5e8dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5146084160788516575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}

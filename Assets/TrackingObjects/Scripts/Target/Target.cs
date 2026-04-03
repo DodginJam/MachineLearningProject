@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class Target : MonoBehaviour, ITarget
 {
     private const float StartingHealth = 1.0f;
 
