@@ -154,24 +154,27 @@ public class TrackAndFireAgent : Agent
             // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
             float bestDotProduct = -1;
             Target targetBest = null;
-            foreach(var target in TargetDetector.DetectedTargets)
+            if (TargetDetector.DetectedTargets.Count > 0)
             {
-                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
-
-                if (dotProductNew > bestDotProduct)
+                foreach (var target in TargetDetector.DetectedTargets)
                 {
-                    bestDotProduct = dotProductNew;
-                    targetBest = target.Value.TargetObject;
-                }
-            }
+                    float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
 
-            if (targetBest != null && bestDotProduct > 0)
-            {
-                AddReward(0.01f * bestDotProduct);
-            }
-            else if (bestDotProduct <= 0)
-            {
-                AddReward(-0.001f);
+                    if (dotProductNew > bestDotProduct)
+                    {
+                        bestDotProduct = dotProductNew;
+                        targetBest = target.Value.TargetObject;
+                    }
+                }
+
+                if (targetBest != null && bestDotProduct > 0)
+                {
+                    AddReward(0.01f * bestDotProduct);
+                }
+                else if (bestDotProduct <= 0)
+                {
+                    AddReward(-0.001f);
+                }
             }
         }
     }
