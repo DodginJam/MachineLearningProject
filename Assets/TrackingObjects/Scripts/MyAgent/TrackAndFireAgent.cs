@@ -69,13 +69,12 @@ public class TrackAndFireAgent : Agent
         // Adding observations into the buffer sensor.
         foreach (var target in TargetDetector.DetectedTargets)
         {
-            index++;
             if (index >= BufferSensorComp.MaxNumObservables)
             {
-                Debug.LogWarning("Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
+                Debug.LogWarning($"Index at {index} - Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
                 break;
             }
-
+            index++;
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
             Vector3 localSpace = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
