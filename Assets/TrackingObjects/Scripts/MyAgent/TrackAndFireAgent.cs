@@ -105,7 +105,7 @@ public class TrackAndFireAgent : Agent
         // Applying the input from continious actions.
         float rotationOutput = actionBuffers.ContinuousActions[0];
         float pitchOutput = actionBuffers.ContinuousActions[1];
-        Rotator.RotateAngle(rotationOutput, Rotator.RotationSpeed ,Time.fixedDeltaTime);
+        Rotator.RotateAngle(rotationOutput, Rotator.RotationSpeed, Time.fixedDeltaTime);
         Pitcher.RotateAngle(pitchOutput, Pitcher.RotationSpeed, Time.fixedDeltaTime);
 
         // Applying the input for discrete actions.
@@ -113,69 +113,62 @@ public class TrackAndFireAgent : Agent
 
         WeaponController.SetFiringMaterial(fireAction == 0 ? false : true);
 
-
         // If a target has been detected by the weapon controller...
         if (WeaponController.IsTargetDetected(out Target detectedTarget))
         {
-            // Reward for maintaining detection.
-            AddReward(0.01f);
-
-            // Further reward if the target has been fired upon...
+            // And if the agent is current intending to fire, fire at the detected target.
             if (fireAction == 1)
             {
-                AddReward(0.02f);
-                detectedTarget.TakeDamage(DamagePerTick * Time.fixedDeltaTime);
+                WeaponController.FireAtTarget(detectedTarget, DamagePerTick);
             }
 
             // Bigger reward if the action resulted in the target death.
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
-            }
-        }
-        else // If the target was not detected...
-        {
-            // Check if all the targeted have been set to inactive for end episode and big reward (as from the target manager global list of targets).
-            if (TargetManager.AreAllTargetsInactive())
-            {
-                Debug.Log($"All targets are inactive for {transform.gameObject.name} - ending episode.");
-                AddReward(1.0f);
                 EndEpisode();
                 return;
             }
-
+        }
+        else
+        {
             // Punish blind firing for when a target in sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(-0.001f);
-            }
-
-            // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
-            float bestDotProduct = -1;
-            Target targetBest = null;
-            if (TargetDetector.DetectedTargets.Count > 0)
-            {
-                foreach (var target in TargetDetector.DetectedTargets)
-                {
-                    float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
-
-                    if (dotProductNew > bestDotProduct)
-                    {
-                        bestDotProduct = dotProductNew;
-                        targetBest = target.Value.TargetObject;
-                    }
-                }
-
-                if (targetBest != null && bestDotProduct > 0)
-                {
-                    AddReward(0.01f * bestDotProduct);
-                }
-                else if (bestDotProduct <= 0)
-                {
-                    AddReward(-0.001f);
-                }
+                AddReward(-0.05f);
             }
         }
+
+        // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
+        if (TargetDetector.DetectedTargets.Count > 0)
+        {
+            float bestDotProduct = -1;
+            Target targetBest = null;
+
+            foreach (var target in TargetDetector.DetectedTargets)
+            {
+                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
+
+                if (dotProductNew > bestDotProduct)
+                {
+                    bestDotProduct = dotProductNew;
+                    targetBest = target.Value.TargetObject;
+                }
+            }
+
+            if (targetBest != null && bestDotProduct > 0)
+            {
+                AddReward(0.01f * bestDotProduct * Time.fixedDeltaTime);
+            }
+            else if (bestDotProduct <= 0)
+            {
+                AddReward(-0.01f * Time.fixedDeltaTime);
+            }
+
+        }
+
+        // Time penelty.
+        AddReward(-0.001f * Time.fixedDeltaTime);
     }
 
     /// <summary>

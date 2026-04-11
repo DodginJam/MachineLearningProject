@@ -68,6 +68,12 @@ public class WeaponControl : MonoBehaviour
         return TargetDetected;
     }
 
+    public void FireAtTarget(Target target, float damageToFire)
+    {
+        target.TakeDamage(damageToFire * Time.fixedDeltaTime);
+
+    }
+
     public void RemoveDetectedInfo()
     {
         TargetDetected = false;
