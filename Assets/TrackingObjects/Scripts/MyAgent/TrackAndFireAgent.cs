@@ -126,8 +126,11 @@ public class TrackAndFireAgent : Agent
             if (detectedTarget.IsDead)
             {
                 AddReward(1.0f);
-                EndEpisode();
-                return;
+                if (TargetManager.AreAllTargetsInactive())
+                {
+                    EndEpisode();
+                    return;
+                }
             }
         }
         else
@@ -145,16 +148,7 @@ public class TrackAndFireAgent : Agent
             float bestDotProduct = -1;
             Target targetBest = null;
 
-            foreach (var target in TargetDetector.DetectedTargets)
-            {
-                float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
-
-                if (dotProductNew > bestDotProduct)
-                {
-                    bestDotProduct = dotProductNew;
-                    targetBest = target.Value.TargetObject;
-                }
-            }
+            FindTargetWithHighestDotproduct(out bestDotProduct, out targetBest);
 
             if (targetBest != null && bestDotProduct > 0)
             {
@@ -165,10 +159,35 @@ public class TrackAndFireAgent : Agent
                 AddReward(-0.01f * Time.fixedDeltaTime);
             }
 
+            // Reward shaping to face towards the target in the correct direction.
+            Vector3 toTarget = (targetBest.transform.position - WeaponController.transform.position).normalized;
+            Vector3 localDir = WeaponController.transform.InverseTransformDirection(toTarget);
+
+            AddReward(0.002f * Mathf.Sign(localDir.x) * rotationOutput * Time.fixedDeltaTime);
         }
 
         // Time penelty.
         AddReward(-0.001f * Time.fixedDeltaTime);
+    }
+
+    void FindTargetWithHighestDotproduct(out float bestDotProductOut, out Target targetBestOut)
+    {
+        float bestDotProduct = -1;
+        Target targetBest = null;
+
+        foreach (var target in TargetDetector.DetectedTargets)
+        {
+            float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
+
+            if (dotProductNew > bestDotProduct)
+            {
+                bestDotProduct = dotProductNew;
+                targetBest = target.Value.TargetObject;
+            }
+        }
+
+        bestDotProductOut = bestDotProduct;
+        targetBestOut = targetBest;
     }
 
     /// <summary>

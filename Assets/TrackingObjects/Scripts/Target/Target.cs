@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Target : MonoBehaviour, ITarget
 {
@@ -64,5 +65,10 @@ public class Target : MonoBehaviour, ITarget
         {
             Die(); 
         }
+    }
+
+    public int GetGameObjectsInstanceID()
+    {
+        return this.gameObject.GetInstanceID();
     }
 }

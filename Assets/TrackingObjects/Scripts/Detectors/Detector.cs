@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public abstract class Detector : MonoBehaviour, ITargetDetector
 {
@@ -16,6 +17,11 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
     public float DetectionDistance
     { get; set; } = 100.0f;
 
+    public event Action PreDetectionEvents;
+
+    public event Action PostDetectionEvents;
+
+
     /// <summary>
     /// Returns a dictionary of targets the projected raycasts have found.
     /// </summary>
@@ -27,6 +33,29 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
     /// </summary>
     /// <returns></returns>
     protected abstract List<KeyValuePair<int, TargetData>> GetTargetsToRemoveFromDictionary();
+
+    /// <summary>
+    /// To be called in the fixed update loop, this represent the update cycle for how to process and collect targets.
+    /// </summary>
+    protected void ApplyDetectionLoop()
+    {
+        PreDetectionEvents?.Invoke();
+
+        // Grab the data from the targets detected this frame.
+        Dictionary<int, TargetData> aqquiredTargets = DetectAndReturnTargets();
+        AddOrUpdateTargetsToDictionary(aqquiredTargets);
+
+        // Find the items that have timed out from last detection limit.
+        var itemsToRemove = GetTargetsToRemoveFromDictionary();
+        RemoveTargetsFromDictionary(itemsToRemove);
+
+        PostDetectionEvents?.Invoke();
+    }
+
+    public void FixedUpdate()
+    {
+        ApplyDetectionLoop();
+    }
 
     /// <summary>
     /// Loop over the dictionary and check if a target data item is already contained - either update existing or add new target data to detected targets.

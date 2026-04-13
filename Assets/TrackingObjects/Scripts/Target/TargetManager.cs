@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -50,6 +51,11 @@ public class TargetManager : MonoBehaviour
     public void ActivateTargets(int amountToActivate)
     {
         amountToActivate = Mathf.Clamp(amountToActivate, 1, AllTargets.Length);
+
+        foreach(Target target in AllTargets)
+        {
+            target.Die();
+        }
 
         for (int i = 0; i < amountToActivate; i++)
         {

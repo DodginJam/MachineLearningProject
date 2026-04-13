@@ -76,21 +76,16 @@ public class RadarDetector : Detector
     public float RayDuration
     { get; private set; }
 
-    private void FixedUpdate()
+    private void OnEnable()
     {
-        ApplyNewRotation();
+        PreDetectionEvents += ApplyNewRotation;
+        PostDetectionEvents += ProgressTimeoutOnDetectedTargets;
+    }
 
-        // Grab the data from the targets detected this frame.
-        Dictionary<int, TargetData> aqquiredTargets = DetectAndReturnTargets();
-        AddOrUpdateTargetsToDictionary(aqquiredTargets);
-
-        // Find the items that have timed out from last detection limit.
-        var itemsToRemove = GetTargetsToRemoveFromDictionary();
-        RemoveTargetsFromDictionary(itemsToRemove);
-
-        ProgressTimeoutOnDetectedTargets();
-
-        // Debug.Log($"Number of Targets Detected this step: {aqquiredTargets.Count} AND Number of Targets Detected Overall: {DetectedTargets.Count}");
+    private void OnDisable()
+    {
+        PreDetectionEvents -= ApplyNewRotation;
+        PostDetectionEvents -= ProgressTimeoutOnDetectedTargets;
     }
 
     protected override void UpdateTargetData(TargetData targetData)
@@ -191,11 +186,11 @@ public class RadarDetector : Detector
         GameObject hitGameObject = hitInfo.transform.gameObject;
         if (hitGameObject.TryGetComponent<Target>(out Target target))
         {
-            if (!toBeAqquiredTargets.ContainsKey(hitGameObject.GetInstanceID()))
+            if (!toBeAqquiredTargets.ContainsKey(target.GetGameObjectsInstanceID()))
             {
                 TargetData newData = new TargetData(target, target.TargetTyping, target.transform.position);
 
-                toBeAqquiredTargets.Add(target.gameObject.GetInstanceID(), newData);
+                toBeAqquiredTargets.Add(target.GetGameObjectsInstanceID(), newData);
             }
         }
     }
@@ -252,13 +247,16 @@ public class RadarDetector : Detector
 
     private void OnDrawGizmos()
     {
-        if (DetectedTargets != null && DetectedTargets.Count > 0)
+        if (this.isActiveAndEnabled)
         {
-            foreach (KeyValuePair<int, TargetData> targetData in DetectedTargets)
+            if (DetectedTargets != null && DetectedTargets.Count > 0)
             {
-                Gizmos.color = (targetData.Value.TargetType == TargetType.Friendly) ? Color.blue : Color.red;
-                Gizmos.DrawLine(transform.position, targetData.Value.CurrentTargetPosition);
-                Gizmos.DrawSphere(targetData.Value.CurrentTargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
+                foreach (KeyValuePair<int, TargetData> targetData in DetectedTargets)
+                {
+                    Gizmos.color = (targetData.Value.TargetType == TargetType.Friendly) ? Color.blue : Color.red;
+                    Gizmos.DrawLine(transform.position, targetData.Value.CurrentTargetPosition);
+                    Gizmos.DrawSphere(targetData.Value.CurrentTargetPosition, targetData.Value.TargetObject.transform.localScale.x * 0.66f);
+                }
             }
         }
     }

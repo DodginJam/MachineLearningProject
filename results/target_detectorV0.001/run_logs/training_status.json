@@ -2,31 +2,58 @@
     "Tracker": {
         "checkpoints": [
             {
-                "steps": 499914,
-                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-499914.onnx",
-                "reward": -29.869430288746955,
-                "creation_time": 1775862657.201024,
+                "steps": 3499998,
+                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-3499998.onnx",
+                "reward": 0.2068334169927862,
+                "creation_time": 1776035114.3131173,
                 "auxillary_file_paths": [
-                    "results\\target_detectorV0.001\\Tracker\\Tracker-499914.pt"
+                    "results\\target_detectorV0.001\\Tracker\\Tracker-3499998.pt"
                 ]
             },
             {
-                "steps": 500042,
-                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-500042.onnx",
-                "reward": -29.869430288746955,
-                "creation_time": 1775862657.429566,
+                "steps": 3999998,
+                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-3999998.onnx",
+                "reward": 0.21740819743105308,
+                "creation_time": 1776035535.209681,
                 "auxillary_file_paths": [
-                    "results\\target_detectorV0.001\\Tracker\\Tracker-500042.pt"
+                    "results\\target_detectorV0.001\\Tracker\\Tracker-3999998.pt"
+                ]
+            },
+            {
+                "steps": 4499998,
+                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-4499998.onnx",
+                "reward": 0.2154897711114149,
+                "creation_time": 1776035956.1418428,
+                "auxillary_file_paths": [
+                    "results\\target_detectorV0.001\\Tracker\\Tracker-4499998.pt"
+                ]
+            },
+            {
+                "steps": 4999998,
+                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-4999998.onnx",
+                "reward": 0.21725416997919397,
+                "creation_time": 1776036377.0322616,
+                "auxillary_file_paths": [
+                    "results\\target_detectorV0.001\\Tracker\\Tracker-4999998.pt"
+                ]
+            },
+            {
+                "steps": 5000126,
+                "file_path": "results\\target_detectorV0.001\\Tracker\\Tracker-5000126.onnx",
+                "reward": 0.21725416997919397,
+                "creation_time": 1776036377.2649817,
+                "auxillary_file_paths": [
+                    "results\\target_detectorV0.001\\Tracker\\Tracker-5000126.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 500042,
+            "steps": 5000126,
             "file_path": "results\\target_detectorV0.001\\Tracker.onnx",
-            "reward": -29.869430288746955,
-            "creation_time": 1775862657.429566,
+            "reward": 0.21725416997919397,
+            "creation_time": 1776036377.2649817,
             "auxillary_file_paths": [
-                "results\\target_detectorV0.001\\Tracker\\Tracker-500042.pt"
+                "results\\target_detectorV0.001\\Tracker\\Tracker-5000126.pt"
             ]
         }
     },
