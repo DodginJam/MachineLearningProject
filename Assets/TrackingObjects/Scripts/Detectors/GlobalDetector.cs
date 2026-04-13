@@ -52,7 +52,7 @@ public class GlobalDetector : Detector, ITargetDetector
 
     protected override void UpdateTargetData(TargetData targetData)
     {
-        
+        targetData.UpdateTargetData(targetData.CurrentTargetPosition);
     }
 
     void GrabGlobalTargets()
