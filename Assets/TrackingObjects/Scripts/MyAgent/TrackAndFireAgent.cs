@@ -5,19 +5,44 @@ using UnityEngine;
 
 public class TrackAndFireAgent : Agent
 {
+    /// <summary>
+    /// The horizontal rotation point from the base.
+    /// </summary>
     [field: SerializeField, Header("Control Points")]
     public RotationPoint Rotator
     { get; private set; }
 
+    /// <summary>
+    /// The vertical rotation point of the head.
+    /// </summary>
     [field: SerializeField]
     public RotationPoint Pitcher
     { get; private set; }
 
+    /// <summary>
+    /// The controller for the weapon fire and fire detection.
+    /// </summary>
     [field: SerializeField, Header("Firing Assistance Scripts")]
     public WeaponControl WeaponController
     { get; private set; }
 
-    [field: SerializeField, Header("Target Detection Scripts")]
+    /// <summary>
+    /// The script for global target detection, no radar required (performance friendly).
+    /// </summary>
+    [field: SerializeField]
+    public GlobalDetector GlobalDetector 
+    { get; private set; }
+
+    /// <summary>
+    /// The script for local target detection, radar required (non-performance friendly).
+    /// </summary>
+    [field: SerializeField]
+    public RadarDetector RadarDetector
+    { get; private set; }
+
+    /// <summary>
+    /// Current detection type being used.
+    /// </summary>
     public Detector TargetDetector
     { get; private set; }
 
@@ -39,6 +64,21 @@ public class TrackAndFireAgent : Agent
     public float DamagePerTick
     { get; private set; } = 0.5f;
 
+    [field: SerializeField]
+    public DetectionMode DetectionMode
+    { get; set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        GlobalDetector.enabled = false;
+        GlobalDetector.gameObject.SetActive(false);
+        RadarDetector.enabled = false;
+        RadarDetector.gameObject.SetActive(false);
+
+        SetTargetDetectorType();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -51,8 +91,32 @@ public class TrackAndFireAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot(TrainingArea);
         TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
+    }
+
+    public void SetTargetDetectorType()
+    {
+        if (TargetDetector != null)
+        {
+            TargetDetector.enabled = false;
+            TargetDetector.gameObject.SetActive(false);
+        }
+
+        if (DetectionMode == DetectionMode.Global)
+        {
+            DetectionMode = DetectionMode.Global;
+            TargetDetector = GlobalDetector;
+        }
+        else if (DetectionMode == DetectionMode.Radar)
+        {
+            DetectionMode = DetectionMode.Radar;
+            TargetDetector = RadarDetector;
+        }
+
+        TargetDetector.enabled = true;
+        TargetDetector.gameObject.SetActive(true);
     }
 
     /// <summary>

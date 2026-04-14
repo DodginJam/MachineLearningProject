@@ -7,11 +7,6 @@ public class GlobalDetector : Detector, ITargetDetector
     public TargetManager TargetManager
     { get; private set; }
 
-    private void OnEnable()
-    {
-        GrabGlobalTargets();
-    }
-
     private void OnDisable()
     {
         DetectedTargets.Clear();

@@ -6,3 +6,9 @@ public enum TargetType
     Friendly,
     Enemy
 }
+
+public enum DetectionMode
+{
+    Global,
+    Radar
+}

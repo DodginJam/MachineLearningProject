@@ -1463,10 +1463,12 @@ MonoBehaviour:
     <RotateAround>k__BackingField: 0
     <RotationSpeed>k__BackingField: 500
   <WeaponController>k__BackingField: {fileID: 2774225666729760548}
-  <TargetDetector>k__BackingField: {fileID: 7616474556802467660}
+  <GlobalDetector>k__BackingField: {fileID: 7616474556802467660}
+  <RadarDetector>k__BackingField: {fileID: 3161850511720872878}
   <TargetManager>k__BackingField: {fileID: 8449372339676589122}
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
   <DamagePerTick>k__BackingField: 1000
+  <DetectionMode>k__BackingField: 0
 --- !u!114 &8268060000890128691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2223,7 +2225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2271,6 +2273,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+--- !u!114 &3161850511720872878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+  m_PrefabInstance: {fileID: 4508664185542212876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0071106000602f44c98258724b5e8dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5146084160788516575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
