@@ -69,11 +69,13 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
             // If targetItem is already contained in the master targetItem dict, simply update position and reset the last detected timer.
             if (DetectedTargets.ContainsKey(targetItem.Key))
             {
-                UpdateTargetData(targetItem.Value);
+                UpdateTargetData(DetectedTargets[targetItem.Key]);
+                Debug.Log("Updating Target Data contained in list.");
             }
             else
             {
                 DetectedTargets.Add(targetItem.Key, targetItem.Value);
+                Debug.Log("Adding Target Data to list.");
             }
         }
     }

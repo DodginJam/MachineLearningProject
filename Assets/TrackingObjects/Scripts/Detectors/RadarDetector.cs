@@ -90,7 +90,7 @@ public class RadarDetector : Detector
 
     protected override void UpdateTargetData(TargetData targetData)
     {
-        targetData.UpdateTargetData(targetData.CurrentTargetPosition);
+        targetData.UpdateTargetData(targetData.TargetObject.transform.position);
         targetData.ResetTimeSinceLastDetection();
     }
 
