@@ -50,13 +50,6 @@ public class TrackAndFireAgent : Agent
     public TargetManager TargetManager
     { get; private set; }
 
-    /// <summary>
-    /// The training area mesh renderer can be used to access the bounds to ensure the target is spawned at a random point on the surface.
-    /// </summary>
-    [field: SerializeField, Header("Surface Ref")]
-    public MeshRenderer TrainingArea
-    { get; private set; }
-
     private BufferSensorComponent BufferSensorComp
     { get; set; }
 
@@ -92,7 +85,7 @@ public class TrackAndFireAgent : Agent
     public override void OnEpisodeBegin()
     {
         TargetDetector.DetectedTargets.Clear();
-        TargetManager.SetTargetsToNewSpot(TrainingArea);
+        TargetManager.SetTargetsToNewSpot();
         TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
     }
 
@@ -102,6 +95,7 @@ public class TrackAndFireAgent : Agent
         {
             TargetDetector.enabled = false;
             TargetDetector.gameObject.SetActive(false);
+            TargetDetector.DetectedTargets.Clear();
         }
 
         if (DetectionMode == DetectionMode.Global)
@@ -189,6 +183,8 @@ public class TrackAndFireAgent : Agent
             // Bigger reward if the action resulted in the target death.
             if (detectedTarget.IsDead)
             {
+                TargetDetector.RemoveTargetFromDictionary(detectedTarget.GetGameObjectsInstanceID());
+
                 AddReward(1.0f);
                 if (TargetManager.AreAllTargetsInactive())
                 {

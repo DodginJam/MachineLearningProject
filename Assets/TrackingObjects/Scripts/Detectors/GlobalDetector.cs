@@ -50,29 +50,6 @@ public class GlobalDetector : Detector, ITargetDetector
         targetData.UpdateTargetData(targetData.TargetObject.transform.position);
     }
 
-    void GrabGlobalTargets()
-    {
-        var allTargetsToAdd = new Dictionary<int, TargetData>();
-
-        if (TargetManager == null)
-        {
-            Debug.LogError("Target Manager has not been assigned.");
-            return;
-        }
-
-        foreach(Target target in TargetManager.AllTargets)
-        {
-            if (target.gameObject.activeSelf)
-            {
-                int id = target.GetGameObjectsInstanceID();
-                TargetData targetData = new TargetData(target, target.TargetTyping, target.transform.position);
-                allTargetsToAdd.Add(id, targetData);
-            }
-        }
-
-        AddOrUpdateTargetsToDictionary(allTargetsToAdd);
-    }
-
     private void OnDrawGizmos()
     {
         if (this.isActiveAndEnabled)

@@ -91,6 +91,11 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
         }
     }
 
+    public void RemoveTargetFromDictionary(int targetKey)
+    {
+        DetectedTargets.Remove(targetKey);
+    }
+
     /// <summary>
     /// Update the target data as required for the implementation.
     /// </summary>

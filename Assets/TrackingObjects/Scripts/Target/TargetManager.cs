@@ -18,11 +18,18 @@ public class TargetManager : MonoBehaviour
     public float MaxTargetHeight
     { get; private set; }
 
+    /// <summary>
+    /// The training area mesh renderer can be used to access the bounds to ensure the target is spawned at a random point on the surface.
+    /// </summary>
+    [field: SerializeField, Header("Surface Ref")]
+    public MeshRenderer TrainingArea
+    { get; private set; }
+
     const float MinTargetHeight = 0.5f;
 
-    public void SetTargetsToNewSpot(MeshRenderer meshBounds)
+    public void SetTargetsToNewSpot()
     {
-        Bounds areaBounds = meshBounds.bounds;
+        Bounds areaBounds = TrainingArea.bounds;
         float minX = areaBounds.center.x - areaBounds.extents.x;
         float maxX = areaBounds.center.x + areaBounds.extents.x;
 

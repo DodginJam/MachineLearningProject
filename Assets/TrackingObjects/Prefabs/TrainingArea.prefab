@@ -592,6 +592,7 @@ MonoBehaviour:
   - {fileID: 7040877923868462361}
   - {fileID: 2736089548031999136}
   <MaxTargetHeight>k__BackingField: 75
+  <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
 --- !u!1 &2544979976553240735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1467,6 @@ MonoBehaviour:
   <GlobalDetector>k__BackingField: {fileID: 7616474556802467660}
   <RadarDetector>k__BackingField: {fileID: 3161850511720872878}
   <TargetManager>k__BackingField: {fileID: 8449372339676589122}
-  <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
   <DamagePerTick>k__BackingField: 1000
   <DetectionMode>k__BackingField: 1
 --- !u!114 &8268060000890128691
