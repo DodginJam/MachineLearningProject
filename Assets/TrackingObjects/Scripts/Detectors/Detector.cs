@@ -70,12 +70,10 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
             if (DetectedTargets.ContainsKey(targetItem.Key))
             {
                 UpdateTargetData(DetectedTargets[targetItem.Key]);
-                Debug.Log("Updating Target Data contained in list.");
             }
             else
             {
                 DetectedTargets.Add(targetItem.Key, targetItem.Value);
-                Debug.Log("Adding Target Data to list.");
             }
         }
     }
