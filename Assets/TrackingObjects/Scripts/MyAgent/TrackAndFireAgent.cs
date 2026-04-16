@@ -87,8 +87,12 @@ public class TrackAndFireAgent : Agent
         TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot();
         TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
+        TargetManager.SetTargetsSpeed();
     }
 
+    /// <summary>
+    /// Sets the type of target detector to be used via activating the selected the script / game object and deactivating the others.
+    /// </summary>
     public void SetTargetDetectorType()
     {
         if (TargetDetector != null)
@@ -230,6 +234,11 @@ public class TrackAndFireAgent : Agent
         AddReward(-0.001f * Time.fixedDeltaTime);
     }
 
+    /// <summary>
+    /// Provides the value dot product and the target object that the agents face is best facing.
+    /// </summary>
+    /// <param name="bestDotProductOut"></param>
+    /// <param name="targetBestOut"></param>
     void FindTargetWithHighestDotproduct(out float bestDotProductOut, out Target targetBestOut)
     {
         float bestDotProduct = -1;

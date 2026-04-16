@@ -23,3 +23,16 @@ behaviors:
     max_steps: 50000000
     time_horizon: 128
     summary_freq: 10000
+
+environment_parameters:
+  movement_multiplier:
+    sampler_type: uniform
+    sampler_parameters:
+      min_value: 0
+      max_value: 5
+
+  number_of_targets:
+    sampler_type: uniform
+    sampler_parameters:
+      min_value: 1
+      max_value: 20

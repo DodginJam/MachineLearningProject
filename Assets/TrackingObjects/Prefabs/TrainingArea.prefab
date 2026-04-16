@@ -1468,7 +1468,7 @@ MonoBehaviour:
   <RadarDetector>k__BackingField: {fileID: 3161850511720872878}
   <TargetManager>k__BackingField: {fileID: 8449372339676589122}
   <DamagePerTick>k__BackingField: 1000
-  <DetectionMode>k__BackingField: 1
+  <DetectionMode>k__BackingField: 0
 --- !u!114 &8268060000890128691
 MonoBehaviour:
   m_ObjectHideFlags: 0

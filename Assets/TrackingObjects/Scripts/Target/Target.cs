@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Target : MonoBehaviour, ITarget
 {
@@ -29,8 +28,28 @@ public class Target : MonoBehaviour, ITarget
     public TargetType TargetTyping
     { get; private set; }
 
+
+
+    [field: SerializeField]
+    public float MovementMultiplier
+    { get; private set; } = 1.0f;
+
+    public float MovementTime
+    { get; private set; } = 0;
+
+    public Vector3 StartPoint
+    { get; private set; }
+
+    public Vector3 EndPoint
+    { get; private set; }
+
+    public TargetManager TargetManager
+    { get; private set; }
+
     private void Awake()
     {
+        TargetManager = FindFirstObjectByType<TargetManager>();
+
         Initialise();
     }
 
@@ -43,6 +62,8 @@ public class Target : MonoBehaviour, ITarget
         TargetTyping = UnityEngine.Random.Range(0, 2) == 0 ? TargetType.Enemy : TargetType.Friendly;
         SetMaterial = TargetTyping == TargetType.Friendly ? FriendlyMaterial : EnemyMaterial;
         MeshRendererRef.material = SetMaterial;
+
+        StartPoint = this.transform.position;
     }
 
     public void Die()
@@ -66,8 +87,41 @@ public class Target : MonoBehaviour, ITarget
         }
     }
 
+    private void FixedUpdate()
+    {
+        Movement();
+    }
+
     public int GetGameObjectsInstanceID()
     {
         return this.gameObject.GetInstanceID();
+    }
+
+    public void SetMovementMultiplier(float newMovementMultiplier)
+    {
+        MovementMultiplier = newMovementMultiplier;
+    }
+
+    public void Movement()
+    {
+        MovementTime += Time.fixedDeltaTime * MovementMultiplier;
+
+        Vector3 newPosition = Vector3.Lerp(StartPoint, EndPoint, MovementTime);
+        transform.position = newPosition;
+
+        if (MovementTime >= 1)
+        {
+            StartPoint = this.transform.position;
+
+            TargetManager.GetBoundsLimits(TargetManager.TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
+            SetEndPoint(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
+
+            MovementTime = 0;
+        }
+    }
+
+    public void SetEndPoint(Vector3 endPoint)
+    {
+        EndPoint = endPoint;
     }
 }

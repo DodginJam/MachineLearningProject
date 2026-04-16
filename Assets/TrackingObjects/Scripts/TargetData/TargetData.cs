@@ -8,6 +8,7 @@ public class TargetData
         this.TargetObject = target;
         this.TargetType = targetType;
         this.CurrentTargetPosition = targetPosition;
+        this.PriorTargetPosition = targetPosition;
 
         this.TimeSinceLastDetection = 0;
     }
