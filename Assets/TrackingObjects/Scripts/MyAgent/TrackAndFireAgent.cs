@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Linq;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -154,7 +156,7 @@ public class TrackAndFireAgent : Agent
             float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
             observationArray[4] = dot;
 
-            // Wether the target is flagged as friendly or enemy - using custom one hot encoding for each target type.
+            // Whether the target is flagged as friendly or enemy - using custom one hot encoding for each target type.
             observationArray[5] = target.Value.TargetType == TargetType.None ? 1 : 0;
             observationArray[6] = target.Value.TargetType == TargetType.NonTarget ? 1 : 0;
             observationArray[7] = target.Value.TargetType == TargetType.Friendly ? 1 : 0;
@@ -196,7 +198,7 @@ public class TrackAndFireAgent : Agent
                 TargetDetector.RemoveTargetFromDictionary(detectedTarget.GetGameObjectsInstanceID());
 
                 AddReward(1.0f);
-                if (TargetManager.AreAllTargetsInactive())
+                if (TargetManager.AreAllEnemyTargetsInactive())
                 {
                     EndEpisode();
                     return;
@@ -215,12 +217,12 @@ public class TrackAndFireAgent : Agent
         // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
         if (TargetDetector.DetectedTargets.Count > 0)
         {
+            // Check for target datas of only enemy types.
+            TargetData[] targetsToCheck = TargetDetector.DetectedTargets.Values.ToArray().Where(element => element.TargetType == TargetType.Enemy).ToArray();
             float bestDotProduct = -1;
-            Target targetBest = null;
+            Target mostFacedTarget = FindTargetWithHighestDotproduct(targetsToCheck, out bestDotProduct);
 
-            FindTargetWithHighestDotproduct(out bestDotProduct, out targetBest);
-
-            if (targetBest != null && bestDotProduct > 0)
+            if (mostFacedTarget != null && bestDotProduct > 0)
             {
                 AddReward(0.01f * bestDotProduct * Time.fixedDeltaTime);
             }
@@ -230,7 +232,7 @@ public class TrackAndFireAgent : Agent
             }
 
             // Reward shaping to face towards the target in the correct direction.
-            Vector3 toTarget = (targetBest.transform.position - WeaponController.transform.position).normalized;
+            Vector3 toTarget = (mostFacedTarget.transform.position - WeaponController.transform.position).normalized;
             Vector3 localDir = WeaponController.transform.InverseTransformDirection(toTarget);
 
             AddReward(0.002f * Mathf.Sign(localDir.x) * rotationOutput * Time.fixedDeltaTime);
@@ -245,24 +247,24 @@ public class TrackAndFireAgent : Agent
     /// </summary>
     /// <param name="bestDotProductOut"></param>
     /// <param name="targetBestOut"></param>
-    void FindTargetWithHighestDotproduct(out float bestDotProductOut, out Target targetBestOut)
+    Target FindTargetWithHighestDotproduct(TargetData[] targetsToCheck ,out float bestDotProductOut)
     {
         float bestDotProduct = -1;
         Target targetBest = null;
 
-        foreach (var target in TargetDetector.DetectedTargets)
+        foreach (TargetData target in targetsToCheck)
         {
-            float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
+            float dotProductNew = Vector3.Dot(WeaponController.transform.forward, (target.CurrentTargetPosition - WeaponController.transform.position).normalized);
 
             if (dotProductNew > bestDotProduct)
             {
                 bestDotProduct = dotProductNew;
-                targetBest = target.Value.TargetObject;
+                targetBest = target.TargetObject;
             }
         }
 
         bestDotProductOut = bestDotProduct;
-        targetBestOut = targetBest;
+        return targetBest;
     }
 
     /// <summary>

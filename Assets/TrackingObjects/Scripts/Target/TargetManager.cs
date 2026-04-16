@@ -100,6 +100,11 @@ public class TargetManager : MonoBehaviour
         return AllTargets.All((target) => target.transform.gameObject.activeSelf == false);
     }
 
+    public bool AreAllEnemyTargetsInactive()
+    {
+        return AllTargets.Where(target => target.TargetTyping == TargetType.Enemy).All((target) => target.transform.gameObject.activeSelf == false);
+    }
+
     /// <summary>
     /// Apply the targets speed via environment parameter from the configuration file of the agent.
     /// </summary>
