@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: TargetTracker
-  m_ObservableSize: 5
+  m_ObservableSize: 9
   m_MaxNumObservables: 20
 --- !u!1001 &646824285188675934
 PrefabInstance:

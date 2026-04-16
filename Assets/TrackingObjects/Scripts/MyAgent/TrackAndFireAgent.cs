@@ -154,6 +154,12 @@ public class TrackAndFireAgent : Agent
             float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
             observationArray[4] = dot;
 
+            // Wether the target is flagged as friendly or enemy - using custom one hot encoding for each target type.
+            observationArray[5] = target.Value.TargetType == TargetType.None ? 1 : 0;
+            observationArray[6] = target.Value.TargetType == TargetType.NonTarget ? 1 : 0;
+            observationArray[7] = target.Value.TargetType == TargetType.Friendly ? 1 : 0;
+            observationArray[8] = target.Value.TargetType == TargetType.Enemy ? 1 : 0;
+
             BufferSensorComp.AppendObservation(observationArray);
         }
     }
