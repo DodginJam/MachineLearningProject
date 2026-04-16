@@ -139,16 +139,16 @@ public class TrackAndFireAgent : Agent
             index++;
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpace = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
+            Vector3 localSpacePositionOfTarget = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
 
-            // First 3 values as the position of the target relative to the face of the agent.
-            Vector3 relativeDir = localSpace.normalized;
+            // First 3 values as the direction of the target relative to the face of the agent.
+            Vector3 relativeDir = localSpacePositionOfTarget.normalized;
             observationArray[0] = relativeDir.x;
             observationArray[1] = relativeDir.y;
             observationArray[2] = relativeDir.z;
 
             // Magnitude / length set to a normalised value based on the max detection range.
-            observationArray[3] = localSpace.magnitude / TargetDetector.DetectionDistance;
+            observationArray[3] = localSpacePositionOfTarget.magnitude / TargetDetector.DetectionDistance;
 
             // Dot product to represent how the agent is facing the target.
             float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
