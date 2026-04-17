@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class TrackAndFireAgent : Agent
 {
+    [field: SerializeField]
+    public int MaxStepsDuringTraining
+    { get; private set; } = 5000;
+
     /// <summary>
     /// The horizontal rotation point from the base.
     /// </summary>
@@ -71,6 +75,18 @@ public class TrackAndFireAgent : Agent
         RadarDetector.gameObject.SetActive(false);
 
         SetTargetDetectorType();
+    }
+
+    public override void Initialize()
+    {
+        if (!Academy.Instance.IsCommunicatorOn)
+        {
+            this.MaxStep = 0;
+        }
+        else
+        {
+            this.MaxStep = MaxStepsDuringTraining;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

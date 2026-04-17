@@ -48,7 +48,7 @@ public class Target : MonoBehaviour, ITarget
 
     private void Awake()
     {
-        TargetManager = FindFirstObjectByType<TargetManager>();
+        TargetManager = transform.parent.GetComponentInChildren<TargetManager>();
 
         Initialise();
     }
