@@ -62,16 +62,27 @@ public class WeaponControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns true if a target has been assigned, and provides an out reference to that target object.
+    /// </summary>
+    /// <param name="detectedTarget"></param>
+    /// <returns></returns>
     public bool IsTargetDetected(out Target detectedTarget)
     {
         detectedTarget = DetectedTarget;
         return TargetDetected;
     }
 
-    public void FireAtTarget(Target target, float damageToFire)
+    /// <summary>
+    /// Fire the weapon at the detected target if a reference to one is found.
+    /// </summary>
+    /// <param name="damageToFire"></param>
+    public void FireWeapon(float damageToFire)
     {
-        target.TakeDamage(damageToFire * Time.fixedDeltaTime);
-
+        if (DetectedTarget != null)
+        {
+            DetectedTarget.TakeDamage(damageToFire * Time.fixedDeltaTime);
+        }
     }
 
     public void RemoveDetectedInfo()

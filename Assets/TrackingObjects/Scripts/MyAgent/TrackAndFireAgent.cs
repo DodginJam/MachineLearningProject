@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Linq;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
@@ -180,45 +179,66 @@ public class TrackAndFireAgent : Agent
 
         // Applying the input for discrete actions.
         int fireAction = actionBuffers.DiscreteActions[0];
-
         WeaponController.SetFiringMaterial(fireAction == 0 ? false : true);
+
+        // If the agent is attempting to fire, activate weapon.
+        if (fireAction == 1) WeaponController.FireWeapon(DamagePerTick);
 
         // If a target has been detected by the weapon controller...
         if (WeaponController.IsTargetDetected(out Target detectedTarget))
         {
-            // And if the agent is current intending to fire, fire at the detected target.
+            // Punish firing at a friendly target harshly, and reward firing an enemy by a small token amount for reward shaping.
             if (fireAction == 1)
             {
-                WeaponController.FireAtTarget(detectedTarget, DamagePerTick);
+                if (detectedTarget.TargetTyping == TargetType.Enemy)
+                {
+                    AddReward(0.02f);
+                }
+                else if (detectedTarget.TargetTyping == TargetType.Friendly)
+                {
+                    AddReward(-0.2f);
+                }
             }
 
-            // Bigger reward if the action resulted in the target death.
+            // Reward the action resulted in a enemy target death.
             if (detectedTarget.IsDead)
             {
                 TargetDetector.RemoveTargetFromDictionary(detectedTarget.GetGameObjectsInstanceID());
 
-                AddReward(1.0f);
-                if (TargetManager.AreAllEnemyTargetsInactive())
+                // Rewarding killing an enemy, and punish anything else being killed.
+                if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    EndEpisode();
-                    return;
+                    AddReward(1.0f);
+                }
+                else
+                {
+                    AddReward(-1.0f);
                 }
             }
         }
         else
         {
-            // Punish blind firing for when a target in sight of the detector.
+            // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(-0.05f);
+                AddReward(-0.1f);
             }
+        }
+
+
+        // End the episode only when all enemy targets have been inactivated.
+        if (TargetManager.AreAllEnemyTargetsInactive())
+        {
+            Debug.Log($"Reward for episode: {GetCumulativeReward()}");
+            EndEpisode();
+            return;
         }
 
         // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
         if (TargetDetector.DetectedTargets.Count > 0)
         {
             // Check for target datas of only enemy types.
-            TargetData[] targetsToCheck = TargetDetector.DetectedTargets.Values.ToArray().Where(element => element.TargetType == TargetType.Enemy).ToArray();
+            TargetData[] targetsToCheck = TargetDetector.DetectedTargets.Values.Where(element => element.TargetType == TargetType.Enemy).ToArray();
             float bestDotProduct = -1;
             Target mostFacedTarget = FindTargetWithHighestDotproduct(targetsToCheck, out bestDotProduct);
 
