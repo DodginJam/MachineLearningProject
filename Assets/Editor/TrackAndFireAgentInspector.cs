@@ -1,15 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-
-[CustomEditor(typeof(TrackAndFireAgent))]
+[CustomEditor(typeof(TrackAndFireAgent), true)]
 public class TrackAndFireAgentEditor : Editor
 {
-    private readonly string[] detectionTypeTabs = { "Global", "Radar" };
-
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        base.OnInspectorGUI();
 
         TrackAndFireAgent agent = (TrackAndFireAgent)target;
 

@@ -208,7 +208,7 @@ public class TrackAndFireAgent : Agent
             {
                 if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    AddReward(0.02f);
+                    AddReward(0.1f);
                 }
                 else if (detectedTarget.TargetTyping == TargetType.Friendly)
                 {
@@ -237,7 +237,7 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(-0.1f);
+                AddReward(-0.02f);
             }
         }
 

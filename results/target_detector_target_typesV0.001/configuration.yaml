@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: uniform
         sampler_parameters:
-          seed: 2083
+          seed: 5669
           min_value: 0.0
           max_value: 5.0
       name: movement_multiplier
@@ -80,7 +80,7 @@ environment_parameters:
     - value:
         sampler_type: uniform
         sampler_parameters:
-          seed: 2084
+          seed: 5670
           min_value: 1.0
           max_value: 20.0
       name: number_of_targets
@@ -89,8 +89,8 @@ checkpoint_settings:
   run_id: target_detector_target_typesV0.001
   initialize_from: null
   load_model: false
-  resume: false
-  force: true
+  resume: true
+  force: false
   train_model: false
   inference: false
   results_dir: results
