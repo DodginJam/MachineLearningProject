@@ -21,18 +21,75 @@ behaviors:
         gamma: 0.99
         strength: 1.0
     max_steps: 50000000
-    time_horizon: 128
+    time_horizon: 256
     summary_freq: 10000
 
 environment_parameters:
+
   movement_multiplier:
-    sampler_type: uniform
-    sampler_parameters:
-      min_value: 0
-      max_value: 5
+    curriculum:
+      - name: easy
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.2
+          min_lesson_length: 100
+        value: 0.5
+
+      - name: medium
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.6
+          min_lesson_length: 100
+          require_reset: true
+        value: 2.0
+
+      - name: hard
+        value: 5.0
+
 
   number_of_targets:
-    sampler_type: uniform
-    sampler_parameters:
-      min_value: 1
-      max_value: 20
+    curriculum:
+      - name: easy
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.2
+          min_lesson_length: 100
+        value: 1
+
+      - name: medium
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.6
+          min_lesson_length: 100
+          require_reset: true
+        value: 5
+
+      - name: hard
+        value: 20
+
+
+  friendly_ratio:
+    curriculum:
+      - name: easy
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.2
+          min_lesson_length: 100
+        value: 0.0   # only enemies (forces shooting behaviour learning)
+
+      - name: medium
+        completion_criteria:
+          measure: progress
+          behavior: Tracker
+          threshold: 0.6
+          min_lesson_length: 100
+          require_reset: true
+        value: 0.2   # introduces risk
+
+      - name: hard
+        value: 0.4

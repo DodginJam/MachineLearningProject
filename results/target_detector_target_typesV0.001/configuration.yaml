@@ -39,7 +39,7 @@ behaviors:
     keep_checkpoints: 5
     even_checkpoints: false
     max_steps: 50000000
-    time_horizon: 128
+    time_horizon: 256
     summary_freq: 10000
     threaded: false
     self_play: null
@@ -68,22 +68,107 @@ environment_parameters:
   movement_multiplier:
     curriculum:
     - value:
-        sampler_type: uniform
+        sampler_type: constant
         sampler_parameters:
-          seed: 5669
-          min_value: 0.0
-          max_value: 5.0
-      name: movement_multiplier
+          seed: 7
+          value: 0.5
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.2
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8
+          value: 2.0
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 9
+          value: 5.0
+      name: hard
       completion_criteria: null
   number_of_targets:
     curriculum:
     - value:
-        sampler_type: uniform
+        sampler_type: constant
         sampler_parameters:
-          seed: 5670
-          min_value: 1.0
-          max_value: 20.0
-      name: number_of_targets
+          seed: 10
+          value: 1
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.2
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 11
+          value: 5
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 12
+          value: 20
+      name: hard
+      completion_criteria: null
+  friendly_ratio:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 13
+          value: 0.0
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.2
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 14
+          value: 0.2
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: progress
+        min_lesson_length: 100
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 15
+          value: 0.4
+      name: hard
       completion_criteria: null
 checkpoint_settings:
   run_id: target_detector_target_typesV0.001

@@ -35,7 +35,7 @@ public class TrackAndFireAgent : Agent
     /// The script for global target detection, no radar required (performance friendly).
     /// </summary>
     [field: SerializeField]
-    public GlobalDetector GlobalDetector 
+    public GlobalDetector GlobalDetector
     { get; private set; }
 
     /// <summary>
@@ -82,10 +82,12 @@ public class TrackAndFireAgent : Agent
         if (!Academy.Instance.IsCommunicatorOn)
         {
             this.MaxStep = 0;
+            Debug.Log($"Max Steps set to {this.MaxStep}");
         }
         else
         {
             this.MaxStep = MaxStepsDuringTraining;
+            Debug.Log($"Max Steps set to {this.MaxStep}");
         }
     }
 
@@ -101,11 +103,24 @@ public class TrackAndFireAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        ApplyEnvironmentSettings();
+
         TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot();
         TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
         TargetManager.SetTargetsSpeed();
     }
+
+    public void ApplyEnvironmentSettings()
+    {
+        EnvironmentParameters envionmentParameters = Academy.Instance.EnvironmentParameters;
+        float movementMultiplyer = envionmentParameters.GetWithDefault("movement_multiplier", 1f);
+        int numberOfTargets = (int)envionmentParameters.GetWithDefault("number_of_targets", 1f);
+        float friendlyRatio = envionmentParameters.GetWithDefault("friendly_ratio", 0f);
+
+
+    }
+
 
     /// <summary>
     /// Sets the type of target detector to be used via activating the selected the script / game object and deactivating the others.
@@ -203,12 +218,12 @@ public class TrackAndFireAgent : Agent
         // If a target has been detected by the weapon controller...
         if (WeaponController.IsTargetDetected(out Target detectedTarget))
         {
-            // Punish firing at a friendly target harshly, and reward firing an enemy by a small token amount for reward shaping.
+            // Punish firing at a friendly target, and reward firing an enemy by a small token amount for reward shaping.
             if (fireAction == 1)
             {
                 if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    AddReward(0.1f);
+                    AddReward(0.3f);
                 }
                 else if (detectedTarget.TargetTyping == TargetType.Friendly)
                 {
@@ -237,9 +252,11 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(-0.02f);
+                AddReward(-0.001f);
             }
         }
+
+        Debug.Log($"Weapon Fired {fireAction == 1} - Target Detected {WeaponController.IsTargetDetected(out _)}");
 
 
         // End the episode only when all enemy targets have been inactivated.
@@ -260,7 +277,7 @@ public class TrackAndFireAgent : Agent
 
             if (mostFacedTarget != null && bestDotProduct > 0)
             {
-                AddReward(0.01f * bestDotProduct * Time.fixedDeltaTime);
+                AddReward(0.02f * bestDotProduct * Time.fixedDeltaTime);
             }
             else if (bestDotProduct <= 0)
             {
@@ -276,6 +293,13 @@ public class TrackAndFireAgent : Agent
 
         // Time penelty.
         AddReward(-0.001f * Time.fixedDeltaTime);
+
+        // Ensure that the episodes ends when the max step limit is hit during training.
+        if (Academy.Instance.IsCommunicatorOn && StepCount >= MaxStepsDuringTraining)
+        {
+            Debug.Log($"Max Steps hit, ending episode");
+            EndEpisode();
+        }
     }
 
     /// <summary>

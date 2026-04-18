@@ -1449,6 +1449,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
+  <MaxStepsDuringTraining>k__BackingField: 1000
   <Rotator>k__BackingField:
     <ObjectToAngle>k__BackingField: {fileID: 5551535672972209316}
     <LimitRotation>k__BackingField: 0
