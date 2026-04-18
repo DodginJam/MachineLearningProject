@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 7
+          seed: 8846
           value: 0.5
       name: easy
       completion_criteria:
@@ -83,7 +83,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 8
+          seed: 8847
           value: 2.0
       name: medium
       completion_criteria:
@@ -96,7 +96,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 9
+          seed: 8848
           value: 5.0
       name: hard
       completion_criteria: null
@@ -105,7 +105,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 10
+          seed: 8849
           value: 1
       name: easy
       completion_criteria:
@@ -118,7 +118,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 11
+          seed: 8850
           value: 5
       name: medium
       completion_criteria:
@@ -131,7 +131,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 12
+          seed: 8851
           value: 20
       name: hard
       completion_criteria: null
@@ -140,7 +140,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 13
+          seed: 8852
           value: 0.0
       name: easy
       completion_criteria:
@@ -153,7 +153,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 14
+          seed: 8853
           value: 0.2
       name: medium
       completion_criteria:
@@ -166,7 +166,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 15
+          seed: 8854
           value: 0.4
       name: hard
       completion_criteria: null
@@ -174,8 +174,8 @@ checkpoint_settings:
   run_id: target_detector_target_typesV0.001
   initialize_from: null
   load_model: false
-  resume: true
-  force: false
+  resume: false
+  force: true
   train_model: false
   inference: false
   results_dir: results

@@ -114,11 +114,12 @@ public class TrackAndFireAgent : Agent
     public void ApplyEnvironmentSettings()
     {
         EnvironmentParameters envionmentParameters = Academy.Instance.EnvironmentParameters;
-        float movementMultiplyer = envionmentParameters.GetWithDefault("movement_multiplier", 1f);
-        int numberOfTargets = (int)envionmentParameters.GetWithDefault("number_of_targets", 1f);
-        float friendlyRatio = envionmentParameters.GetWithDefault("friendly_ratio", 0f);
-
-
+        float movementMultiplyer = envionmentParameters.GetWithDefault("movement_multiplier", -1);
+        Debug.Log($"movementMultiplyer: {movementMultiplyer}");
+        int numberOfTargets = (int)envionmentParameters.GetWithDefault("number_of_targets", -1);
+        Debug.Log($"numberOfTargets: {numberOfTargets}");
+        float friendlyRatio = envionmentParameters.GetWithDefault("friendly_ratio", -1);
+        Debug.Log($"friendlyRatio: {friendlyRatio}");
     }
 
 
@@ -256,7 +257,7 @@ public class TrackAndFireAgent : Agent
             }
         }
 
-        Debug.Log($"Weapon Fired {fireAction == 1} - Target Detected {WeaponController.IsTargetDetected(out _)}");
+        // Debug.Log($"Weapon Fired {fireAction == 1} - Target Detected {WeaponController.IsTargetDetected(out _)}");
 
 
         // End the episode only when all enemy targets have been inactivated.
