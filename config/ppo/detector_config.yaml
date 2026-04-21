@@ -33,7 +33,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.3
-          min_lesson_length: 100
+          min_lesson_length: 1000
         value: 0.5
 
       - name: medium
@@ -41,7 +41,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.5
-          min_lesson_length: 100
+          min_lesson_length: 1000
           require_reset: true
         value: 2.0
 
@@ -56,7 +56,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.65
-          min_lesson_length: 100
+          min_lesson_length: 1000
         value: 1
 
       - name: medium
@@ -64,7 +64,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.8
-          min_lesson_length: 100
+          min_lesson_length: 1000
           require_reset: true
         value: 5
 
@@ -79,7 +79,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.85
-          min_lesson_length: 100
+          min_lesson_length: 1000
         value: 0.0
 
       - name: medium
@@ -87,7 +87,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.95
-          min_lesson_length: 100
+          min_lesson_length: 1000
           require_reset: true
         value: 0.2
 
@@ -101,7 +101,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.4
-          min_lesson_length: 100
+          min_lesson_length: 1000
         value: 15
 
       - name: medium
@@ -109,7 +109,7 @@ environment_parameters:
           measure: reward
           behavior: Tracker
           threshold: 0.6
-          min_lesson_length: 100
+          min_lesson_length: 1000
           require_reset: true
         value: 10
 
@@ -123,6 +123,8 @@ environment_parameters:
         measure: reward
         behavior: Tracker
         threshold: 0.7
+        min_lesson_length: 1000
+        require_reset: true
       value: 0.0
 
     - name: medium
@@ -130,6 +132,8 @@ environment_parameters:
         measure: reward
         behavior: Tracker
         threshold: 0.85
+        min_lesson_length: 1000
+        require_reset: true
       value: -0.001
 
     - name: hard

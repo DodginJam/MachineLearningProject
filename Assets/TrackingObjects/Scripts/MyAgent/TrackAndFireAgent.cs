@@ -239,7 +239,8 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(YAMLCommunicator.GetBlindFirePenalty());
+                float blindFireReward = YAMLCommunicator.GetBlindFirePenalty();
+                AddReward(blindFireReward);
             }
         }
 
