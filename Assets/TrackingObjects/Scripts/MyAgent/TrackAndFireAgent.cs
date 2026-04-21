@@ -210,11 +210,11 @@ public class TrackAndFireAgent : Agent
             {
                 if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    AddReward(0.3f);
+                    AddReward(0.01f);
                 }
                 else if (detectedTarget.TargetTyping == TargetType.Friendly)
                 {
-                    AddReward(-0.2f);
+                    AddReward(-0.05f);
                 }
             }
 

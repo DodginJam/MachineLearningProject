@@ -70,33 +70,33 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4432
+          seed: 25
           value: 0.5
       name: easy
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.3
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4433
+          seed: 26
           value: 2.0
       name: medium
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.5
         require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4434
+          seed: 27
           value: 5.0
       name: hard
       completion_criteria: null
@@ -105,33 +105,33 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4435
+          seed: 28
           value: 1
       name: easy
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.65
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4436
+          seed: 29
           value: 5
       name: medium
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.8
         require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4437
+          seed: 30
           value: 20
       name: hard
       completion_criteria: null
@@ -140,33 +140,33 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4438
+          seed: 31
           value: 0.0
       name: easy
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.85
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4439
+          seed: 32
           value: 0.2
       name: medium
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.95
         require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4440
+          seed: 33
           value: 0.4
       name: hard
       completion_criteria: null
@@ -175,33 +175,33 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4441
+          seed: 34
           value: 15
       name: easy
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.4
         require_reset: false
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4442
+          seed: 35
           value: 10
       name: medium
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 100
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.6
         require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4443
+          seed: 36
           value: 5
       name: hard
       completion_criteria: null
@@ -210,33 +210,33 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4444
+          seed: 37
           value: 0.0
       name: easy
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 0
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.7
-        require_reset: false
+        require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4445
+          seed: 38
           value: -0.001
       name: medium
       completion_criteria:
         behavior: Tracker
         measure: reward
-        min_lesson_length: 0
+        min_lesson_length: 1000
         signal_smoothing: true
         threshold: 0.85
-        require_reset: false
+        require_reset: true
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 4446
+          seed: 39
           value: -0.005
       name: hard
       completion_criteria: null
@@ -244,8 +244,8 @@ checkpoint_settings:
   run_id: target_detector_target_typesV0.001
   initialize_from: null
   load_model: false
-  resume: true
-  force: false
+  resume: false
+  force: true
   train_model: false
   inference: false
   results_dir: results

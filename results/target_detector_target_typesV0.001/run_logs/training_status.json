@@ -1,15 +1,15 @@
 {
     "movement_multiplier": {
-        "lesson_num": 0
+        "lesson_num": 2
     },
     "number_of_targets": {
-        "lesson_num": 0
+        "lesson_num": 1
     },
     "friendly_ratio": {
-        "lesson_num": 0
+        "lesson_num": 1
     },
     "size_of_target": {
-        "lesson_num": 0
+        "lesson_num": 2
     },
     "blind_fire_penalty": {
         "lesson_num": 1
@@ -17,58 +17,40 @@
     "Tracker": {
         "checkpoints": [
             {
-                "steps": 999902,
-                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-999902.onnx",
-                "reward": -0.09744686306915198,
-                "creation_time": 1776738716.8183405,
+                "steps": 499821,
+                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-499821.onnx",
+                "reward": 1.0845308013842743,
+                "creation_time": 1776740560.4705,
                 "auxillary_file_paths": [
-                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-999902.pt"
+                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-499821.pt"
                 ]
             },
             {
-                "steps": 1499804,
-                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1499804.onnx",
-                "reward": -0.030287872456234984,
-                "creation_time": 1776739207.1726217,
+                "steps": 999844,
+                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-999844.onnx",
+                "reward": 3.3503265325280447,
+                "creation_time": 1776741009.680065,
                 "auxillary_file_paths": [
-                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1499804.pt"
+                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-999844.pt"
                 ]
             },
             {
-                "steps": 1939943,
-                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1939943.onnx",
-                "reward": 0.10533204815742052,
-                "creation_time": 1776739646.551761,
-                "auxillary_file_paths": [
-                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1939943.pt"
-                ]
-            },
-            {
-                "steps": 1999943,
-                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1999943.onnx",
-                "reward": -0.027520861902182028,
-                "creation_time": 1776739727.192767,
-                "auxillary_file_paths": [
-                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1999943.pt"
-                ]
-            },
-            {
-                "steps": 2039985,
-                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-2039985.onnx",
+                "steps": 1001739,
+                "file_path": "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1001739.onnx",
                 "reward": null,
-                "creation_time": 1776739773.2013113,
+                "creation_time": 1776741029.946014,
                 "auxillary_file_paths": [
-                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-2039985.pt"
+                    "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1001739.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 2039985,
+            "steps": 1001739,
             "file_path": "results\\target_detector_target_typesV0.001\\Tracker.onnx",
             "reward": null,
-            "creation_time": 1776739773.2013113,
+            "creation_time": 1776741029.946014,
             "auxillary_file_paths": [
-                "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-2039985.pt"
+                "results\\target_detector_target_typesV0.001\\Tracker\\Tracker-1001739.pt"
             ]
         }
     },
