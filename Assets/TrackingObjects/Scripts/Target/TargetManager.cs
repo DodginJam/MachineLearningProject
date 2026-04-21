@@ -63,7 +63,7 @@ public class TargetManager : MonoBehaviour
 
             newPosition = new Vector3(xPosition, yPosition, zPosition);
         }
-        while (Vector3.Distance(newPosition, this.transform.position) < 6f);
+        while (Vector3.Distance(newPosition, this.transform.position) < YAMLCommunicator.GetSizeOfTargets());
 
         return newPosition;
 
@@ -82,9 +82,14 @@ public class TargetManager : MonoBehaviour
             target.Die();
         }
 
+        float friendlyRatio = YAMLCommunicator.GetFriendlyRatio();
+        int numberOfFriendlies = Mathf.FloorToInt(amountToActivate * friendlyRatio);
+
         for (int i = 0; i < amountToActivate; i++)
         {
             AllTargets[i].Revive();
+            AllTargets[i].SetTargetTyping(i < numberOfFriendlies ? TargetType.Friendly : TargetType.Enemy );
+            AllTargets[i].SetSize(YAMLCommunicator.GetSizeOfTargets());
 
             GetBoundsLimits(TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
             AllTargets[i].SetEndPoint(GetRandomPointInArea(minX, maxX, minZ, maxZ));
@@ -112,7 +117,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (Target target in AllTargets)
         {
-            target.SetMovementMultiplier(Academy.Instance.EnvironmentParameters.GetWithDefault("movement_multiplier", 1.0f));
+            target.SetMovementMultiplier(YAMLCommunicator.GetMovementMultiplier());
         }
     }
 }

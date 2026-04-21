@@ -30,17 +30,17 @@ environment_parameters:
     curriculum:
       - name: easy
         completion_criteria:
-          measure: progress
+          measure: reward
           behavior: Tracker
-          threshold: 0.2
+          threshold: 0.3
           min_lesson_length: 100
         value: 0.5
 
       - name: medium
         completion_criteria:
-          measure: progress
+          measure: reward
           behavior: Tracker
-          threshold: 0.6
+          threshold: 0.5
           min_lesson_length: 100
           require_reset: true
         value: 2.0
@@ -53,17 +53,17 @@ environment_parameters:
     curriculum:
       - name: easy
         completion_criteria:
-          measure: progress
+          measure: reward
           behavior: Tracker
-          threshold: 0.2
+          threshold: 0.65
           min_lesson_length: 100
         value: 1
 
       - name: medium
         completion_criteria:
-          measure: progress
+          measure: reward
           behavior: Tracker
-          threshold: 0.6
+          threshold: 0.8
           min_lesson_length: 100
           require_reset: true
         value: 5
@@ -76,20 +76,61 @@ environment_parameters:
     curriculum:
       - name: easy
         completion_criteria:
-          measure: progress
+          measure: reward
           behavior: Tracker
-          threshold: 0.2
+          threshold: 0.85
           min_lesson_length: 100
-        value: 0.0   # only enemies (forces shooting behaviour learning)
+        value: 0.0
 
       - name: medium
         completion_criteria:
-          measure: progress
+          measure: reward
+          behavior: Tracker
+          threshold: 0.95
+          min_lesson_length: 100
+          require_reset: true
+        value: 0.2
+
+      - name: hard
+        value: 0.4
+
+  size_of_target:
+    curriculum:
+      - name: easy
+        completion_criteria:
+          measure: reward
+          behavior: Tracker
+          threshold: 0.4
+          min_lesson_length: 100
+        value: 15
+
+      - name: medium
+        completion_criteria:
+          measure: reward
           behavior: Tracker
           threshold: 0.6
           min_lesson_length: 100
           require_reset: true
-        value: 0.2   # introduces risk
+        value: 10
 
       - name: hard
-        value: 0.4
+        value: 5
+
+  blind_fire_penalty:
+    curriculum:
+    - name: easy
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.7
+      value: 0.0
+
+    - name: medium
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.85
+      value: -0.001
+
+    - name: hard
+      value: -0.005

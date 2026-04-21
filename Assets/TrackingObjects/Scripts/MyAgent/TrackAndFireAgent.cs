@@ -103,25 +103,11 @@ public class TrackAndFireAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        ApplyEnvironmentSettings();
-
         TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot();
-        TargetManager.ActivateTargets(UnityEngine.Random.Range(1, TargetManager.AllTargets.Length));
+        TargetManager.ActivateTargets(YAMLCommunicator.GetNumberOfTargets());
         TargetManager.SetTargetsSpeed();
     }
-
-    public void ApplyEnvironmentSettings()
-    {
-        EnvironmentParameters envionmentParameters = Academy.Instance.EnvironmentParameters;
-        float movementMultiplyer = envionmentParameters.GetWithDefault("movement_multiplier", -1);
-        Debug.Log($"movementMultiplyer: {movementMultiplyer}");
-        int numberOfTargets = (int)envionmentParameters.GetWithDefault("number_of_targets", -1);
-        Debug.Log($"numberOfTargets: {numberOfTargets}");
-        float friendlyRatio = envionmentParameters.GetWithDefault("friendly_ratio", -1);
-        Debug.Log($"friendlyRatio: {friendlyRatio}");
-    }
-
 
     /// <summary>
     /// Sets the type of target detector to be used via activating the selected the script / game object and deactivating the others.
@@ -253,7 +239,7 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                AddReward(-0.001f);
+                AddReward(YAMLCommunicator.GetBlindFirePenalty());
             }
         }
 
@@ -280,15 +266,10 @@ public class TrackAndFireAgent : Agent
             {
                 AddReward(0.02f * bestDotProduct * Time.fixedDeltaTime);
             }
-            else if (bestDotProduct <= 0)
-            {
-                AddReward(-0.01f * Time.fixedDeltaTime);
-            }
 
             // Reward shaping to face towards the target in the correct direction.
             Vector3 toTarget = (mostFacedTarget.transform.position - WeaponController.transform.position).normalized;
             Vector3 localDir = WeaponController.transform.InverseTransformDirection(toTarget);
-
             AddReward(0.002f * Mathf.Sign(localDir.x) * rotationOutput * Time.fixedDeltaTime);
         }
 

@@ -59,11 +59,21 @@ public class Target : MonoBehaviour, ITarget
         gameObject.SetActive(true);
         IsDead = false;
 
-        TargetTyping = UnityEngine.Random.Range(0, 2) == 0 ? TargetType.Enemy : TargetType.Friendly;
+        StartPoint = this.transform.position;
+    }
+
+    public void SetSize(float scale)
+    {
+        transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    public void SetTargetTyping(TargetType type)
+    {
+        TargetTyping = type;
         SetMaterial = TargetTyping == TargetType.Friendly ? FriendlyMaterial : EnemyMaterial;
         MeshRendererRef.material = SetMaterial;
 
-        StartPoint = this.transform.position;
+        // TargetTyping = UnityEngine.Random.Range(0, 2) == 0 ? TargetType.Enemy : TargetType.Friendly;
     }
 
     public void Die()
