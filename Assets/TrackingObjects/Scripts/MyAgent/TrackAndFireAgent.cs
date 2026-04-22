@@ -66,6 +66,9 @@ public class TrackAndFireAgent : Agent
     public DetectionMode DetectionMode
     { get; set; }
 
+    int numberOfEnemiesInEpisode = 0;
+    int numberOfFriendliesInEpisode = 0;
+
     protected override void Awake()
     {
         base.Awake();
@@ -107,6 +110,9 @@ public class TrackAndFireAgent : Agent
         TargetManager.SetTargetsToNewSpot();
         TargetManager.ActivateTargets(YAMLCommunicator.GetNumberOfTargets());
         TargetManager.SetTargetsSpeed();
+
+        numberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;
+        numberOfFriendliesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Friendly && target.gameObject.activeSelf).ToArray().Length;
     }
 
     /// <summary>
@@ -226,11 +232,13 @@ public class TrackAndFireAgent : Agent
                 // Rewarding killing an enemy, and punish anything else being killed.
                 if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    AddReward(1.0f);
+                    float reward = Mathf.Max(1, numberOfEnemiesInEpisode);
+                    AddReward(1.0f / reward);
                 }
-                else
+                else if (detectedTarget.TargetTyping == TargetType.Friendly)
                 {
-                    AddReward(-1.0f);
+                    float reward = Mathf.Max(1, numberOfFriendliesInEpisode);
+                    AddReward(-1.0f / reward);
                 }
             }
         }
@@ -250,7 +258,6 @@ public class TrackAndFireAgent : Agent
         // End the episode only when all enemy targets have been inactivated.
         if (TargetManager.AreAllEnemyTargetsInactive())
         {
-            Debug.Log($"Reward for episode: {GetCumulativeReward()}");
             EndEpisode();
             return;
         }

@@ -131,10 +131,10 @@ environment_parameters:
       completion_criteria:
         measure: reward
         behavior: Tracker
-        threshold: 0.85
+        threshold: 0.9
         min_lesson_length: 1000
         require_reset: true
       value: -0.001
 
     - name: hard
-      value: -0.005
+      value: -0.01

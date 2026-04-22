@@ -1,0 +1,80 @@
+{
+    "movement_multiplier": {
+        "lesson_num": 2
+    },
+    "number_of_targets": {
+        "lesson_num": 2
+    },
+    "friendly_ratio": {
+        "lesson_num": 2
+    },
+    "size_of_target": {
+        "lesson_num": 2
+    },
+    "blind_fire_penalty": {
+        "lesson_num": 2
+    },
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 26499820,
+                "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-26499820.onnx",
+                "reward": 1.044660815105274,
+                "creation_time": 1776845678.683571,
+                "auxillary_file_paths": [
+                    "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-26499820.pt"
+                ]
+            },
+            {
+                "steps": 26999889,
+                "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-26999889.onnx",
+                "reward": 1.0772743659039987,
+                "creation_time": 1776846162.9377604,
+                "auxillary_file_paths": [
+                    "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-26999889.pt"
+                ]
+            },
+            {
+                "steps": 27499882,
+                "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-27499882.onnx",
+                "reward": 1.0833547752247088,
+                "creation_time": 1776846647.567166,
+                "auxillary_file_paths": [
+                    "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-27499882.pt"
+                ]
+            },
+            {
+                "steps": 27999951,
+                "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-27999951.onnx",
+                "reward": 1.0576776743496525,
+                "creation_time": 1776847134.5031383,
+                "auxillary_file_paths": [
+                    "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-27999951.pt"
+                ]
+            },
+            {
+                "steps": 28462880,
+                "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-28462880.onnx",
+                "reward": 1.0652752108871937,
+                "creation_time": 1776847629.0721157,
+                "auxillary_file_paths": [
+                    "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-28462880.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 28462880,
+            "file_path": "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker.onnx",
+            "reward": 1.0652752108871937,
+            "creation_time": 1776847629.0721157,
+            "auxillary_file_paths": [
+                "results\\target_detector_balanced_target_killed_rewardV0.001\\Tracker\\Tracker-28462880.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
