@@ -275,7 +275,7 @@ public class TrackAndFireAgent : Agent
         }
 
         // Time penelty.
-        AddReward(-0.001f * Time.fixedDeltaTime);
+        AddReward(-0.005f * Time.fixedDeltaTime);
 
         // Ensure that the episodes ends when the max step limit is hit during training.
         if (Academy.Instance.IsCommunicatorOn && StepCount >= MaxStepsDuringTraining)

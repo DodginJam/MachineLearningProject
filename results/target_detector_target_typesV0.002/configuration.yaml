@@ -35,7 +35,7 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
-    init_path: null
+    init_path: results\target_detector_target_typesV0.001\Tracker\checkpoint.pt
     keep_checkpoints: 5
     even_checkpoints: false
     max_steps: 50000000
@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2197
+          seed: 3348
           value: 0.5
       name: easy
       completion_criteria:
@@ -83,7 +83,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2198
+          seed: 3349
           value: 2.0
       name: medium
       completion_criteria:
@@ -96,7 +96,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2199
+          seed: 3350
           value: 5.0
       name: hard
       completion_criteria: null
@@ -105,7 +105,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2200
+          seed: 3351
           value: 1
       name: easy
       completion_criteria:
@@ -118,7 +118,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2201
+          seed: 3352
           value: 5
       name: medium
       completion_criteria:
@@ -131,7 +131,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2202
+          seed: 3353
           value: 20
       name: hard
       completion_criteria: null
@@ -140,7 +140,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2203
+          seed: 3354
           value: 0.0
       name: easy
       completion_criteria:
@@ -153,7 +153,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2204
+          seed: 3355
           value: 0.2
       name: medium
       completion_criteria:
@@ -166,7 +166,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2205
+          seed: 3356
           value: 0.4
       name: hard
       completion_criteria: null
@@ -175,7 +175,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2206
+          seed: 3357
           value: 15
       name: easy
       completion_criteria:
@@ -188,7 +188,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2207
+          seed: 3358
           value: 10
       name: medium
       completion_criteria:
@@ -201,7 +201,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2208
+          seed: 3359
           value: 5
       name: hard
       completion_criteria: null
@@ -210,7 +210,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2209
+          seed: 3360
           value: 0.0
       name: easy
       completion_criteria:
@@ -223,7 +223,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2210
+          seed: 3361
           value: -0.001
       name: medium
       completion_criteria:
@@ -236,15 +236,15 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 2211
+          seed: 3362
           value: -0.005
       name: hard
       completion_criteria: null
 checkpoint_settings:
-  run_id: target_detector_target_typesV0.001
-  initialize_from: null
+  run_id: target_detector_target_typesV0.002
+  initialize_from: target_detector_target_typesV0.001
   load_model: false
-  resume: true
+  resume: false
   force: false
   train_model: false
   inference: false
