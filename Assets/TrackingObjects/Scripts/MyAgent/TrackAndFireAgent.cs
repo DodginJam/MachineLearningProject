@@ -70,8 +70,11 @@ public class TrackAndFireAgent : Agent
     public Transform AreanaObject
     { get; private set; }
 
-    int numberOfEnemiesInEpisode = 0;
-    int numberOfFriendliesInEpisode = 0;
+    private int NumberOfEnemiesInEpisode
+    { get; set; } = 0;
+
+    private int NumberOfFriendliesInEpisode
+    { get; set; } = 0;
 
     protected override void Awake()
     {
@@ -118,8 +121,8 @@ public class TrackAndFireAgent : Agent
         Vector3 localScale = Vector3.one * YAMLCommunicator.Instance.GetArenaSize();
         AreanaObject.localScale = localScale;
 
-        numberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;
-        numberOfFriendliesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Friendly && target.gameObject.activeSelf).ToArray().Length;
+        NumberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;
+        NumberOfFriendliesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Friendly && target.gameObject.activeSelf).ToArray().Length;
     }
 
     /// <summary>
@@ -161,7 +164,7 @@ public class TrackAndFireAgent : Agent
 
         int index = 0;
         // Adding observations into the buffer sensor.
-        foreach (var target in TargetDetector.DetectedTargets)
+        foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => element.Value.CurrentTargetPosition.sqrMagnitude))
         {
             if (index >= BufferSensorComp.MaxNumObservables)
             {
@@ -171,26 +174,31 @@ public class TrackAndFireAgent : Agent
             index++;
             float[] observationArray = new float[BufferSensorComp.ObservableSize];
 
-            Vector3 localSpacePositionOfTarget = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
-
             // First 3 values as the direction of the target relative to the face of the agent.
+            Vector3 localSpacePositionOfTarget = WeaponController.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
             Vector3 relativeDir = localSpacePositionOfTarget.normalized;
             observationArray[0] = relativeDir.x;
             observationArray[1] = relativeDir.y;
             observationArray[2] = relativeDir.z;
-
             // Magnitude / length set to a normalised value based on the max detection range.
             observationArray[3] = localSpacePositionOfTarget.magnitude / TargetDetector.DetectionDistance;
 
+            // Second set of 3 values are the velocity of the target calculated from it's last known position.
+            Vector3 velocity = (target.Value.CurrentTargetPosition - target.Value.PriorTargetPosition) / Time.fixedDeltaTime;
+            Vector3 localVelocity = WeaponController.transform.InverseTransformDirection(velocity);
+            observationArray[4] = localVelocity.x;
+            observationArray[5] = localVelocity.y;
+            observationArray[6] = localVelocity.z;
+
             // Dot product to represent how the agent is facing the target.
             float dot = Vector3.Dot(WeaponController.transform.forward, (target.Value.CurrentTargetPosition - WeaponController.transform.position).normalized);
-            observationArray[4] = dot;
+            observationArray[7] = dot;
 
             // Whether the target is flagged as friendly or enemy - using custom one hot encoding for each target type.
-            observationArray[5] = target.Value.TargetType == TargetType.None ? 1 : 0;
-            observationArray[6] = target.Value.TargetType == TargetType.NonTarget ? 1 : 0;
-            observationArray[7] = target.Value.TargetType == TargetType.Friendly ? 1 : 0;
-            observationArray[8] = target.Value.TargetType == TargetType.Enemy ? 1 : 0;
+            observationArray[8] = target.Value.TargetType == TargetType.None ? 1 : 0;
+            observationArray[9] = target.Value.TargetType == TargetType.NonTarget ? 1 : 0;
+            observationArray[10] = target.Value.TargetType == TargetType.Friendly ? 1 : 0;
+            observationArray[11] = target.Value.TargetType == TargetType.Enemy ? 1 : 0;
 
             BufferSensorComp.AppendObservation(observationArray);
         }
@@ -239,12 +247,12 @@ public class TrackAndFireAgent : Agent
                 // Rewarding killing an enemy, and punish anything else being killed.
                 if (detectedTarget.TargetTyping == TargetType.Enemy)
                 {
-                    float reward = Mathf.Max(1, numberOfEnemiesInEpisode);
+                    float reward = Mathf.Max(1, NumberOfEnemiesInEpisode);
                     AddReward(1.0f / reward);
                 }
                 else if (detectedTarget.TargetTyping == TargetType.Friendly)
                 {
-                    float reward = Mathf.Max(1, numberOfFriendliesInEpisode);
+                    float reward = Mathf.Max(1, NumberOfFriendliesInEpisode);
                     AddReward(-1.0f / reward);
                 }
             }

@@ -31,14 +31,8 @@ public class Target : MonoBehaviour, ITarget
 
 
     [field: SerializeField]
-    public float MovementMultiplier
+    public float MovementSpeed
     { get; private set; } = 1.0f;
-
-    public float MovementTime
-    { get; private set; } = 0;
-
-    public Vector3 StartPoint
-    { get; private set; }
 
     public Vector3 EndPoint
     { get; private set; }
@@ -58,8 +52,6 @@ public class Target : MonoBehaviour, ITarget
         CurrentHealth = StartingHealth;
         gameObject.SetActive(true);
         IsDead = false;
-
-        StartPoint = this.transform.position;
     }
 
     public void SetSize(float scale)
@@ -109,24 +101,20 @@ public class Target : MonoBehaviour, ITarget
 
     public void SetMovementMultiplier(float newMovementMultiplier)
     {
-        MovementMultiplier = newMovementMultiplier;
+        MovementSpeed = newMovementMultiplier;
     }
 
     public void Movement()
     {
-        MovementTime += Time.fixedDeltaTime * MovementMultiplier;
+        float distanceToMove = Time.fixedDeltaTime * MovementSpeed;
 
-        Vector3 newPosition = Vector3.Lerp(StartPoint, EndPoint, MovementTime);
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, EndPoint, distanceToMove);
         transform.position = newPosition;
 
-        if (MovementTime >= 1)
+        if (Vector3.Distance(transform.position, EndPoint) <= 0.01f)
         {
-            StartPoint = this.transform.position;
-
             TargetManager.GetBoundsLimits(TargetManager.TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
             SetEndPoint(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
-
-            MovementTime = 0;
         }
     }
 

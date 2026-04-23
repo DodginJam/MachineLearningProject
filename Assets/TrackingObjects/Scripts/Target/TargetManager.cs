@@ -123,7 +123,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (Target target in AllTargets)
         {
-            target.SetMovementMultiplier(YAMLCommunicator.Instance.GetMovementMultiplier());
+            target.SetMovementMultiplier(YAMLCommunicator.Instance.GetMovementSpeed());
         }
     }
 }

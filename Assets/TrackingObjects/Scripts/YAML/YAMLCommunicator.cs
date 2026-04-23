@@ -8,10 +8,10 @@ using UnityEngine;
 public class YAMLCommunicator : MonoBehaviour
 {
     /// <summary>
-    /// The multiplication value for the lerp speed of the targets when moving from point A to point B.
+    /// The value for the speed of the targets when moving from point A to point B.
     /// </summary>
     [field: SerializeField, Header("Envionment Parameters: Inference Values")]
-    public float MovementSpeedMultiplier
+    public float MovementSpeed
     { get; private set; } = 0.1f;
 
     /// <summary>
@@ -68,9 +68,9 @@ public class YAMLCommunicator : MonoBehaviour
         }
     }
 
-    public float GetMovementMultiplier()
+    public float GetMovementSpeed()
     {
-        return Academy.Instance.EnvironmentParameters.GetWithDefault("movement_multiplier", MovementSpeedMultiplier);
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("movement_speed", MovementSpeed);
     }
 
     public int GetNumberOfTargets()
