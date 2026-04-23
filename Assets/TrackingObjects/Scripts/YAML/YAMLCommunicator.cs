@@ -12,7 +12,7 @@ public class YAMLCommunicator : MonoBehaviour
     /// </summary>
     [field: SerializeField, Header("Envionment Parameters: Inference Values")]
     public float MovementSpeed
-    { get; private set; } = 0.1f;
+    { get; private set; } = 10f;
 
     /// <summary>
     /// Number of targets to enable in an episode - this cannot increase the number of the targets in the scene, nor add targets beyond the buffer observables limit.

@@ -26,7 +26,7 @@ behaviors:
 
 environment_parameters:
 
-  movement_multiplier:
+  movement_speed:
     curriculum:
       - name: easy
         completion_criteria:
@@ -34,7 +34,7 @@ environment_parameters:
           behavior: Tracker
           threshold: 0.3
           min_lesson_length: 1000
-        value: 0.5
+        value: 10
 
       - name: medium
         completion_criteria:
@@ -43,10 +43,19 @@ environment_parameters:
           threshold: 0.5
           min_lesson_length: 1000
           require_reset: true
-        value: 2.0
+        value: 20
 
       - name: hard
-        value: 5.0
+        completion_criteria:
+          measure: reward
+          behavior: Tracker
+          threshold: 0.8
+          min_lesson_length: 1000
+          require_reset: true
+        value: 40
+
+      - name: harder
+        value: 80
 
 
   number_of_targets:
@@ -102,7 +111,7 @@ environment_parameters:
           behavior: Tracker
           threshold: 0.4
           min_lesson_length: 1000
-        value: 15
+        value: 20
 
       - name: medium
         completion_criteria:
@@ -114,7 +123,16 @@ environment_parameters:
         value: 10
 
       - name: hard
+        completion_criteria:
+          measure: reward
+          behavior: Tracker
+          threshold: 0.9
+          min_lesson_length: 1000
+          require_reset: true
         value: 5
+
+      - name: harder
+        value: 2.5
 
   blind_fire_penalty:
     curriculum:
