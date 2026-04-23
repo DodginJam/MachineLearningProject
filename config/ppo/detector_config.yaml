@@ -138,3 +138,44 @@ environment_parameters:
 
     - name: hard
       value: -0.01
+
+  arena_size:
+    curriculum:
+    - name: easy
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.8
+        min_lesson_length: 1000
+        require_reset: true
+      value: 15
+
+    - name: medium
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.85
+        min_lesson_length: 1000
+        require_reset: true
+      value: 30
+
+    - name: hard
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.9
+        min_lesson_length: 1000
+        require_reset: true
+      value: 45
+
+    - name: harder
+      completion_criteria:
+        measure: reward
+        behavior: Tracker
+        threshold: 0.95
+        min_lesson_length: 1000
+        require_reset: true
+      value: 50
+
+    - name: hardest
+      value: 75

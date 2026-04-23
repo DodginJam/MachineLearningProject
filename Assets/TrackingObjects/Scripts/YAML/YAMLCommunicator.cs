@@ -1,30 +1,76 @@
+using System;
 using Unity.MLAgents;
 using UnityEngine;
 
-public static class YAMLCommunicator
+public class YAMLCommunicator : MonoBehaviour
 {
-    public static float GetMovementMultiplier(float value = 0.1f)
+    [field: SerializeField, Header("Envionment Parameters: Inference Values")]
+    public float MovementSpeedMultiplier
+    { get; private set; } = 0.1f;
+
+    [field: SerializeField]
+    public int NumberOfTargets
+    { get; private set; } = 2;
+
+    [field: SerializeField]
+    public float FriendlyRatio
+    { get; private set; } = 0.5f;
+
+    [field: SerializeField]
+    public float SizeOfTargets
+    { get; private set; } = 10.51f;
+
+    [field: SerializeField]
+    public float BlindFirePenalty
+    { get; private set; } = 0f;
+
+    [field: SerializeField]
+    public float ArenaSize
+    { get; private set; }
+
+    public static YAMLCommunicator Instance
+    { get; private set; }
+
+    private void Awake()
     {
-        return Academy.Instance.EnvironmentParameters.GetWithDefault("movement_multiplier", value);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public static int GetNumberOfTargets(float value = 2)
+    public float GetMovementMultiplier()
     {
-        return (int)Academy.Instance.EnvironmentParameters.GetWithDefault("number_of_targets", value);
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("movement_multiplier", MovementSpeedMultiplier);
     }
 
-    public static float GetFriendlyRatio(float value = 0.5f)
+    public int GetNumberOfTargets()
     {
-        return Academy.Instance.EnvironmentParameters.GetWithDefault("friendly_ratio", value);
+        return (int)Academy.Instance.EnvironmentParameters.GetWithDefault("number_of_targets", NumberOfTargets);
     }
 
-    public static float GetSizeOfTargets(float value = 10.5f)
+    public float GetFriendlyRatio()
     {
-        return Academy.Instance.EnvironmentParameters.GetWithDefault("size_of_target", value);
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("friendly_ratio", FriendlyRatio);
     }
 
-    public static float GetBlindFirePenalty(float value = 0f)
+    public float GetSizeOfTargets()
     {
-        return Academy.Instance.EnvironmentParameters.GetWithDefault("blind_fire_penalty", value);
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("size_of_target", SizeOfTargets);
+    }
+
+    public float GetBlindFirePenalty()
+    {
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("blind_fire_penalty", BlindFirePenalty);
+    }
+
+    public float GerArenaSize()
+    {
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("arena_size", ArenaSize);
     }
 }

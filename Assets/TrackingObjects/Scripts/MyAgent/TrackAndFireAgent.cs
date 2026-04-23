@@ -65,6 +65,10 @@ public class TrackAndFireAgent : Agent
     [field: SerializeField]
     public DetectionMode DetectionMode
     { get; set; }
+    
+    [field: SerializeField]
+    public Transform AreanaObject
+    { get; private set; }
 
     int numberOfEnemiesInEpisode = 0;
     int numberOfFriendliesInEpisode = 0;
@@ -108,8 +112,11 @@ public class TrackAndFireAgent : Agent
     {
         TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot();
-        TargetManager.ActivateTargets(YAMLCommunicator.GetNumberOfTargets());
+        TargetManager.ActivateTargets(YAMLCommunicator.Instance.GetNumberOfTargets());
         TargetManager.SetTargetsSpeed();
+
+        Vector3 localScale = Vector3.one * YAMLCommunicator.Instance.GerArenaSize();
+        AreanaObject.localScale = localScale;
 
         numberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;
         numberOfFriendliesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Friendly && target.gameObject.activeSelf).ToArray().Length;
@@ -247,7 +254,7 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                float blindFireReward = YAMLCommunicator.GetBlindFirePenalty();
+                float blindFireReward = YAMLCommunicator.Instance.GetBlindFirePenalty();
                 AddReward(blindFireReward);
             }
         }
