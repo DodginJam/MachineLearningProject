@@ -2,32 +2,56 @@ using System;
 using Unity.MLAgents;
 using UnityEngine;
 
+/// <summary>
+/// Single access point for reading envionment parameters from the academy, as defined in the YAML file. Provides values for default / inference running of agent.
+/// </summary>
 public class YAMLCommunicator : MonoBehaviour
 {
+    /// <summary>
+    /// The multiplication value for the lerp speed of the targets when moving from point A to point B.
+    /// </summary>
     [field: SerializeField, Header("Envionment Parameters: Inference Values")]
     public float MovementSpeedMultiplier
     { get; private set; } = 0.1f;
 
+    /// <summary>
+    /// Number of targets to enable in an episode - this cannot increase the number of the targets in the scene, nor add targets beyond the buffer observables limit.
+    /// </summary>
     [field: SerializeField]
     public int NumberOfTargets
     { get; private set; } = 2;
 
+    /// <summary>
+    /// The percentage of the targets that are to be assigned as friendly.
+    /// </summary>
     [field: SerializeField]
     public float FriendlyRatio
     { get; private set; } = 0.5f;
 
+    /// <summary>
+    /// The local scale of the targets.
+    /// </summary>
     [field: SerializeField]
     public float SizeOfTargets
     { get; private set; } = 10.51f;
 
+    /// <summary>
+    /// The penalty applied to the agent when firing the weapon without aiming at a valid target.
+    /// </summary>
     [field: SerializeField]
     public float BlindFirePenalty
     { get; private set; } = 0f;
 
+    /// <summary>
+    /// The local scale of the area - this affects the spawning and movement space of the targets, thus also the range the agent has to fire at them from.
+    /// </summary>
     [field: SerializeField]
     public float ArenaSize
     { get; private set; }
 
+    /// <summary>
+    /// Singleton reference to the current instance.
+    /// </summary>
     public static YAMLCommunicator Instance
     { get; private set; }
 
@@ -69,7 +93,7 @@ public class YAMLCommunicator : MonoBehaviour
         return Academy.Instance.EnvironmentParameters.GetWithDefault("blind_fire_penalty", BlindFirePenalty);
     }
 
-    public float GerArenaSize()
+    public float GetArenaSize()
     {
         return Academy.Instance.EnvironmentParameters.GetWithDefault("arena_size", ArenaSize);
     }

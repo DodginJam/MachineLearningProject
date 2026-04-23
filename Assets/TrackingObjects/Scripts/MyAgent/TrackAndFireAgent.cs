@@ -115,7 +115,7 @@ public class TrackAndFireAgent : Agent
         TargetManager.ActivateTargets(YAMLCommunicator.Instance.GetNumberOfTargets());
         TargetManager.SetTargetsSpeed();
 
-        Vector3 localScale = Vector3.one * YAMLCommunicator.Instance.GerArenaSize();
+        Vector3 localScale = Vector3.one * YAMLCommunicator.Instance.GetArenaSize();
         AreanaObject.localScale = localScale;
 
         numberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;

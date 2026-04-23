@@ -16,7 +16,12 @@ public class TargetManager : MonoBehaviour
     /// </summary>
     public float MaxTargetHeight
     { 
-        get { return YAMLCommunicator.Instance.GerArenaSize() * 5; }
+        get 
+        {
+            float returneHeight = YAMLCommunicator.Instance.GetArenaSize() * 5;
+            Debug.Log($"returneHeight: {returneHeight}");
+            return returneHeight;
+        }
     }
 
     /// <summary>
