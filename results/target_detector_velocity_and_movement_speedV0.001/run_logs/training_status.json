@@ -1,0 +1,83 @@
+{
+    "movement_speed": {
+        "lesson_num": 3
+    },
+    "number_of_targets": {
+        "lesson_num": 2
+    },
+    "friendly_ratio": {
+        "lesson_num": 2
+    },
+    "size_of_target": {
+        "lesson_num": 3
+    },
+    "blind_fire_penalty": {
+        "lesson_num": 2
+    },
+    "arena_size": {
+        "lesson_num": 4
+    },
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 48499961,
+                "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-48499961.onnx",
+                "reward": 0.9059145042639491,
+                "creation_time": 1777066123.663949,
+                "auxillary_file_paths": [
+                    "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-48499961.pt"
+                ]
+            },
+            {
+                "steps": 48999985,
+                "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-48999985.onnx",
+                "reward": 0.915759352049107,
+                "creation_time": 1777066679.904022,
+                "auxillary_file_paths": [
+                    "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-48999985.pt"
+                ]
+            },
+            {
+                "steps": 49499927,
+                "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-49499927.onnx",
+                "reward": 0.9074137012658456,
+                "creation_time": 1777067236.9687634,
+                "auxillary_file_paths": [
+                    "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-49499927.pt"
+                ]
+            },
+            {
+                "steps": 49999870,
+                "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-49999870.onnx",
+                "reward": 0.9038871378938365,
+                "creation_time": 1777067787.3805819,
+                "auxillary_file_paths": [
+                    "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-49999870.pt"
+                ]
+            },
+            {
+                "steps": 50000102,
+                "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-50000102.onnx",
+                "reward": 0.901836398211522,
+                "creation_time": 1777067787.5986414,
+                "auxillary_file_paths": [
+                    "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-50000102.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 50000102,
+            "file_path": "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker.onnx",
+            "reward": 0.901836398211522,
+            "creation_time": 1777067787.5986414,
+            "auxillary_file_paths": [
+                "results\\target_detector_velocity_and_movement_speedV0.001\\Tracker\\Tracker-50000102.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

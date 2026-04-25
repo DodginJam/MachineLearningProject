@@ -76,6 +76,12 @@ public class TrackAndFireAgent : Agent
     private int NumberOfFriendliesInEpisode
     { get; set; } = 0;
 
+    private float MaxTargetSpeed 
+    {
+        get { return YAMLCommunicator.Instance.GetMovementSpeed(); }
+    }
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -164,7 +170,7 @@ public class TrackAndFireAgent : Agent
 
         int index = 0;
         // Adding observations into the buffer sensor.
-        foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => element.Value.CurrentTargetPosition.sqrMagnitude))
+        foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => (element.Value.CurrentTargetPosition - WeaponController.transform.position).sqrMagnitude))
         {
             if (index >= BufferSensorComp.MaxNumObservables)
             {
@@ -186,6 +192,8 @@ public class TrackAndFireAgent : Agent
             // Second set of 3 values are the velocity of the target calculated from it's last known position.
             Vector3 velocity = (target.Value.CurrentTargetPosition - target.Value.PriorTargetPosition) / Time.fixedDeltaTime;
             Vector3 localVelocity = WeaponController.transform.InverseTransformDirection(velocity);
+            // Normalise value to range of 1;
+            localVelocity = Vector3.ClampMagnitude(localVelocity / MaxTargetSpeed, 1f);
             observationArray[4] = localVelocity.x;
             observationArray[5] = localVelocity.y;
             observationArray[6] = localVelocity.z;
