@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Single access point for reading envionment parameters from the academy, as defined in the YAML file. Provides values for default / inference running of agent.
 /// </summary>
-public class YAMLCommunicator : MonoBehaviour
+public class YAMLCommunicatorTrackingObject : YAMLCommunicatorBase<YAMLCommunicatorTrackingObject>
 {
     /// <summary>
     /// The value for the speed of the targets when moving from point A to point B.
@@ -48,25 +48,6 @@ public class YAMLCommunicator : MonoBehaviour
     [field: SerializeField]
     public float ArenaSize
     { get; private set; }
-
-    /// <summary>
-    /// Singleton reference to the current instance.
-    /// </summary>
-    public static YAMLCommunicator Instance
-    { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public float GetMovementSpeed()
     {

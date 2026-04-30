@@ -78,7 +78,7 @@ public class TrackAndFireAgent : Agent
 
     private float MaxTargetSpeed 
     {
-        get { return YAMLCommunicator.Instance.GetMovementSpeed(); }
+        get { return YAMLCommunicatorTrackingObject.Instance.GetMovementSpeed(); }
     }
 
 
@@ -121,10 +121,10 @@ public class TrackAndFireAgent : Agent
     {
         TargetDetector.DetectedTargets.Clear();
         TargetManager.SetTargetsToNewSpot();
-        TargetManager.ActivateTargets(YAMLCommunicator.Instance.GetNumberOfTargets());
+        TargetManager.ActivateTargets(YAMLCommunicatorTrackingObject.Instance.GetNumberOfTargets());
         TargetManager.SetTargetsSpeed();
 
-        Vector3 localScale = Vector3.one * YAMLCommunicator.Instance.GetArenaSize();
+        Vector3 localScale = Vector3.one * YAMLCommunicatorTrackingObject.Instance.GetArenaSize();
         AreanaObject.localScale = localScale;
 
         NumberOfEnemiesInEpisode = TargetManager.AllTargets.Where(target => target.TargetTyping == TargetType.Enemy && target.gameObject.activeSelf).ToArray().Length;
@@ -270,7 +270,7 @@ public class TrackAndFireAgent : Agent
             // Punish blind firing for when a target out of sight of the detector.
             if (fireAction == 1)
             {
-                float blindFireReward = YAMLCommunicator.Instance.GetBlindFirePenalty();
+                float blindFireReward = YAMLCommunicatorTrackingObject.Instance.GetBlindFirePenalty();
                 AddReward(blindFireReward);
             }
         }

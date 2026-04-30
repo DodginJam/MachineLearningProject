@@ -638,6 +638,7 @@ MonoBehaviour:
   <MeshRendererRef>k__BackingField: {fileID: 7727663763119779238}
   <NonFiringMaterial>k__BackingField: {fileID: 2100000, guid: 74f621912e6ef3544b457517d969926a, type: 2}
   <FiringMaterial>k__BackingField: {fileID: 2100000, guid: c636728c6ba806c4f85d4a3cf639cce1, type: 2}
+  <Agent>k__BackingField: {fileID: 14461689522873057}
 --- !u!1 &2860389530107987893
 GameObject:
   m_ObjectHideFlags: 0

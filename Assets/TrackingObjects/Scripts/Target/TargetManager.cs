@@ -18,7 +18,7 @@ public class TargetManager : MonoBehaviour
     { 
         get 
         {
-            float returneHeight = YAMLCommunicator.Instance.GetArenaSize() * 5;
+            float returneHeight = YAMLCommunicatorTrackingObject.Instance.GetArenaSize() * 5;
             Debug.Log($"returneHeight: {returneHeight}");
             return returneHeight;
         }
@@ -69,7 +69,7 @@ public class TargetManager : MonoBehaviour
 
             newPosition = new Vector3(xPosition, yPosition, zPosition);
         }
-        while (Vector3.Distance(newPosition, this.transform.position) < YAMLCommunicator.Instance.GetSizeOfTargets());
+        while (Vector3.Distance(newPosition, this.transform.position) < YAMLCommunicatorTrackingObject.Instance.GetSizeOfTargets());
 
         return newPosition;
 
@@ -88,14 +88,14 @@ public class TargetManager : MonoBehaviour
             target.Die();
         }
 
-        float friendlyRatio = YAMLCommunicator.Instance.GetFriendlyRatio();
+        float friendlyRatio = YAMLCommunicatorTrackingObject.Instance.GetFriendlyRatio();
         int numberOfFriendlies = Mathf.FloorToInt(amountToActivate * friendlyRatio);
 
         for (int i = 0; i < amountToActivate; i++)
         {
             AllTargets[i].Revive();
             AllTargets[i].SetTargetTyping(i < numberOfFriendlies ? TargetType.Friendly : TargetType.Enemy );
-            AllTargets[i].SetSize(YAMLCommunicator.Instance.GetSizeOfTargets());
+            AllTargets[i].SetSize(YAMLCommunicatorTrackingObject.Instance.GetSizeOfTargets());
 
             GetBoundsLimits(TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
             AllTargets[i].SetEndPoint(GetRandomPointInArea(minX, maxX, minZ, maxZ));
@@ -123,7 +123,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (Target target in AllTargets)
         {
-            target.SetMovementMultiplier(YAMLCommunicator.Instance.GetMovementSpeed());
+            target.SetMovementMultiplier(YAMLCommunicatorTrackingObject.Instance.GetMovementSpeed());
         }
     }
 }
