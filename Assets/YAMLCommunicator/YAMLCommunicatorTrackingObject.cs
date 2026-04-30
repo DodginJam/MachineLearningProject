@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Single access point for reading envionment parameters from the academy, as defined in the YAML file. Provides values for default / inference running of agent.
 /// </summary>
-public class YAMLCommunicatorTrackingObject : YAMLCommunicatorBase<YAMLCommunicatorTrackingObject>
+public class YAMLCommunicatorTrackingObject : EnvironmentParameters<YAMLCommunicatorTrackingObject>
 {
     /// <summary>
     /// The value for the speed of the targets when moving from point A to point B.
