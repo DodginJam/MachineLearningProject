@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AircraftData;
 
 public class AircraftInput : MonoBehaviour
 {
@@ -56,6 +57,10 @@ public class AircraftInput : MonoBehaviour
     public bool FireSafetyDisabled
     { get; private set; }
 
+    [field: SerializeField]
+    public bool EnablePlayerControl
+    { get; private set; } = true;
+
     /// <summary>
     /// Methods to be assigned related to break inputs.
     /// </summary>
@@ -81,21 +86,21 @@ public class AircraftInput : MonoBehaviour
         MouseKeyboardID = Animator.StringToHash("Keyboard&Mouse");
     }
 
-    public void OnEnable()
+    void OnEnable()
     {
         ResetInputs();
         AircraftActionMap.Enable();
         SetUpInputListeners(AircraftActionMap);
     }
 
-    public void OnDisable()
+    void OnDisable()
     {
         ResetInputs();
         AircraftActionMap.Disable();
         DisableListeners(AircraftActionMap);
     }
 
-    public void ResetInputs()
+    private void ResetInputs()
     {
         ThrottleInput = 0;
         ElevatorInput = 0;
@@ -108,7 +113,83 @@ public class AircraftInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check to see if the input scheme has been changed and capture the string name of the new input type.
+        UpdateInputControllerScheme();
+
+        UpdateIsJoystickBeingUsed();
+
+        if (EnablePlayerControl)
+        {
+            PollingInput newInput = ReturnPollingInput();
+            ApplyPollingInput(newInput);
+        }
+    }
+
+    public void OverridePlayerInput(PollingInput inputData)
+    {
+        ApplyPollingInput(inputData);
+    }
+
+    public PollingInput ReturnPollingInput()
+    {
+        PollingInput newInput = new PollingInput();
+        newInput.ThrottleInput = ReadThrottleInput();
+        newInput.ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
+        newInput.AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
+        newInput.RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
+        newInput.CameraInput = AircraftActionMap.Look.ReadValue<Vector2>();
+
+        return newInput;
+    }
+
+    private void ApplyPollingInput(PollingInput currentInput)
+    {
+        ThrottleInput = currentInput.ThrottleInput;
+        ElevatorInput = currentInput.ElevatorInput;
+        AileronInput = currentInput.AileronInput;
+        RudderInput = currentInput.RudderInput;
+        CameraInput = currentInput.CameraInput;
+    }
+
+    private void UpdateIsJoystickBeingUsed()
+    {
+        // Check for joystick being used as control so that throttle input can be swapped to a different binding setup.
+        if (CurrentControlSchemeID != JoystickID)
+        {
+            if (IsJoytickControl == true)
+            {
+                IsJoytickControl = false;
+            }
+        }
+        else
+        {
+            if (IsJoytickControl == false)
+            {
+                IsJoytickControl = true;
+            }
+        }
+    }
+
+    public float ReadThrottleInput()
+    {
+        float input = 0;
+
+        if (IsJoytickControl == false)
+        {
+            input = AircraftActionMap.ThrottleComposite.ReadValue<float>();
+        }
+        else
+        {
+            input = AircraftActionMap.ThrottleSlider.ReadValue<float>();
+        }
+        
+        return input;
+    }
+
+    /// <summary>
+    /// Check to see if the input scheme has been changed and capture the string name of the new input type.
+    /// </summary>
+    private void UpdateInputControllerScheme()
+    {
         if (CurrentControlSchemeID != Animator.StringToHash(InputManager.Instance.PlayerInputComponent.currentControlScheme))
         {
             CurrentControlSchemeID = Animator.StringToHash(InputManager.Instance.PlayerInputComponent.currentControlScheme);
@@ -130,110 +211,40 @@ public class AircraftInput : MonoBehaviour
                     break;
             }
         }
-
-        // Check for joystick being used as control so that throttle input can be swapped to a different binding setup.
-        if (CurrentControlSchemeID != JoystickID)
-        {
-            if (IsJoytickControl == true)
-            {
-                IsJoytickControl = false;
-            }
-
-            ThrottleInput = AircraftActionMap.ThrottleComposite.ReadValue<float>();
-        }
-        else
-        {
-            if (IsJoytickControl == false)
-            {
-                IsJoytickControl = true;
-            }
-
-            ThrottleInput = AircraftActionMap.ThrottleSlider.ReadValue<float>();
-        }
-
-        // Process the input of the aircraft controls here through update polling.
-        ElevatorInput = AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().y;
-        AileronInput = -AircraftActionMap.PitchAndRoll.ReadValue<Vector2>().x;
-        RudderInput = AircraftActionMap.Yaw.ReadValue<float>();
-
-        // Process the input for the camera controls.
-        CameraInput = AircraftActionMap.Look.ReadValue<Vector2>();
     }
 
     void SetUpInputListeners(InputActions.AircraftActions aircraftActions)
     {
-        aircraftActions.CameraToggle.started += context =>
-        {
-            OnCameraToggle(context);
-        };
+        aircraftActions.CameraToggle.started += OnCameraToggle;
 
-        aircraftActions.Fire.started += context =>
-        {
-            OnFire(context);
-        };
+        aircraftActions.Fire.started += OnFire;
 
-        aircraftActions.Fire.canceled += context =>
-        {
-            OnFire(context);
-        };
+        aircraftActions.Fire.canceled += OnFire;
 
-        aircraftActions.FireSafety.started += context =>
-        {
-            OnFireSafety(context);
-        };
+        aircraftActions.FireSafety.started += OnFireSafety;
 
-        aircraftActions.CameraFreeLookToggle.started += context =>
-        {
-            OnCameraFreeLookToggle(context);
-        };
+        aircraftActions.CameraFreeLookToggle.started += OnCameraFreeLookToggle;
 
-        aircraftActions.Brake.started += context =>
-        {
-            OnBrake(context);
-        };
+        aircraftActions.Brake.started += OnBrake;
 
-        aircraftActions.Brake.canceled += context =>
-        {
-            OnBrake(context);
-        };
+        aircraftActions.Brake.canceled += OnBrake;
     }
 
     void DisableListeners(InputActions.AircraftActions aircraftActions)
     {
-        aircraftActions.CameraToggle.started -= context =>
-        {
-            OnCameraToggle(context);
-        };
+        aircraftActions.CameraToggle.started -= OnCameraToggle;
 
-        aircraftActions.Fire.started -= context =>
-        {
-            OnFire(context);
-        };
+        aircraftActions.Fire.started -= OnFire;
 
-        aircraftActions.Fire.canceled -= context =>
-        {
-            OnFire(context);
-        };
+        aircraftActions.Fire.canceled -= OnFire;
 
-        aircraftActions.FireSafety.started -= context =>
-        {
-            OnFireSafety(context);
-        };
+        aircraftActions.FireSafety.started -= OnFireSafety;
 
-        aircraftActions.CameraFreeLookToggle.started -= context =>
-        {
-            OnCameraFreeLookToggle(context);
-        };
+        aircraftActions.CameraFreeLookToggle.started -= OnCameraFreeLookToggle;
 
-        aircraftActions.Brake.started -= context =>
-        {
-            OnBrake(context);
-        };
+        aircraftActions.Brake.started -= OnBrake;
 
-        aircraftActions.Brake.canceled -= context =>
-        {
-            OnBrake(context);
-        };
+        aircraftActions.Brake.canceled -= OnBrake;
     }
 
     public void OnCameraToggle(InputAction.CallbackContext context)
@@ -284,5 +295,22 @@ public class AircraftInput : MonoBehaviour
         Gamepad,
         Joystick,
         MouseKeyboard
+    }
+}
+
+namespace AircraftData
+{
+    public struct PollingInput
+    {
+        public float ThrottleInput
+        { get; set; }
+        public float ElevatorInput
+        { get; set; }
+        public float AileronInput
+        { get; set; }
+        public float RudderInput
+        { get; set; }
+        public Vector2 CameraInput
+        { get; set; }
     }
 }

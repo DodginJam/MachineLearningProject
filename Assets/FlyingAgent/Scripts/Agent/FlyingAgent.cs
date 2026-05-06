@@ -1,13 +1,19 @@
+using AircraftData;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using UnityEditor.Recorder.Input;
 using UnityEngine;
 
 public class FlyingAgent : Agent
 {
     [field: SerializeField]
     public int MaxStepsDuringTraining
-    { get; private set; } = 5000;
+    { get; private set; } = 10000;
+
+    [field: SerializeField]
+    public AircraftInput AircraftInputScript
+    { get; private set; }
 
     protected override void Awake()
     {
@@ -37,7 +43,7 @@ public class FlyingAgent : Agent
     }
 
     /// <summary>
-    /// Called every step that the TrackingAgent requests a decision. This is one possible way for collecting the TrackingAgent's observations of the environment.
+    /// Called every step that the FlyingAgent requests a decision. This is one possible way for collecting the FlyingAgent's observations of the environment.
     /// </summary>
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
@@ -46,12 +52,20 @@ public class FlyingAgent : Agent
     }
 
     /// <summary>
-    /// Called every time the TrackingAgent receives an action to take. Receives the action chosen by the TrackingAgent. It is also common to assign a reward in this method.
+    /// Called every time the FlyingAgent receives an action to take. Receives the action chosen by the FlyingAgent. It is also common to assign a reward in this method.
     /// </summary>
     /// <param name="actionBuffers"></param>
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
+        // Applying the input from continious actions.
+        PollingInput inputData = new PollingInput();
+        inputData.ThrottleInput = actionBuffers.ContinuousActions[0];
+        inputData.ElevatorInput = actionBuffers.ContinuousActions[1];
+        inputData.AileronInput = actionBuffers.ContinuousActions[2];
+        inputData.RudderInput = actionBuffers.ContinuousActions[3];
 
+        // Apply the inputs to the aircraft scripts.
+        AircraftInputScript.OverridePlayerInput(inputData);
     }
 
     /// <summary>
@@ -60,6 +74,14 @@ public class FlyingAgent : Agent
     /// <param name="actionsOut"></param>
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+        PollingInput playerInput = AircraftInputScript.ReturnPollingInput();
 
+        ActionSegment<float> continuousActionsOut = actionsOut.ContinuousActions;
+        continuousActionsOut[0] = playerInput.ThrottleInput;
+        continuousActionsOut[1] = playerInput.ElevatorInput;
+        continuousActionsOut[2] = playerInput.AileronInput;
+        continuousActionsOut[3] = playerInput.RudderInput;
+
+        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
     }
 }
