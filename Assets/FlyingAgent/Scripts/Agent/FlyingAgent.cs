@@ -15,9 +15,17 @@ public class FlyingAgent : Agent
     public AircraftInput AircraftInputScript
     { get; private set; }
 
+    public Vector3 StartingPosition
+    { get; private set; }
+
+    [field: SerializeField]
+    public AircraftController Controller
+    { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
+        StartingPosition = transform.position;
     }
 
     public override void Initialize()
@@ -40,6 +48,9 @@ public class FlyingAgent : Agent
     public override void OnEpisodeBegin()
     {
         AircraftInputScript.ResetInputs();
+        Controller.PlaneRigidBody.position = StartingPosition;
+        Controller.PlaneRigidBody.rotation = Quaternion.identity;
+        Controller.ResetPlane();
     }
 
     /// <summary>
@@ -48,7 +59,10 @@ public class FlyingAgent : Agent
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
     {
-
+        if (CheckEndEpisodeAfterStepCount())
+        {
+            return;
+        }
     }
 
     /// <summary>
@@ -83,5 +97,19 @@ public class FlyingAgent : Agent
         continuousActionsOut[3] = playerInput.RudderInput;
 
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+    }
+
+    bool CheckEndEpisodeAfterStepCount()
+    {
+        bool shouldEpisodeEnd = false;
+
+        if (Academy.Instance.IsCommunicatorOn && StepCount >= MaxStepsDuringTraining)
+        {
+            Debug.Log($"Max Steps hit, ending episode");
+            EndEpisode();
+            shouldEpisodeEnd = true;
+        }
+
+        return shouldEpisodeEnd;
     }
 }

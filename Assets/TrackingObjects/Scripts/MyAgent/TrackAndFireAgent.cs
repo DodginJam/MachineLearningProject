@@ -307,7 +307,14 @@ public class TrackAndFireAgent : Agent
         // Time penelty.
         AddReward(-0.005f * Time.fixedDeltaTime);
 
-        // Ensure that the episodes ends when the max step limit is hit during training.
+        CheckEndEpisodeAfterStepCount();
+    }
+
+    /// <summary>
+    /// Ensure that the episodes ends when the max step limit is hit during training.
+    /// </summary>
+    void CheckEndEpisodeAfterStepCount()
+    {
         if (Academy.Instance.IsCommunicatorOn && StepCount >= MaxStepsDuringTraining)
         {
             Debug.Log($"Max Steps hit, ending episode");

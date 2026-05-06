@@ -17,5 +17,13 @@ public class FlyingAgentEditor : Editor
                 // agent.SetTargetDetectorType();
             }
         }
+
+        if (GUILayout.Button("End Episode"))
+        {
+            if (Application.isPlaying)
+            {
+                agent.EndEpisode();
+            }
+        }
     }
 }

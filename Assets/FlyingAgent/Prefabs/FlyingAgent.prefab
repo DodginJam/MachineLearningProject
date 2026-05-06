@@ -236,6 +236,7 @@ MonoBehaviour:
   MaxStep: 10000
   <MaxStepsDuringTraining>k__BackingField: 5000
   <AircraftInputScript>k__BackingField: {fileID: 3834182179223441021}
+  <Controller>k__BackingField: {fileID: 4085822766835927965}
 --- !u!114 &3093674291543226125
 MonoBehaviour:
   m_ObjectHideFlags: 0
