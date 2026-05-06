@@ -39,7 +39,7 @@ public class FlyingAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-
+        AircraftInputScript.ResetInputs();
     }
 
     /// <summary>

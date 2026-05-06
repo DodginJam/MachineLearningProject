@@ -100,7 +100,7 @@ public class AircraftInput : MonoBehaviour
         DisableListeners(AircraftActionMap);
     }
 
-    private void ResetInputs()
+    public void ResetInputs()
     {
         ThrottleInput = 0;
         ElevatorInput = 0;
