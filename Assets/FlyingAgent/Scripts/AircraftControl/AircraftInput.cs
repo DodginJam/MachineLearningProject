@@ -111,7 +111,7 @@ public class AircraftInput : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         UpdateInputControllerScheme();
 
@@ -171,7 +171,7 @@ public class AircraftInput : MonoBehaviour
 
     public float ReadThrottleInput()
     {
-        float input = 0;
+        float input;
 
         if (IsJoytickControl == false)
         {
