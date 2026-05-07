@@ -48,6 +48,7 @@ public class FlyingAgent : Agent
     public override void OnEpisodeBegin()
     {
         AircraftInputScript.ResetInputs();
+
         Controller.PlaneRigidBody.position = StartingPosition;
         Controller.PlaneRigidBody.rotation = Quaternion.identity;
         Controller.ResetPlane();
@@ -63,6 +64,28 @@ public class FlyingAgent : Agent
         {
             return;
         }
+
+        // LinearVelocity
+        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.x); // 1
+        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.y); // 2
+        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.z); // 3
+
+        // AngularVelocity
+        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.x); // 4
+        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.y); // 5
+        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.z); // 6
+
+        // Thrust
+        sensor.AddObservation(Controller.CurrentValues.FlightForces.Thrust); // 7
+
+        // Lift
+        sensor.AddObservation(Controller.CurrentValues.FlightForces.Lift); // 8, 9, 10
+
+        // ThrottleValue
+        sensor.AddObservation(Controller.CurrentValues.FlightControls.ThrottleValue); // 11
+
+        // Level Flight.
+        sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 12
     }
 
     /// <summary>

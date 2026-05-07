@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2022382143706864781}
   - component: {fileID: 3068321723108488961}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fuselage (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4115129073843178400}
   - component: {fileID: 1497516240154338294}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Back_Centre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2907177735509811672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,15 +187,16 @@ GameObject:
   - component: {fileID: 5805054736347636586}
   - component: {fileID: 3093674291543226125}
   - component: {fileID: 2524197014351343798}
-  - component: {fileID: 5959384731572056274}
+  - component: {fileID: 7609645046193333706}
   - component: {fileID: 5429674831606504288}
   - component: {fileID: 1355822097671639083}
   - component: {fileID: 3834182179223441021}
   - component: {fileID: 4085822766835927965}
   - component: {fileID: 3735850460888712403}
-  m_Layer: 0
+  - component: {fileID: 5611661199480527120}
+  m_Layer: 3
   m_Name: FlyingAgent
-  m_TagString: Untagged
+  m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 0
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 4
@@ -261,7 +262,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: FlyingAgent
   TeamId: 0
   m_UseChildSensors: 1
@@ -283,21 +284,20 @@ MonoBehaviour:
   DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
---- !u!114 &5959384731572056274
+--- !u!114 &7609645046193333706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165133790994807487}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8012d5925524537b27131fef517017, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bec3ebe65cdd744c8139639ca129d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: FlyingAgent
-  m_ObservableSize: 0
-  m_MaxNumObservables: 0
+  <DestroyForce>k__BackingField: 500
+  <Agent>k__BackingField: {fileID: 5805054736347636586}
 --- !u!54 &5429674831606504288
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -394,6 +394,35 @@ MonoBehaviour:
       <BreakSurface>k__BackingField: {fileID: 1497516240154338294}
       <DefaultMat>k__BackingField: {fileID: 13400000, guid: 2a7f8e58303b47e4a898907d0e826bb9, type: 2}
       <BrakingMat>k__BackingField: {fileID: 13400000, guid: 06c3bacfb5df4404b8c1b32908fdb95b, type: 2}
+--- !u!114 &5611661199480527120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165133790994807487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensorOne
+  m_DetectableTags:
+  - ground
+  m_RaysPerDirection: 2
+  m_MaxRayDegrees: 9.7
+  m_SphereCastRadius: 0
+  m_RayLength: 50
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0.51
+  m_EndVerticalOffset: 0
 --- !u!1 &1416586778824445141
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 538193008192888358}
   - component: {fileID: 6323077870977226203}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WingRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8799902143735971549}
   - component: {fileID: 5506013381509938285}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +575,7 @@ GameObject:
   - component: {fileID: 2049058265370114181}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,7 +680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5326464199248576849}
   - component: {fileID: 4916475217737491758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tail_Pitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3926490154431719443}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3855163923993192342}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4212071670789472765}
   - component: {fileID: 8342958377988329941}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tail_Yaw (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7013347114409131523}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MainBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -861,7 +890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5130526221647579497}
   - component: {fileID: 8220024528671042723}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fuselage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9188449162605898290}
   - component: {fileID: 3265313342793623842}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WingLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +995,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3453392247780220889}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CentreOfMass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -998,7 +1027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2051271837135869161}
   - component: {fileID: 5766472733425408894}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WheelFront_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1053,7 +1082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9045955748992684569}
   - component: {fileID: 2251959055863958944}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tail_Yaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1106,7 +1135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3118703750122144388}
   - component: {fileID: 2882114992517564583}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WheelFront_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1159,6 +1188,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3855163923993192342}
     m_Modifications:
+    - target: {fileID: 874823217782109113, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1644383126447061160, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1199,9 +1232,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1647013941135773277, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2132970168135295506, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
       propertyPath: m_Name
       value: LightPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132970168135295506, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124338867421758409, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276532506113015953, guid: fa28e0cc64b3f4345a9d2215c5bfec80, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
