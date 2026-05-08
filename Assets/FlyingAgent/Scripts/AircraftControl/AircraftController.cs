@@ -71,7 +71,8 @@ public class AircraftController : MonoBehaviour
         ForcesToRigidBody(CurrentValues.FlightForces, PlaneRigidBody);
         UpdateDisplayInformation(CurrentValues.ValuesHolder);
 
-        Debug.DrawLine(transform.position, transform.position + PlaneRigidBody.linearVelocity.normalized * 10f, Color.blue);
+
+        // Debug.DrawLine(transform.position, transform.position + PlaneRigidBody.linearVelocity.normalized * 10f, Color.blue);
     }
 
     /// <summary>

@@ -60,32 +60,27 @@ public class FlyingAgent : Agent
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
     {
-        if (CheckEndEpisodeAfterStepCount())
-        {
-            return;
-        }
+        float maxExpectedVelocity = 100;
 
         // LinearVelocity
-        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.x); // 1
-        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.y); // 2
-        sensor.AddObservation(Controller.PlaneRigidBody.linearVelocity.z); // 3
+        sensor.AddObservation(Controller.CurrentValues.ValuesHolder.CurrentVelocityLocal / maxExpectedVelocity); // 1, 2, and 3
+
+        float maxExpectedAngularVelocity = 5;
 
         // AngularVelocity
-        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.x); // 4
-        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.y); // 5
-        sensor.AddObservation(Controller.PlaneRigidBody.angularVelocity.z); // 6
+        sensor.AddObservation(Controller.CurrentValues.ValuesHolder.CurrentAngularVelocityLocal / maxExpectedAngularVelocity); // 4, 5 and 6
 
-        // Thrust
-        sensor.AddObservation(Controller.CurrentValues.FlightForces.Thrust); // 7
+        // AngleOfAttack
+        sensor.AddObservation(Mathf.Clamp(Controller.CurrentValues.ValuesHolder.AngleOfAttack / 45f, -1f, 1f)); // 7
 
-        // Lift
-        sensor.AddObservation(Controller.CurrentValues.FlightForces.Lift); // 8, 9, 10
+        // AngleOfAttackYaw
+        sensor.AddObservation(Mathf.Clamp(Controller.CurrentValues.ValuesHolder.AngleOfAttackYaw / 45f, -1f, 1f)); // 8
 
-        // ThrottleValue
-        sensor.AddObservation(Controller.CurrentValues.FlightControls.ThrottleValue); // 11
+        // ThrottleValue - normalised.
+        sensor.AddObservation(Controller.CurrentValues.FlightControls.ThrottleValue); // 9
 
         // Level Flight.
-        sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 12
+        sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 10
     }
 
     /// <summary>
@@ -103,6 +98,23 @@ public class FlyingAgent : Agent
 
         // Apply the inputs to the aircraft scripts.
         AircraftInputScript.OverridePlayerInput(inputData);
+
+        /*
+        Debug.Log($"ThrottleInput {inputData.ThrottleInput}");
+        Debug.Log($"ElevatorInput {inputData.ElevatorInput}");
+        Debug.Log($"AileronInput {inputData.AileronInput}");
+        Debug.Log($"RudderInput {inputData.RudderInput}");
+
+        Debug.Log($"ThrottleValue {Controller.CurrentValues.FlightControls.ThrottleValue}");
+        */
+
+        // Award for remaining alive.
+        AddReward(0.0001f);
+
+        if (CheckEndEpisodeAfterStepCount())
+        {
+            return;
+        }
     }
 
     /// <summary>
@@ -120,6 +132,12 @@ public class FlyingAgent : Agent
         continuousActionsOut[3] = playerInput.RudderInput;
 
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+    }
+
+    public void OnAgentCrash()
+    {
+        AddReward(-1.0f);
+        EndEpisode();
     }
 
     bool CheckEndEpisodeAfterStepCount()

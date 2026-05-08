@@ -1,4 +1,26 @@
 {
+    "FlyingAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1778194303.0155108,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\flying_agentV0.01\\FlyingAgent.onnx",
+            "reward": null,
+            "creation_time": 1778194303.0155108,
+            "auxillary_file_paths": [
+                "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.pt"
+            ]
+        }
+    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "1.1.0",

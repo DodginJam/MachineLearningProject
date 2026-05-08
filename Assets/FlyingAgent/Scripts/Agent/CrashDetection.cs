@@ -17,6 +17,10 @@ public class CrashDetection : MonoBehaviour
     public FlyingAgent Agent
     { get; private set; }
 
+    [field: SerializeField]
+    public LayerMask LayerMaskForFailure
+    { get; private set; }
+
     private void FixedUpdate()
     {
         if (LastFixedDeltaTimeAmount != Time.fixedDeltaTime)
@@ -31,10 +35,14 @@ public class CrashDetection : MonoBehaviour
         {
             Impact();
         }
+        else if ((LayerMaskForFailure.value & (1 << collision.gameObject.layer)) != 0)
+        {
+            Impact();
+        }
     }
 
     public void Impact()
     {
-        Agent.EndEpisode();
+        Agent.OnAgentCrash();
     }
 }
