@@ -5,7 +5,7 @@ Anaconda Prompt - Run learning - The yaml file path and it's in-file name needs 
 mlagents-learn config/ppo/3DBall.yaml --run-id=first3DBallRun
 
 ToEditLine:
-mlagents-learn config/ppo/flying_config.yaml --run-id=flying_agentV0.01 --initialize-flying_agentV0.00
+mlagents-learn config/ppo/flying_config.yaml --run-id=flying_agentV0.01 --initialize-from=flying_agentV0.01
 
 Behaviour Configs:
 C:\Unity Projects\Game Development Master UOG\Machine Learning and Data Analytics\MachineLearningProject\config
