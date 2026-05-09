@@ -1,0 +1,38 @@
+{
+    "FlyingAgent": {
+        "checkpoints": [
+            {
+                "steps": 19999873,
+                "file_path": "results\\flying_agentV0.03\\FlyingAgent\\FlyingAgent-19999873.onnx",
+                "reward": 0.19949414274271796,
+                "creation_time": 1778290758.4899392,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.03\\FlyingAgent\\FlyingAgent-19999873.pt"
+                ]
+            },
+            {
+                "steps": 20000129,
+                "file_path": "results\\flying_agentV0.03\\FlyingAgent\\FlyingAgent-20000129.onnx",
+                "reward": 0.19949414274271796,
+                "creation_time": 1778290758.61475,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.03\\FlyingAgent\\FlyingAgent-20000129.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20000129,
+            "file_path": "results\\flying_agentV0.03\\FlyingAgent.onnx",
+            "reward": 0.19949414274271796,
+            "creation_time": 1778290758.61475,
+            "auxillary_file_paths": [
+                "results\\flying_agentV0.03\\FlyingAgent\\FlyingAgent-20000129.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

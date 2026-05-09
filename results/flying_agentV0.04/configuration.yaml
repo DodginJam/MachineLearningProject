@@ -35,7 +35,7 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
-    init_path: null
+    init_path: results\flying_agentV0.03\FlyingAgent\checkpoint.pt
     keep_checkpoints: 2
     even_checkpoints: false
     max_steps: 20000000
@@ -66,8 +66,8 @@ engine_settings:
   no_graphics_monitor: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: flying_agentV0.01
-  initialize_from: null
+  run_id: flying_agentV0.04
+  initialize_from: flying_agentV0.03
   load_model: false
   resume: false
   force: true

@@ -496,7 +496,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 10000
-  <MaxStepsDuringTraining>k__BackingField: 5000
+  <MaxStepsDuringTraining>k__BackingField: 15000
   <AircraftInputScript>k__BackingField: {fileID: 7021381587938354940}
   <Controller>k__BackingField: {fileID: 2580608668842240578}
 --- !u!114 &560283203052409767
@@ -521,7 +521,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 16a586e79ee6cba47b2a4c06eb8bc7ed, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: FlyingAgent

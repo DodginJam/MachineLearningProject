@@ -2,22 +2,31 @@
     "FlyingAgent": {
         "checkpoints": [
             {
-                "steps": 0,
-                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.onnx",
-                "reward": null,
-                "creation_time": 1778194303.0155108,
+                "steps": 19999906,
+                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999906.onnx",
+                "reward": -0.13937689134707817,
+                "creation_time": 1778227717.975079,
                 "auxillary_file_paths": [
-                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.pt"
+                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999906.pt"
+                ]
+            },
+            {
+                "steps": 20000138,
+                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000138.onnx",
+                "reward": -0.09372139722108841,
+                "creation_time": 1778227718.1867154,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000138.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 0,
+            "steps": 20000138,
             "file_path": "results\\flying_agentV0.01\\FlyingAgent.onnx",
-            "reward": null,
-            "creation_time": 1778194303.0155108,
+            "reward": -0.09372139722108841,
+            "creation_time": 1778227718.1867154,
             "auxillary_file_paths": [
-                "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-0.pt"
+                "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000138.pt"
             ]
         }
     },
