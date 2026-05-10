@@ -50,8 +50,8 @@ MonoBehaviour:
   - block
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 2
-  m_RayLength: 50
+  m_SphereCastRadius: 10
+  m_RayLength: 75
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -359,8 +359,8 @@ MonoBehaviour:
   - block
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 2
-  m_RayLength: 50
+  m_SphereCastRadius: 10
+  m_RayLength: 75
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -420,9 +420,9 @@ MonoBehaviour:
   - ground
   - block
   m_RaysPerDirection: 5
-  m_MaxRayDegrees: 45
-  m_SphereCastRadius: 0
-  m_RayLength: 500
+  m_MaxRayDegrees: 10
+  m_SphereCastRadius: 5
+  m_RayLength: 300
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -1115,9 +1115,9 @@ MonoBehaviour:
   - ground
   - block
   m_RaysPerDirection: 5
-  m_MaxRayDegrees: 45
-  m_SphereCastRadius: 0
-  m_RayLength: 500
+  m_MaxRayDegrees: 10
+  m_SphereCastRadius: 5
+  m_RayLength: 300
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243

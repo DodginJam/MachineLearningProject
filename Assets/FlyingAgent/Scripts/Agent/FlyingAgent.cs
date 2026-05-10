@@ -22,6 +22,9 @@ public class FlyingAgent : Agent
     public AircraftController Controller
     { get; private set; }
 
+    private float TimeAlive
+    { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -51,7 +54,14 @@ public class FlyingAgent : Agent
 
         Controller.PlaneRigidBody.position = StartingPosition;
         Controller.PlaneRigidBody.rotation = Quaternion.identity;
-        Controller.ResetPlane();
+        Controller.ResetPlane(new Vector3(0, 0, EnvironmentParametersFlyingAgent.Instance.GetStartingVelocity()), EnvironmentParametersFlyingAgent.Instance.GetThrottleValue());
+
+        TimeAlive = 0;
+    }
+
+    public void Update()
+    {
+        TimeAlive += Time.deltaTime;
     }
 
     /// <summary>
@@ -83,6 +93,15 @@ public class FlyingAgent : Agent
         sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 10
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        if (Application.isPlaying)
+        {
+            Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
+            Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
+        }
+    }
+
     /// <summary>
     /// Called every time the FlyingAgent receives an action to take. Receives the action chosen by the FlyingAgent. It is also common to assign a reward in this method.
     /// </summary>
@@ -108,8 +127,29 @@ public class FlyingAgent : Agent
         Debug.Log($"ThrottleValue {Controller.CurrentValues.FlightControls.ThrottleValue}");
         */
 
-        // Award for remaining alive.
-        AddReward(0.0001f);
+        float baseReward = 0.0001f;
+
+        // Award for flying straight and level.
+        if (Controller.CurrentValues.ValuesHolder.LevelOfFlight > 0)
+        {
+            float levelOfFlightReward = baseReward * Controller.CurrentValues.ValuesHolder.LevelOfFlight;
+            AddReward(levelOfFlightReward);
+        }
+
+        // Award for time alive.
+        float timeAliveForMaxReward = 60;
+        float timeAliveBonus = Mathf.Clamp(TimeAlive / timeAliveForMaxReward, 0, 1);
+        float timeAliveReward = baseReward * timeAliveBonus;
+        AddReward(timeAliveReward);
+
+        // Award for maintaining high airspeed.
+        float maxSpeedForNormalisation = 50f;
+        float speedReward = baseReward * (Controller.CurrentValues.ValuesHolder.AirSpeed / maxSpeedForNormalisation);
+        AddReward(speedReward);
+
+        // Award for having low angle of attack.
+        float angleOfAttack = Mathf.Abs(Controller.CurrentValues.ValuesHolder.AngleOfAttack);
+        if (angleOfAttack > 20f) AddReward(-baseReward);
 
         if (CheckEndEpisodeAfterStepCount())
         {

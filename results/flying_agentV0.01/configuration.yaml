@@ -64,7 +64,207 @@ engine_settings:
   capture_frame_rate: 60
   no_graphics: false
   no_graphics_monitor: false
-environment_parameters: null
+environment_parameters:
+  starting_velocity:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8747
+          value: 50
+      name: easy1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.1
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8748
+          value: 40
+      name: easy2
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.2
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8749
+          value: 30
+      name: medium1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.3
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8750
+          value: 20
+      name: medium2
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.4
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8751
+          value: 10
+      name: medium3
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.5
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8752
+          value: 5
+      name: hard1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8753
+          value: 2.5
+      name: hard1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.7
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8754
+          value: 0
+      name: final
+      completion_criteria: null
+  starting_throttle_value:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8755
+          value: 1
+      name: easy1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.1
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8756
+          value: 0.95
+      name: easy2
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.2
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8757
+          value: 0.75
+      name: medium1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.3
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8758
+          value: 0.6
+      name: medium2
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.4
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8759
+          value: 0.45
+      name: medium3
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.5
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8760
+          value: 0.3
+      name: hard1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8761
+          value: 0.15
+      name: hard1
+      completion_criteria:
+        behavior: FlyingAgent
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.7
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 8762
+          value: 0
+      name: final
+      completion_criteria: null
 checkpoint_settings:
   run_id: flying_agentV0.01
   initialize_from: null

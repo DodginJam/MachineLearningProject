@@ -207,10 +207,10 @@ public class AircraftController : MonoBehaviour
         valuesHolder.HeightAboveSeaLevel = PlaneRigidBody.transform.position.y;
     }
 
-    public void ResetPlane()
+    public void ResetPlane(Vector3 newLinearVelocity, float newThrottleValue = 0)
     {
         PlaneRigidBody.angularVelocity = Vector3.zero;
-        PlaneRigidBody.linearVelocity = Vector3.zero;
-        CurrentValues.FlightControls.AdjustThrottleValue(0);
+        PlaneRigidBody.linearVelocity = newLinearVelocity;
+        CurrentValues.FlightControls.AdjustThrottleValue(newThrottleValue);
     }
 }
