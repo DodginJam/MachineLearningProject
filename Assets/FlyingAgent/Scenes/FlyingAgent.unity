@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StartingVelocity>k__BackingField: 0
-  <StartingThrottleValue>k__BackingField: 1
+  <StartingThrottleValue>k__BackingField: 0
 --- !u!1 &2073832550
 GameObject:
   m_ObjectHideFlags: 0
