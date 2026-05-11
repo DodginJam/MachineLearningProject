@@ -22,6 +22,10 @@ public class FlyingAgent : Agent
     public AircraftController Controller
     { get; private set; }
 
+    [field: SerializeField]
+    public GroundDetection_Aircraft GroundDetection
+    { get; private set; }
+
     private float TimeAlive
     { get; set; }
 
@@ -91,6 +95,20 @@ public class FlyingAgent : Agent
 
         // Level Flight.
         sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 10
+
+        // Are wheels on ground.
+        sensor.AddObservation(IsGrounded()); // 11
+    }
+
+    bool IsGrounded()
+    {
+        if (GroundDetection == null)
+        {
+            Debug.Log("Error: Ground Detection is not assigned.");
+            return false;
+        }
+
+        return GroundDetection.IsGrounded();
     }
 
     private void OnDrawGizmosSelected()
@@ -99,6 +117,7 @@ public class FlyingAgent : Agent
         {
             Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
             Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
+            Debug.Log($"Is Grounded: {GroundDetection.IsGrounded()}");
         }
     }
 

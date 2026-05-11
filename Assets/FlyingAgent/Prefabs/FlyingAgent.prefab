@@ -55,7 +55,7 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
-  m_ObservationStacks: 1
+  m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3848439940091223875}
   - component: {fileID: 2423014844436961813}
+  - component: {fileID: 2022364957963397665}
   m_Layer: 3
   m_Name: Back_Centre
   m_TagString: Untagged
@@ -117,6 +118,19 @@ CapsuleCollider:
   m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.36, z: -2.325}
+--- !u!114 &2022364957963397665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549100418726345081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533bd9322ae38f9479e42da38de76352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CastDistance>k__BackingField: 0.3
 --- !u!1 &612615953742399642
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +378,7 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
-  m_ObservationStacks: 1
+  m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -426,7 +440,7 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
-  m_ObservationStacks: 1
+  m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -445,6 +459,7 @@ GameObject:
   - component: {fileID: 4920375695204523532}
   - component: {fileID: 560283203052409767}
   - component: {fileID: 5384634832498534012}
+  - component: {fileID: 4317708881596818610}
   - component: {fileID: 6306339343328361668}
   - component: {fileID: 8218741393824508731}
   - component: {fileID: 5490828764354219253}
@@ -499,6 +514,7 @@ MonoBehaviour:
   <MaxStepsDuringTraining>k__BackingField: 15000
   <AircraftInputScript>k__BackingField: {fileID: 7021381587938354940}
   <Controller>k__BackingField: {fileID: 2580608668842240578}
+  <GroundDetection>k__BackingField: {fileID: 4317708881596818610}
 --- !u!114 &560283203052409767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,8 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 11
+    NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 4
       BranchSizes: 
@@ -521,7 +537,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 16a586e79ee6cba47b2a4c06eb8bc7ed, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: c772bc4ba4e9ac4469983fc259cd9031, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: FlyingAgent
@@ -545,6 +561,22 @@ MonoBehaviour:
   DecisionPeriod: 5
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
+--- !u!114 &4317708881596818610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786854157504720403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a06f3030d99814293cea3852d2d19b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ContactPointsForGround>k__BackingField:
+  - {fileID: 2317943656214043166}
+  - {fileID: 2022364957963397665}
+  - {fileID: 859114448650160977}
 --- !u!114 &6306339343328361668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,6 +700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5783249887900769365}
   - component: {fileID: 3426906726086245153}
+  - component: {fileID: 2317943656214043166}
   m_Layer: 3
   m_Name: WheelFront_Right
   m_TagString: Untagged
@@ -713,6 +746,19 @@ CapsuleCollider:
   m_Height: 0.4
   m_Direction: 1
   m_Center: {x: 0.5725, y: 0.21, z: 0}
+--- !u!114 &2317943656214043166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981432919050288222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533bd9322ae38f9479e42da38de76352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CastDistance>k__BackingField: 0.3
 --- !u!1 &2242400810560095615
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6127977831456404120}
   - component: {fileID: 4395577647008598785}
+  - component: {fileID: 859114448650160977}
   m_Layer: 3
   m_Name: WheelFront_Left
   m_TagString: Untagged
@@ -874,6 +921,19 @@ CapsuleCollider:
   m_Height: 0.4
   m_Direction: 1
   m_Center: {x: -0.5725, y: 0.21, z: 0}
+--- !u!114 &859114448650160977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2777052100250598334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533bd9322ae38f9479e42da38de76352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CastDistance>k__BackingField: 0.3
 --- !u!1 &3122513006146148417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1181,7 @@ MonoBehaviour:
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 243
-  m_ObservationStacks: 1
+  m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
