@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectEnums;
 
 public class GlobalDetector : Detector, ITargetDetector
 {
@@ -17,7 +18,7 @@ public class GlobalDetector : Detector, ITargetDetector
     {
         var allTargetsToAdd = new Dictionary<int, TargetData>();
 
-        foreach (Target target in TargetManager.AllTargets)
+        foreach (Target_TrackingAgent target in TargetManager.AllTargets)
         {
             if (target.gameObject.activeSelf)
             {

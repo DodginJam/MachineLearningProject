@@ -9,7 +9,7 @@ public class WeaponControl : MonoBehaviour
     public bool TargetDetected
     { get; set; }
 
-    public Target DetectedTarget
+    public Target_TrackingAgent DetectedTarget
     {  get; private set; }
 
     [field: SerializeField]
@@ -45,7 +45,7 @@ public class WeaponControl : MonoBehaviour
         {
             if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Target"))
             {
-                if (hitInfo.transform.gameObject.TryGetComponent<Target>(out Target target))
+                if (hitInfo.transform.gameObject.TryGetComponent<Target_TrackingAgent>(out Target_TrackingAgent target))
                 {
                     TargetDetected = true;
                     DetectedTarget = target;
@@ -67,7 +67,7 @@ public class WeaponControl : MonoBehaviour
     /// </summary>
     /// <param name="detectedTarget"></param>
     /// <returns></returns>
-    public bool IsTargetDetected(out Target detectedTarget)
+    public bool IsTargetDetected(out Target_TrackingAgent detectedTarget)
     {
         detectedTarget = DetectedTarget;
         return TargetDetected;

@@ -1,13 +1,18 @@
-public enum TargetType
+namespace ProjectEnums
 {
-    None,
-    NonTarget,
-    Friendly,
-    Enemy
+    public enum TargetType
+    {
+        None,
+        NonTarget,
+        Friendly,
+        Enemy
+    }
+
+    public enum DetectionMode
+    {
+        Global,
+        Radar
+    }
 }
 
-public enum DetectionMode
-{
-    Global,
-    Radar
-}
+

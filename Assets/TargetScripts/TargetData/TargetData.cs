@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using ProjectEnums;
 
 public class TargetData
 {
-    public TargetData(Target target, TargetType targetType, Vector3 targetPosition)
+    public TargetData(Target_TrackingAgent target, TargetType targetType, Vector3 targetPosition)
     {
         this.TargetObject = target;
         this.TargetType = targetType;
@@ -13,7 +14,7 @@ public class TargetData
         this.TimeSinceLastDetection = 0;
     }
 
-    public Target TargetObject
+    public Target_TrackingAgent TargetObject
     { get; set; }
 
     public TargetType TargetType

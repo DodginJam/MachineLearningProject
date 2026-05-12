@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 335216124766927623}
   - component: {fileID: 5189968677183468479}
   - component: {fileID: 1518793435796121651}
-  - component: {fileID: 4676706922787054275}
+  - component: {fileID: 475881303462119750}
   m_Layer: 6
   m_Name: Target
   m_TagString: goal
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4676706922787054275
+--- !u!114 &475881303462119750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,9 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1401801893019302925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6960cb7c7654bdb45813ed76fae585b1, type: 3}
+  m_Script: {fileID: 11500000, guid: be9e7f4053d6f284d98d3b0e07d8e799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MovementSpeed>k__BackingField: 1
   <MeshRendererRef>k__BackingField: {fileID: 5189968677183468479}
   <FriendlyMaterial>k__BackingField: {fileID: 2100000, guid: 27105dff56069b94cb22503feae02b92, type: 2}
   <EnemyMaterial>k__BackingField: {fileID: 2100000, guid: 3ff1638ff0685544dac4a3aec4ee94a9, type: 2}

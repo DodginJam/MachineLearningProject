@@ -1,6 +1,7 @@
 using System.Linq;
 using Unity.MLAgents;
 using UnityEngine;
+using ProjectEnums;
 
 public class TargetManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class TargetManager : MonoBehaviour
     /// Global list of targets in the scene for management, particualry around start / end episodes - NOT to be used by the agent for observations.
     /// </summary>
     [field: SerializeField, Header("Target Data")]
-    public Target[] AllTargets
+    public Target_TrackingAgent[] AllTargets
     { get; private set; }
 
     /// <summary>
@@ -83,7 +84,7 @@ public class TargetManager : MonoBehaviour
     {
         amountToActivate = Mathf.Clamp(amountToActivate, 1, AllTargets.Length);
 
-        foreach(Target target in AllTargets)
+        foreach(Target_TrackingAgent target in AllTargets)
         {
             target.Die();
         }
@@ -121,7 +122,7 @@ public class TargetManager : MonoBehaviour
     /// </summary>
     public void SetTargetsSpeed()
     {
-        foreach (Target target in AllTargets)
+        foreach (Target_TrackingAgent target in AllTargets)
         {
             target.SetMovementMultiplier(YAMLCommunicatorTrackingObject.Instance.GetMovementSpeed());
         }

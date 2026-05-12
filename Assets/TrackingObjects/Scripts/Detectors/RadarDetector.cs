@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ProjectEnums;
 
 public class RadarDetector : Detector
 {
@@ -184,7 +185,7 @@ public class RadarDetector : Detector
     void ValidateTarget(RaycastHit hitInfo, Dictionary<int, TargetData> toBeAqquiredTargets)
     {
         GameObject hitGameObject = hitInfo.transform.gameObject;
-        if (hitGameObject.TryGetComponent<Target>(out Target target))
+        if (hitGameObject.TryGetComponent<Target_TrackingAgent>(out Target_TrackingAgent target))
         {
             if (!toBeAqquiredTargets.ContainsKey(target.GetGameObjectsInstanceID()))
             {
@@ -207,7 +208,7 @@ public class RadarDetector : Detector
 
         if (hitInfo.transform != null)
         {
-            if (hitInfo.transform.TryGetComponent<Target>(out Target target))
+            if (hitInfo.transform.TryGetComponent<Target_TrackingAgent>(out Target_TrackingAgent target))
             {
                 if (target.TargetTyping == TargetType.Enemy)
                 {

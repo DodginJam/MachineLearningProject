@@ -3,6 +3,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using ProjectEnums;
 
 public class TrackAndFireAgent : Agent
 {
@@ -232,7 +233,7 @@ public class TrackAndFireAgent : Agent
         if (fireAction == 1) WeaponController.FireWeapon(DamagePerTick);
 
         // If a target has been detected by the weapon controller...
-        if (WeaponController.IsTargetDetected(out Target detectedTarget))
+        if (WeaponController.IsTargetDetected(out Target_TrackingAgent detectedTarget))
         {
             // Punish firing at a friendly target, and reward firing an enemy by a small token amount for reward shaping.
             if (fireAction == 1)
