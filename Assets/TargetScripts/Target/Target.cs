@@ -6,13 +6,8 @@ public abstract class Target : MonoBehaviour, ITarget
     public TargetType TargetTyping
     { get; private set; }
 
-    public TargetManager TargetManager
-    { get; private set; }
-
     protected virtual void Awake()
     {
-        TargetManager = transform.parent.GetComponentInChildren<TargetManager>();
-
         Initialise();
     }
 

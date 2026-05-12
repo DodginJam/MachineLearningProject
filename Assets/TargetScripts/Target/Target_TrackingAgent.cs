@@ -3,6 +3,9 @@ using ProjectEnums;
 
 public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChanger
 {
+    public TargetManager_TrackingAgent TargetManager
+    { get; private set; }
+
     public float StartingHealth 
     { get; set; } = 1.0f;
 
@@ -30,6 +33,13 @@ public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChang
     [field: SerializeField]
     public Material EnemyMaterial
     { get; set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        TargetManager = transform.parent.GetComponentInChildren<TargetManager_TrackingAgent>();
+    }
 
     public override void Initialise()
     {

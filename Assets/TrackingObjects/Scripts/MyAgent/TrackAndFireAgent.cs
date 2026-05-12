@@ -53,7 +53,7 @@ public class TrackAndFireAgent : Agent
     { get; private set; }
 
     [field: SerializeField, Header("Managers Targets in the Environment in Episodes")]
-    public TargetManager TargetManager
+    public TargetManager_TrackingAgent TargetManager
     { get; private set; }
 
     private BufferSensorComponent BufferSensorComp
@@ -299,10 +299,13 @@ public class TrackAndFireAgent : Agent
                 AddReward(0.02f * bestDotProduct * Time.fixedDeltaTime);
             }
 
-            // Reward shaping to face towards the target in the correct direction.
-            Vector3 toTarget = (mostFacedTarget.transform.position - WeaponController.transform.position).normalized;
-            Vector3 localDir = WeaponController.transform.InverseTransformDirection(toTarget);
-            AddReward(0.002f * Mathf.Sign(localDir.x) * rotationOutput * Time.fixedDeltaTime);
+            if (targetsToCheck != null && targetsToCheck.Length > 0)
+            {
+                // Reward shaping to face towards the target in the correct direction.
+                Vector3 toTarget = (mostFacedTarget.transform.position - WeaponController.transform.position).normalized;
+                Vector3 localDir = WeaponController.transform.InverseTransformDirection(toTarget);
+                AddReward(0.002f * Mathf.Sign(localDir.x) * rotationOutput * Time.fixedDeltaTime);
+            }
         }
 
         // Time penelty.

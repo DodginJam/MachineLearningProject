@@ -5,7 +5,7 @@ using ProjectEnums;
 public class GlobalDetector : Detector, ITargetDetector
 {
     [field: SerializeField]
-    public TargetManager TargetManager
+    public TargetManager<Target_TrackingAgent> TargetManager
     { get; private set; }
 
     private void OnDisable()

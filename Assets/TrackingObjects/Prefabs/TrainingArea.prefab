@@ -531,7 +531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2215840723176239323}
-  - component: {fileID: 8449372339676589122}
+  - component: {fileID: 4966196307306789743}
   m_Layer: 0
   m_Name: TargetManager
   m_TagString: Untagged
@@ -554,7 +554,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 698357847878552168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8449372339676589122
+--- !u!114 &4966196307306789743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2284646496417450130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41dcda606153204ba2a319085f50143, type: 3}
+  m_Script: {fileID: 11500000, guid: a96b4c466f333d84eb9e403f79b6b9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <AllTargets>k__BackingField:
@@ -587,6 +587,7 @@ MonoBehaviour:
   - {fileID: 6944189769941742322}
   - {fileID: 2867546699832288924}
   - {fileID: 7171174676303058725}
+  <AreanaSizeToHeightRation>k__BackingField: 5
   <TrainingArea>k__BackingField: {fileID: 4488109530853644271}
 --- !u!1 &2544979976553240735
 GameObject:
@@ -1497,8 +1498,8 @@ MonoBehaviour:
     <RotationSpeed>k__BackingField: 500
   <WeaponController>k__BackingField: {fileID: 2774225666729760548}
   <GlobalDetector>k__BackingField: {fileID: 7616474556802467660}
-  <RadarDetector>k__BackingField: {fileID: 3161850511720872878}
-  <TargetManager>k__BackingField: {fileID: 8449372339676589122}
+  <RadarDetector>k__BackingField: {fileID: 2807399255898292894}
+  <TargetManager>k__BackingField: {fileID: 4966196307306789743}
   <DamagePerTick>k__BackingField: 1000
   <DetectionMode>k__BackingField: 0
   <AreanaObject>k__BackingField: {fileID: 1762218338576620037}
@@ -2448,19 +2449,42 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4354079082219158958, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2807399255898292894}
   m_SourcePrefab: {fileID: 100100000, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
---- !u!114 &3161850511720872878 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+--- !u!1 &1576930831315844120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
   m_PrefabInstance: {fileID: 4508664185542212876}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &2807399255898292894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576930831315844120}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0071106000602f44c98258724b5e8dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DetectionDistance>k__BackingField: 420
+  <RadarHeight>k__BackingField: 400
+  <RotationSpeed>k__BackingField: 2000
+  <NumberOfStackRayOriginPoints>k__BackingField: 50
+  <NumberOfRaysPerPoint>k__BackingField: 10
+  <RadarAngleOfRays>k__BackingField: 16
+  <MasksToDetect>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  <XRotation>k__BackingField: 0
+  <ZRotation>k__BackingField: 0
+  <TimeOutTarget>k__BackingField: 0.2
+  <ShowRays>k__BackingField: 1
+  <RayDuration>k__BackingField: 0.1
 --- !u!4 &5146084160788516575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
@@ -2643,8 +2667,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4354079082219158958, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
     m_AddedGameObjects: []
@@ -2676,7 +2699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DetectionDistance>k__BackingField: 100
-  <TargetManager>k__BackingField: {fileID: 8449372339676589122}
+  <TargetManager>k__BackingField: {fileID: 4966196307306789743}
 --- !u!1001 &6784304030247950125
 PrefabInstance:
   m_ObjectHideFlags: 0
