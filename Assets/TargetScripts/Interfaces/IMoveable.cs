@@ -5,12 +5,12 @@ public interface IMoveable
     public float MovementSpeed
     { get; set; }
 
-    public Vector3 EndPoint
+    public Vector3 MoveToPosition
     { get; set; }
 
-    public void SetMovementMultiplier(float newMovementMultiplier);
+    public void SetMovementSpeed(float movementSpeed);
 
     public void Movement();
 
-    public void SetEndPoint(Vector3 endPoint);
+    public void SetPositionToMoveTo(Vector3 position);
 }

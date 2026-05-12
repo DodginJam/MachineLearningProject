@@ -16,7 +16,7 @@ public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChang
     public float MovementSpeed
     { get; set; } = 1.0f;
 
-    public Vector3 EndPoint
+    public Vector3 MoveToPosition
     { get; set; }
 
     [field: SerializeField]
@@ -38,9 +38,8 @@ public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChang
         IsDead = false;
     }
 
-    protected override void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        base.FixedUpdate();
         Movement();
     }
 
@@ -73,23 +72,23 @@ public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChang
     {
         float distanceToMove = Time.fixedDeltaTime * MovementSpeed;
 
-        Vector3 newPosition = Vector3.MoveTowards(transform.position, EndPoint, distanceToMove);
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, MoveToPosition, distanceToMove);
         transform.position = newPosition;
 
-        if (Vector3.Distance(transform.position, EndPoint) <= 0.01f)
+        if (Vector3.Distance(transform.position, MoveToPosition) <= 0.01f)
         {
             TargetManager.GetBoundsLimits(TargetManager.TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
-            SetEndPoint(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
+            SetPositionToMoveTo(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
         }
     }
 
-    public void SetMovementMultiplier(float newMovementMultiplier)
+    public void SetMovementSpeed(float newMovementMultiplier)
     {
         MovementSpeed = newMovementMultiplier;
     }
 
-    public void SetEndPoint(Vector3 endPoint)
+    public void SetPositionToMoveTo(Vector3 endPoint)
     {
-        EndPoint = endPoint;
+        MoveToPosition = endPoint;
     }
 }

@@ -99,7 +99,7 @@ public class TargetManager : MonoBehaviour
             AllTargets[i].SetSize(YAMLCommunicatorTrackingObject.Instance.GetSizeOfTargets());
 
             GetBoundsLimits(TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
-            AllTargets[i].SetEndPoint(GetRandomPointInArea(minX, maxX, minZ, maxZ));
+            AllTargets[i].SetPositionToMoveTo(GetRandomPointInArea(minX, maxX, minZ, maxZ));
         }
     }
 
@@ -124,7 +124,7 @@ public class TargetManager : MonoBehaviour
     {
         foreach (Target_TrackingAgent target in AllTargets)
         {
-            target.SetMovementMultiplier(YAMLCommunicatorTrackingObject.Instance.GetMovementSpeed());
+            target.SetMovementSpeed(YAMLCommunicatorTrackingObject.Instance.GetMovementSpeed());
         }
     }
 }
