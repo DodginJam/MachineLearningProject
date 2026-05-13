@@ -1,0 +1,88 @@
+using UnityEngine;
+using ProjectEnums;
+
+public class Target_FlyingAgent : Target, IKillable, IMoveable
+{
+    public TargetManager_TrackingAgent TargetManager
+    { get; private set; }
+
+    public float StartingHealth 
+    { get; set; } = 1.0f;
+
+    public float CurrentHealth
+    { get; set; }
+
+    public bool IsDead
+    { get; set; }
+
+    [field: SerializeField]
+    public float MovementSpeed
+    { get; set; } = 1.0f;
+
+    public Vector3 MoveToPosition
+    { get; set; }
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        TargetManager = transform.parent.GetComponentInChildren<TargetManager_TrackingAgent>();
+    }
+
+    public override void Initialise()
+    {
+        CurrentHealth = StartingHealth;
+        gameObject.SetActive(true);
+        IsDead = false;
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        Movement();
+    }
+
+    public void Die()
+    {
+        this.gameObject.SetActive(false);
+        IsDead = true;
+    }
+
+    public void TakeDamage(float damageToTake)
+    {
+        CurrentHealth = Mathf.Clamp01(CurrentHealth - damageToTake);
+
+        if (CurrentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    public void Revive()
+    {
+        Initialise();
+    }
+
+    public void Movement()
+    {
+        float distanceToMove = Time.fixedDeltaTime * MovementSpeed;
+
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, MoveToPosition, distanceToMove);
+        transform.position = newPosition;
+
+        if (Vector3.Distance(transform.position, MoveToPosition) <= 0.01f)
+        {
+            TargetManager.GetBoundsLimits(TargetManager.TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
+            SetPositionToMoveTo(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
+        }
+    }
+
+    public void SetMovementSpeed(float newMovementMultiplier)
+    {
+        MovementSpeed = newMovementMultiplier;
+    }
+
+    public void SetPositionToMoveTo(Vector3 endPoint)
+    {
+        MoveToPosition = endPoint;
+    }
+}
