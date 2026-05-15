@@ -7,4 +7,6 @@ public interface ITargetDetector
 
     public Dictionary<int, TargetData> DetectedTargets
     { get; }
+
+    void ApplyDetectionLoop();
 }

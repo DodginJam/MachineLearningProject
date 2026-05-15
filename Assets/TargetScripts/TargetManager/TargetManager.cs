@@ -17,8 +17,6 @@ public abstract class TargetManager<T> : MonoBehaviour where T : Target
     /// </summary>
     public abstract void SetTargetsToNewSpot();
 
-    public abstract float GetMaxTargetHeight();
-
     /// <summary>
     /// Activate targets.
     /// </summary>

@@ -1,9 +1,10 @@
 using UnityEngine;
 using ProjectEnums;
+using System;
 
 public class Target_FlyingAgent : Target, IKillable, IMoveable
 {
-    public TargetManager_TrackingAgent TargetManager
+    public TargetManager_FlyingAgent TargetManager
     { get; private set; }
 
     public float StartingHealth 
@@ -22,12 +23,11 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
     public Vector3 MoveToPosition
     { get; set; }
 
-
     protected override void Awake()
     {
         base.Awake();
 
-        TargetManager = transform.parent.GetComponentInChildren<TargetManager_TrackingAgent>();
+        TargetManager = transform.parent.GetComponentInChildren<TargetManager_FlyingAgent>();
     }
 
     public override void Initialise()
@@ -71,9 +71,14 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
 
         if (Vector3.Distance(transform.position, MoveToPosition) <= 0.01f)
         {
-            TargetManager.GetBoundsLimits(TargetManager.TrainingArea, out float minX, out float maxX, out float minZ, out float maxZ);
-            SetPositionToMoveTo(TargetManager.GetRandomPointInArea(minX, maxX, minZ, maxZ));
+            Vector3 positionToMoveTo = GetPositionInArea();
+            SetPositionToMoveTo(positionToMoveTo);
         }
+    }
+
+    public Vector3 GetPositionInArea()
+    {
+        return default(Vector3);
     }
 
     public void SetMovementSpeed(float newMovementMultiplier)

@@ -5,16 +5,20 @@ using ProjectEnums;
 
 public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
 {
-    public override float GetMaxTargetHeight()
+    [field: SerializeField]
+    public BoxCollider TargetArea
+    { get; private set; }
+
+    private void Start()
     {
-        return default;
+        SetTargetsToNewSpot();
     }
 
     public override void SetTargetsToNewSpot()
     {
         foreach (Target_FlyingAgent target in AllTargets)
         {
-            target.transform.position = GetPositionInArea();
+            target.transform.position = GetPositionWithinArea();
         }   
     }
 
@@ -37,13 +41,24 @@ public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
             AllTargets[i].SetTargetTyping(TargetType.Enemy);
             AllTargets[i].SetSize(GetScale());
 
-            AllTargets[i].SetPositionToMoveTo(GetPositionInArea());
+            AllTargets[i].SetPositionToMoveTo(GetPositionWithinArea());
         }
     }
 
-    Vector3 GetPositionInArea()
+    Vector3 GetPositionWithinArea()
     {
-        return default(Vector3);
+        Vector3 position = Vector3.zero;
+
+        float xExtents = TargetArea.size.z / 2;
+        float yExtents = TargetArea.size.y / 2;
+        float zExtents = TargetArea.size.z / 2;
+
+        Vector3 localPosition = TargetArea.center + new Vector3 (Random.Range(-xExtents, xExtents), Random.Range(-yExtents, yExtents), Random.Range(-zExtents, zExtents));
+        position = TargetArea.transform.TransformPoint(localPosition);
+
+        Debug.DrawLine(position, Vector3.zero, Color.magenta);
+
+        return position;
     }
 
     float GetScale()

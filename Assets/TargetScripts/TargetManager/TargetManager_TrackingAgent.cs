@@ -19,7 +19,7 @@ public class TargetManager_TrackingAgent : TargetManager<Target_TrackingAgent>
     public MeshRenderer TrainingArea
     { get; private set; }
 
-    public override float GetMaxTargetHeight()
+    protected float GetMaxTargetHeight()
     {
         float returneHeight = YAMLCommunicatorTrackingObject.Instance.GetArenaSize() * AreanaSizeToHeightRation;
         return returneHeight;

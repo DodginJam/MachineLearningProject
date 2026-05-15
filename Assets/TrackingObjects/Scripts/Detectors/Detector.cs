@@ -37,7 +37,7 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
     /// <summary>
     /// To be called in the fixed update loop, this represent the update cycle for how to process and collect targets.
     /// </summary>
-    protected void ApplyDetectionLoop()
+    public void ApplyDetectionLoop()
     {
         PreDetectionEvents?.Invoke();
 
