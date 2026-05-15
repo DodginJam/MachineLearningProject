@@ -58903,7 +58903,7 @@ GameObject:
   - component: {fileID: 8610556069885897424}
   - component: {fileID: 1264414166036248176}
   - component: {fileID: 2182025569917993666}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TargetManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58972,9 +58972,9 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
