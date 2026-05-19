@@ -1463,6 +1463,7 @@ Transform:
   - {fileID: 3324407941488057971}
   - {fileID: 5146084160788516575}
   - {fileID: 3275414737165760161}
+  - {fileID: 8653008019811563808}
   m_Father: {fileID: 698357847878552168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &14461689522873057
@@ -1499,9 +1500,10 @@ MonoBehaviour:
   <WeaponController>k__BackingField: {fileID: 2774225666729760548}
   <GlobalDetector>k__BackingField: {fileID: 7616474556802467660}
   <RadarDetector>k__BackingField: {fileID: 2807399255898292894}
+  <OverlapSphereDetector>k__BackingField: {fileID: 1579507941837529933}
   <TargetManager>k__BackingField: {fileID: 4966196307306789743}
   <DamagePerTick>k__BackingField: 1000
-  <DetectionMode>k__BackingField: 0
+  <DetectionMode>k__BackingField: 2
   <AreanaObject>k__BackingField: {fileID: 1762218338576620037}
 --- !u!114 &8268060000890128691
 MonoBehaviour:
@@ -1564,6 +1566,129 @@ MonoBehaviour:
   m_SensorName: TargetTracker
   m_ObservableSize: 12
   m_MaxNumObservables: 20
+--- !u!1001 &139266916948495091
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 302193565604965786}
+    m_Modifications:
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: <ShowRays>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: <RayDuration>k__BackingField
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: <TimeOutTarget>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: <RadarAngleOfRays>k__BackingField
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544972689054533282, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: <DetectionDistance>k__BackingField
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918642290150369687, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.062
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918642290150369687, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.735
+      objectReference: {fileID: 0}
+    - target: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_Name
+      value: OverlapSphereDetector
+      objectReference: {fileID: 0}
+    - target: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4354079082219158958, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1579507941837529933}
+  m_SourcePrefab: {fileID: 100100000, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+--- !u!1 &3070710068826082279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3131017741930447124, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+  m_PrefabInstance: {fileID: 139266916948495091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1579507941837529933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3070710068826082279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605a99ecc3c0c12429b9d2e5d8612012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DetectionDistance>k__BackingField: 1000
+  <MasksToDetect>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!4 &8653008019811563808 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8789740555708183507, guid: 24c50e1a4e2152d4594347c29c8009d8, type: 3}
+  m_PrefabInstance: {fileID: 139266916948495091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &646824285188675934
 PrefabInstance:
   m_ObjectHideFlags: 0

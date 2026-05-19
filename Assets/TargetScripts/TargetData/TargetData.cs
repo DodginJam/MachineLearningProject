@@ -4,7 +4,7 @@ using ProjectEnums;
 
 public class TargetData
 {
-    public TargetData(Target_TrackingAgent target, TargetType targetType, Vector3 targetPosition)
+    public TargetData(Target target, TargetType targetType, Vector3 targetPosition)
     {
         this.TargetObject = target;
         this.TargetType = targetType;
@@ -14,7 +14,7 @@ public class TargetData
         this.TimeSinceLastDetection = 0;
     }
 
-    public Target_TrackingAgent TargetObject
+    public Target TargetObject
     { get; set; }
 
     public TargetType TargetType

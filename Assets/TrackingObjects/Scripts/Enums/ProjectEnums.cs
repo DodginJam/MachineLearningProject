@@ -11,7 +11,8 @@ namespace ProjectEnums
     public enum DetectionMode
     {
         Global,
-        Radar
+        Radar,
+        OverlapSphere
     }
 }
 

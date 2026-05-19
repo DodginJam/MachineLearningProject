@@ -41,15 +41,25 @@ public abstract class Detector : MonoBehaviour, ITargetDetector
     {
         PreDetectionEvents?.Invoke();
 
+        GetTargets();
+
+        RemoveTargets();
+
+        PostDetectionEvents?.Invoke();
+    }
+
+    public virtual void GetTargets()
+    {
         // Grab the data from the targets detected this frame.
         Dictionary<int, TargetData> aqquiredTargets = DetectAndReturnTargets();
         AddOrUpdateTargetsToDictionary(aqquiredTargets);
+    }
 
+    public virtual void RemoveTargets()
+    {
         // Find the items that have timed out from last detection limit.
         var itemsToRemove = GetTargetsToRemoveFromDictionary();
         RemoveTargetsFromDictionary(itemsToRemove);
-
-        PostDetectionEvents?.Invoke();
     }
 
     public void FixedUpdate()

@@ -46,6 +46,10 @@ public class TrackAndFireAgent : Agent
     public RadarDetector RadarDetector
     { get; private set; }
 
+    [field: SerializeField]
+    public OverlapSphereDetector OverlapSphereDetector
+    { get; private set; }
+
     /// <summary>
     /// Current detection type being used.
     /// </summary>
@@ -90,6 +94,8 @@ public class TrackAndFireAgent : Agent
         GlobalDetector.gameObject.SetActive(false);
         RadarDetector.enabled = false;
         RadarDetector.gameObject.SetActive(false);
+        OverlapSphereDetector.enabled = false;
+        OverlapSphereDetector.gameObject.SetActive(false);
 
         SetTargetDetectorType();
     }
@@ -153,6 +159,11 @@ public class TrackAndFireAgent : Agent
         {
             DetectionMode = DetectionMode.Radar;
             TargetDetector = RadarDetector;
+        }
+        else if (DetectionMode == DetectionMode.OverlapSphere)
+        {
+            DetectionMode = DetectionMode.OverlapSphere;
+            TargetDetector = OverlapSphereDetector;
         }
 
         TargetDetector.enabled = true;
