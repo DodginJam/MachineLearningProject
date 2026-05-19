@@ -48,13 +48,15 @@ MonoBehaviour:
   m_DetectableTags:
   - ground
   - block
+  - wall
+  - goal
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 10
   m_RayLength: 75
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 243
+    m_Bits: 497
   m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
@@ -371,13 +373,15 @@ MonoBehaviour:
   m_DetectableTags:
   - ground
   - block
+  - wall
+  - goal
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 180
   m_SphereCastRadius: 10
   m_RayLength: 75
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 243
+    m_Bits: 497
   m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
@@ -433,13 +437,15 @@ MonoBehaviour:
   m_DetectableTags:
   - ground
   - block
+  - wall
+  - goal
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 10
   m_SphereCastRadius: 5
   m_RayLength: 300
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 243
+    m_Bits: 497
   m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
@@ -1174,13 +1180,15 @@ MonoBehaviour:
   m_DetectableTags:
   - ground
   - block
+  - wall
+  - goal
   m_RaysPerDirection: 5
   m_MaxRayDegrees: 10
   m_SphereCastRadius: 5
   m_RayLength: 300
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 243
+    m_Bits: 497
   m_ObservationStacks: 5
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
