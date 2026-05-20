@@ -23,6 +23,10 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
     public Vector3 MoveToPosition
     { get; set; }
 
+    [field: SerializeField]
+    public LayerMask TriggerMasks
+    { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,6 +39,9 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
         CurrentHealth = StartingHealth;
         gameObject.SetActive(true);
         IsDead = false;
+
+        SetMovementSpeed(EnvironmentParametersFlyingAgent.Instance.GetMovementSpeed());
+        SetSize(EnvironmentParametersFlyingAgent.Instance.GetTargetsScale());
     }
 
     protected virtual void FixedUpdate()
@@ -78,7 +85,7 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
 
     public Vector3 GetPositionInArea()
     {
-        return default(Vector3);
+        return TargetManager.GetPositionWithinArea();
     }
 
     public void SetMovementSpeed(float newMovementMultiplier)
@@ -89,5 +96,21 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
     public void SetPositionToMoveTo(Vector3 endPoint)
     {
         MoveToPosition = endPoint;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((TriggerMasks.value & (1 << other.gameObject.layer)) != 0)
+        {
+            if (other.attachedRigidbody != null && other.attachedRigidbody.transform.TryGetComponent<FlyingAgent>(out FlyingAgent flyingAgent))
+            {
+                Debug.Log("Success trigger plane to target.");
+                flyingAgent.AddReward(1.0f);
+                transform.position = GetPositionInArea();
+                SetPositionToMoveTo(GetPositionInArea());
+
+                Revive();
+            }
+        }
     }
 }

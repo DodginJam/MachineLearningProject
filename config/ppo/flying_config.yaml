@@ -166,3 +166,137 @@ environment_parameters:
 
       - name: final
         value: 0
+
+  targets_scale:
+    curriculum:
+      - name: easy1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.1
+          min_lesson_length: 1000
+        value: 100
+
+      - name: easy2
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.2
+          min_lesson_length: 1000
+          require_reset: true
+        value: 90
+
+      - name: medium1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.3
+          min_lesson_length: 1000
+          require_reset: true
+        value: 70
+
+      - name: medium2
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.4
+          min_lesson_length: 1000
+          require_reset: true
+        value: 60
+
+      - name: medium3
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.5
+          min_lesson_length: 1000
+          require_reset: true
+        value: 50
+
+      - name: hard1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.6
+          min_lesson_length: 1000
+          require_reset: true
+        value: 40
+
+      - name: hard1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.7
+          min_lesson_length: 1000
+          require_reset: true
+        value: 30
+
+      - name: final
+        value: 20
+
+  targets_movement:
+    curriculum:
+      - name: easy1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.1
+          min_lesson_length: 1000
+        value: 20
+
+      - name: easy2
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.2
+          min_lesson_length: 1000
+          require_reset: true
+        value: 35
+
+      - name: medium1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.3
+          min_lesson_length: 1000
+          require_reset: true
+        value: 50
+
+      - name: medium2
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.4
+          min_lesson_length: 1000
+          require_reset: true
+        value: 65
+
+      - name: medium3
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.5
+          min_lesson_length: 1000
+          require_reset: true
+        value: 80
+
+      - name: hard1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.6
+          min_lesson_length: 1000
+          require_reset: true
+        value: 95
+
+      - name: hard1
+        completion_criteria:
+          measure: reward
+          behavior: FlyingAgent
+          threshold: 0.7
+          min_lesson_length: 1000
+          require_reset: true
+        value: 110
+
+      - name: final
+        value: 125

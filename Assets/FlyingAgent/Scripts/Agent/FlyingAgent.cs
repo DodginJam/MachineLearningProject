@@ -1,4 +1,6 @@
 using AircraftData;
+using ProjectEnums;
+using System.Linq;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -28,6 +30,14 @@ public class FlyingAgent : Agent
 
     private float TimeAlive
     { get; set; }
+
+    [field: SerializeField]
+    public Detector TargetDetector
+    { get; private set; }
+
+    [field: SerializeField]
+    public BufferSensorComponent BufferSensorComp
+    { get; private set; }
 
     protected override void Awake()
     {
@@ -98,6 +108,44 @@ public class FlyingAgent : Agent
 
         // Are wheels on ground.
         sensor.AddObservation(IsGrounded()); // 11
+
+        int index = 0;
+        // Adding observations into the buffer sensor.
+        foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => (element.Value.CurrentTargetPosition - this.transform.position).sqrMagnitude))
+        {
+            if (index >= BufferSensorComp.MaxNumObservables)
+            {
+                Debug.LogWarning($"Index at {index} - Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
+                break;
+            }
+            index++;
+            float[] observationArray = new float[BufferSensorComp.ObservableSize];
+
+            // First 3 values as the direction of the target relative to the face of the agent.
+            Vector3 localSpacePositionOfTarget = this.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
+            Vector3 relativeDir = localSpacePositionOfTarget.normalized;
+            observationArray[0] = relativeDir.x;
+            observationArray[1] = relativeDir.y;
+            observationArray[2] = relativeDir.z;
+            // Magnitude / length set to a normalised value based on the max detection range.
+            observationArray[3] = localSpacePositionOfTarget.magnitude / TargetDetector.DetectionDistance;
+
+            // Second set of 3 values are the velocity of the target calculated from it's last known position.
+            Vector3 velocity = (target.Value.CurrentTargetPosition - target.Value.PriorTargetPosition) / Time.fixedDeltaTime;
+            Vector3 localVelocity = this.transform.InverseTransformDirection(velocity);
+            // Normalise value to range of 1;
+            float tempMaxTargetSpeed = 50;
+            localVelocity = Vector3.ClampMagnitude(localVelocity / tempMaxTargetSpeed, 1f);
+            observationArray[4] = localVelocity.x;
+            observationArray[5] = localVelocity.y;
+            observationArray[6] = localVelocity.z;
+
+            // Dot product to represent how the agent is facing the target.
+            float dot = Vector3.Dot(this.transform.forward, (target.Value.CurrentTargetPosition - this.transform.position).normalized);
+            observationArray[7] = dot;
+
+            BufferSensorComp.AppendObservation(observationArray);
+        }
     }
 
     bool IsGrounded()

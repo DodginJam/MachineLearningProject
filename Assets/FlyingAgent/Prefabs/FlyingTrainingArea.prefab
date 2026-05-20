@@ -3913,8 +3913,8 @@ Transform:
   m_GameObject: {fileID: 454078615012193074}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -4005,7 +4005,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &484739176365116567
 GameObject:
   m_ObjectHideFlags: 0
@@ -6279,8 +6282,8 @@ Transform:
   m_GameObject: {fileID: 743045422393141870}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -6371,7 +6374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &743353364459262822
 GameObject:
   m_ObjectHideFlags: 0
@@ -11656,8 +11662,8 @@ Transform:
   m_GameObject: {fileID: 1503340568611513108}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -11748,7 +11754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1508846296601898654
 GameObject:
   m_ObjectHideFlags: 0
@@ -13182,8 +13191,8 @@ Transform:
   m_GameObject: {fileID: 1640679899707997268}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -13274,7 +13283,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1644272893407141242
 GameObject:
   m_ObjectHideFlags: 0
@@ -14384,8 +14396,8 @@ Transform:
   m_GameObject: {fileID: 1799933515599903975}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -14476,7 +14488,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1811136800644739667
 GameObject:
   m_ObjectHideFlags: 0
@@ -16614,8 +16629,8 @@ Transform:
   m_GameObject: {fileID: 2073354677128757237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -16706,7 +16721,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2073980418434810865
 GameObject:
   m_ObjectHideFlags: 0
@@ -16952,8 +16970,8 @@ Transform:
   m_GameObject: {fileID: 2099033181744317876}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -17044,7 +17062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2118417322300100825
 GameObject:
   m_ObjectHideFlags: 0
@@ -18283,8 +18304,8 @@ Transform:
   m_GameObject: {fileID: 2291463638901473093}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -18375,7 +18396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2301163906705630043
 GameObject:
   m_ObjectHideFlags: 0
@@ -19701,8 +19725,8 @@ Transform:
   m_GameObject: {fileID: 2407178348040696926}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -19793,7 +19817,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &2421811510654874074
 GameObject:
   m_ObjectHideFlags: 0
@@ -32990,8 +33017,8 @@ Transform:
   m_GameObject: {fileID: 3937453602085977779}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -33082,7 +33109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &3947144978547144930
 GameObject:
   m_ObjectHideFlags: 0
@@ -33220,8 +33250,8 @@ Transform:
   m_GameObject: {fileID: 3950697262567391624}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -33312,7 +33342,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &3993153193065106010
 GameObject:
   m_ObjectHideFlags: 0
@@ -35610,8 +35643,8 @@ Transform:
   m_GameObject: {fileID: 4427443050686719468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -35702,7 +35735,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &4439651113962720740
 GameObject:
   m_ObjectHideFlags: 0
@@ -35811,115 +35847,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &4445571131228464722
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7787770034469972627}
-  - component: {fileID: 8231022247282997052}
-  - component: {fileID: 3674198161833212988}
-  - component: {fileID: 5752552898774120627}
-  m_Layer: 8
-  m_Name: Ground
-  m_TagString: ground
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &7787770034469972627
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4445571131228464722}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 250}
-  m_LocalScale: {x: 1, y: 1, z: 50}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1613357770035488041}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8231022247282997052
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4445571131228464722}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3674198161833212988
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4445571131228464722}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1064bf50298419a47873b03212009283, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5752552898774120627
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4445571131228464722}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &4473400451658124942
 GameObject:
   m_ObjectHideFlags: 0
@@ -44207,7 +44134,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2170602310347535142}
-  - {fileID: 7787770034469972627}
   - {fileID: 8273319341652235346}
   - {fileID: 704830333082222559}
   - {fileID: 37640959634088725}
@@ -45973,8 +45899,8 @@ Transform:
   m_GameObject: {fileID: 5897185483848114489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -46065,7 +45991,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &5900017746426034418
 GameObject:
   m_ObjectHideFlags: 0
@@ -47334,8 +47263,8 @@ Transform:
   m_GameObject: {fileID: 6097135347262228690}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -47426,7 +47355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &6103592468144546397
 GameObject:
   m_ObjectHideFlags: 0
@@ -51530,8 +51462,8 @@ Transform:
   m_GameObject: {fileID: 6695746889034324542}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -51622,7 +51554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &6706964856956441919
 GameObject:
   m_ObjectHideFlags: 0
@@ -53380,8 +53315,8 @@ Transform:
   m_GameObject: {fileID: 6909511821454742766}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -53472,7 +53407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &6921009660654244128
 GameObject:
   m_ObjectHideFlags: 0
@@ -57583,8 +57521,8 @@ Transform:
   m_GameObject: {fileID: 7629558895266327791}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -57675,7 +57613,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7659151074564607782
 GameObject:
   m_ObjectHideFlags: 0
@@ -57921,8 +57862,8 @@ Transform:
   m_GameObject: {fileID: 7683602715249620894}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -58013,7 +57954,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7689870167995741708
 GameObject:
   m_ObjectHideFlags: 0
@@ -58151,8 +58095,8 @@ Transform:
   m_GameObject: {fileID: 7705281548433441647}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -58243,7 +58187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7715010506805848966
 GameObject:
   m_ObjectHideFlags: 0
@@ -62815,8 +62762,8 @@ Transform:
   m_GameObject: {fileID: 8325101837707720175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 15}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 146, z: 154}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5122707390544492781}
@@ -62907,7 +62854,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9fa41001bd5738428e25138b8178197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovementSpeed>k__BackingField: 1
+  <MovementSpeed>k__BackingField: 20
+  <TriggerMasks>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &8334166942027776414
 GameObject:
   m_ObjectHideFlags: 0
@@ -64742,7 +64692,7 @@ GameObject:
   - component: {fileID: 1063993437004264345}
   - component: {fileID: 6452818443883692351}
   m_Layer: 8
-  m_Name: Ground2
+  m_Name: Ground
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

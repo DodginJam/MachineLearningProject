@@ -12,6 +12,8 @@ public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
     private void Start()
     {
         SetTargetsToNewSpot();
+
+        ActivateTargets(20);
     }
 
     public override void SetTargetsToNewSpot()
@@ -39,13 +41,12 @@ public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
         {
             AllTargets[i].Revive();
             AllTargets[i].SetTargetTyping(TargetType.Enemy);
-            AllTargets[i].SetSize(GetScale());
-
+            AllTargets[i].transform.position = GetPositionWithinArea();
             AllTargets[i].SetPositionToMoveTo(GetPositionWithinArea());
         }
     }
 
-    Vector3 GetPositionWithinArea()
+    public Vector3 GetPositionWithinArea()
     {
         Vector3 position = Vector3.zero;
 
@@ -63,22 +64,11 @@ public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
 
     float GetScale()
     {
-        return default(float);
+        return EnvironmentParametersFlyingAgent.Instance.GetTargetsScale();
     }
 
     float GetMovementSpeed()
     {
-        return default(float);
-    }
-
-    /// <summary>
-    /// Apply the targets speed via environment parameter from the configuration file of the agent.
-    /// </summary>
-    public void SetTargetsSpeed()
-    {
-        foreach (Target_FlyingAgent target in AllTargets)
-        {
-            target.SetMovementSpeed(GetMovementSpeed());
-        }
+        return EnvironmentParametersFlyingAgent.Instance.GetMovementSpeed();
     }
 }

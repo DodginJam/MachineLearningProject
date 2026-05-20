@@ -8,9 +8,17 @@ public class EnvironmentParametersFlyingAgent : EnvironmentParameters<Environmen
     public float StartingVelocity
     { get; private set; } = 50;
 
-    [field: SerializeField, Header("Envionment Parameters: Inference Values")]
+    [field: SerializeField]
     public float StartingThrottleValue
     { get; private set; } = 1;
+
+    [field: SerializeField]
+    public float TargetsScale
+    { get; private set; } = 50;
+
+    [field: SerializeField]
+    public float TargetsMovement
+    { get; private set; } = 20;
 
     public float GetStartingVelocity()
     {
@@ -20,5 +28,15 @@ public class EnvironmentParametersFlyingAgent : EnvironmentParameters<Environmen
     public float GetThrottleValue()
     {
         return Academy.Instance.EnvironmentParameters.GetWithDefault("starting_throttle_value", StartingThrottleValue);
+    }
+
+    public float GetTargetsScale()
+    {
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("targets_scale", TargetsScale);
+    }
+
+    public float GetMovementSpeed()
+    {
+        return Academy.Instance.EnvironmentParameters.GetWithDefault("targets_movement", TargetsMovement);
     }
 }
