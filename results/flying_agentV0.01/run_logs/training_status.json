@@ -5,34 +5,40 @@
     "starting_throttle_value": {
         "lesson_num": 7
     },
+    "targets_scale": {
+        "lesson_num": 7
+    },
+    "targets_movement": {
+        "lesson_num": 7
+    },
     "FlyingAgent": {
         "checkpoints": [
             {
-                "steps": 19999855,
-                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999855.onnx",
-                "reward": 1.403711219185165,
-                "creation_time": 1778484429.696835,
+                "steps": 19999878,
+                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999878.onnx",
+                "reward": null,
+                "creation_time": 1779296684.4072511,
                 "auxillary_file_paths": [
-                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999855.pt"
+                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-19999878.pt"
                 ]
             },
             {
-                "steps": 20000111,
-                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000111.onnx",
-                "reward": 1.403711219185165,
-                "creation_time": 1778484429.842126,
+                "steps": 20000134,
+                "file_path": "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000134.onnx",
+                "reward": null,
+                "creation_time": 1779296684.6941586,
                 "auxillary_file_paths": [
-                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000111.pt"
+                    "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000134.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 20000111,
+            "steps": 20000134,
             "file_path": "results\\flying_agentV0.01\\FlyingAgent.onnx",
-            "reward": 1.403711219185165,
-            "creation_time": 1778484429.842126,
+            "reward": null,
+            "creation_time": 1779296684.6941586,
             "auxillary_file_paths": [
-                "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000111.pt"
+                "results\\flying_agentV0.01\\FlyingAgent\\FlyingAgent-20000134.pt"
             ]
         }
     },

@@ -35,7 +35,7 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
-    init_path: null
+    init_path: results\flying_agentV0.01\FlyingAgent\checkpoint.pt
     keep_checkpoints: 2
     even_checkpoints: false
     max_steps: 20000000
@@ -70,7 +70,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 110
+          seed: 3761
           value: 50
       name: easy1
       completion_criteria:
@@ -83,7 +83,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 111
+          seed: 3762
           value: 40
       name: easy2
       completion_criteria:
@@ -96,7 +96,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 112
+          seed: 3763
           value: 30
       name: medium1
       completion_criteria:
@@ -109,7 +109,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 113
+          seed: 3764
           value: 20
       name: medium2
       completion_criteria:
@@ -122,7 +122,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 114
+          seed: 3765
           value: 10
       name: medium3
       completion_criteria:
@@ -135,7 +135,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 115
+          seed: 3766
           value: 5
       name: hard1
       completion_criteria:
@@ -148,7 +148,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 116
+          seed: 3767
           value: 2.5
       name: hard1
       completion_criteria:
@@ -161,7 +161,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 117
+          seed: 3768
           value: 0
       name: final
       completion_criteria: null
@@ -170,7 +170,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 118
+          seed: 3769
           value: 1
       name: easy1
       completion_criteria:
@@ -183,7 +183,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 119
+          seed: 3770
           value: 0.95
       name: easy2
       completion_criteria:
@@ -196,7 +196,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 120
+          seed: 3771
           value: 0.75
       name: medium1
       completion_criteria:
@@ -209,7 +209,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 121
+          seed: 3772
           value: 0.6
       name: medium2
       completion_criteria:
@@ -222,7 +222,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 122
+          seed: 3773
           value: 0.45
       name: medium3
       completion_criteria:
@@ -235,7 +235,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 123
+          seed: 3774
           value: 0.3
       name: hard1
       completion_criteria:
@@ -248,7 +248,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 124
+          seed: 3775
           value: 0.15
       name: hard1
       completion_criteria:
@@ -261,7 +261,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 125
+          seed: 3776
           value: 0
       name: final
       completion_criteria: null
@@ -270,7 +270,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 126
+          seed: 3777
           value: 100
       name: easy1
       completion_criteria:
@@ -283,7 +283,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 127
+          seed: 3778
           value: 90
       name: easy2
       completion_criteria:
@@ -296,7 +296,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 128
+          seed: 3779
           value: 70
       name: medium1
       completion_criteria:
@@ -309,7 +309,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 129
+          seed: 3780
           value: 60
       name: medium2
       completion_criteria:
@@ -322,7 +322,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 130
+          seed: 3781
           value: 50
       name: medium3
       completion_criteria:
@@ -335,7 +335,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 131
+          seed: 3782
           value: 40
       name: hard1
       completion_criteria:
@@ -348,7 +348,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 132
+          seed: 3783
           value: 30
       name: hard1
       completion_criteria:
@@ -361,7 +361,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 133
+          seed: 3784
           value: 20
       name: final
       completion_criteria: null
@@ -370,7 +370,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 134
+          seed: 3785
           value: 20
       name: easy1
       completion_criteria:
@@ -383,7 +383,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 135
+          seed: 3786
           value: 35
       name: easy2
       completion_criteria:
@@ -396,7 +396,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 136
+          seed: 3787
           value: 50
       name: medium1
       completion_criteria:
@@ -409,7 +409,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 137
+          seed: 3788
           value: 65
       name: medium2
       completion_criteria:
@@ -422,7 +422,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 138
+          seed: 3789
           value: 80
       name: medium3
       completion_criteria:
@@ -435,7 +435,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 139
+          seed: 3790
           value: 95
       name: hard1
       completion_criteria:
@@ -448,7 +448,7 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 140
+          seed: 3791
           value: 110
       name: hard1
       completion_criteria:
@@ -461,16 +461,16 @@ environment_parameters:
     - value:
         sampler_type: constant
         sampler_parameters:
-          seed: 141
+          seed: 3792
           value: 125
       name: final
       completion_criteria: null
 checkpoint_settings:
-  run_id: flying_agentV0.01
-  initialize_from: null
+  run_id: flying_agentV0.02
+  initialize_from: flying_agentV0.01
   load_model: false
   resume: false
-  force: true
+  force: false
   train_model: false
   inference: false
   results_dir: results

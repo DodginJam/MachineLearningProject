@@ -13,7 +13,7 @@ public class TargetManager_FlyingAgent : TargetManager<Target_FlyingAgent>
     {
         SetTargetsToNewSpot();
 
-        ActivateTargets(20);
+        ActivateTargets(AllTargets.Length);
     }
 
     public override void SetTargetsToNewSpot()

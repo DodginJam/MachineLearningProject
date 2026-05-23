@@ -1,0 +1,50 @@
+{
+    "starting_velocity": {
+        "lesson_num": 7
+    },
+    "starting_throttle_value": {
+        "lesson_num": 7
+    },
+    "targets_scale": {
+        "lesson_num": 7
+    },
+    "targets_movement": {
+        "lesson_num": 7
+    },
+    "FlyingAgent": {
+        "checkpoints": [
+            {
+                "steps": 19999779,
+                "file_path": "results\\flying_agentV0.02\\FlyingAgent\\FlyingAgent-19999779.onnx",
+                "reward": 3.9261225312948227,
+                "creation_time": 1779389391.5898132,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.02\\FlyingAgent\\FlyingAgent-19999779.pt"
+                ]
+            },
+            {
+                "steps": 20001059,
+                "file_path": "results\\flying_agentV0.02\\FlyingAgent\\FlyingAgent-20001059.onnx",
+                "reward": 3.9261225312948227,
+                "creation_time": 1779389391.979778,
+                "auxillary_file_paths": [
+                    "results\\flying_agentV0.02\\FlyingAgent\\FlyingAgent-20001059.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20001059,
+            "file_path": "results\\flying_agentV0.02\\FlyingAgent.onnx",
+            "reward": 3.9261225312948227,
+            "creation_time": 1779389391.979778,
+            "auxillary_file_paths": [
+                "results\\flying_agentV0.02\\FlyingAgent\\FlyingAgent-20001059.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
