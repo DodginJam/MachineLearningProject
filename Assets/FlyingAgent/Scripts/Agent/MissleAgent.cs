@@ -1,8 +1,17 @@
+using UnityEngine;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
 public class MissleAgent : FlyingAgent
 {
+    [field: SerializeField]
+    public Target LockedOnTarget
+    { get; set; }
+
+    [field: SerializeField]
+    public float StartingForwardVelocity
+    { get; set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -11,6 +20,8 @@ public class MissleAgent : FlyingAgent
     public override void Initialize()
     {
         base.Initialize();
+
+        Controller.PlaneRigidBody.linearVelocity = new Vector3(0, 0, StartingForwardVelocity);
     }
 
     /// <summary>
