@@ -443,7 +443,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4531153860806913077, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
       propertyPath: m_Name
-      value: FlyingTrainingArea
+      value: AircraftTrainingArea
       objectReference: {fileID: 0}
     - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
       propertyPath: m_LocalPosition.x

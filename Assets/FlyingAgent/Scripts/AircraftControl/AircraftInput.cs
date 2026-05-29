@@ -113,12 +113,12 @@ public class AircraftInput : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdateInputControllerScheme();
-
-        UpdateIsJoystickBeingUsed();
-
         if (EnablePlayerControl)
         {
+            UpdateInputControllerScheme();
+
+            UpdateIsJoystickBeingUsed();
+
             PollingInput newInput = ReturnPollingInput();
             ApplyPollingInput(newInput);
         }

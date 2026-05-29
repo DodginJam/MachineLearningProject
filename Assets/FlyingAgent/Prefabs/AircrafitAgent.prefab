@@ -462,7 +462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3473047224576782676}
-  - component: {fileID: 4920375695204523532}
+  - component: {fileID: 7965113838722594432}
   - component: {fileID: 560283203052409767}
   - component: {fileID: 3064578059153113567}
   - component: {fileID: 5384634832498534012}
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 2580608668842240578}
   - component: {fileID: 332801732999491648}
   m_Layer: 3
-  m_Name: FlyingAgent
+  m_Name: AircrafitAgent
   m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +503,7 @@ Transform:
   - {fileID: 6213789225329969637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4920375695204523532
+--- !u!114 &7965113838722594432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -512,19 +512,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1786854157504720403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55a8765c5ee13d4d946996537b7a586, type: 3}
+  m_Script: {fileID: 11500000, guid: ac8fa17e72b6de7409b847748e37ad89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
+  MaxStep: 0
   <MaxStepsDuringTraining>k__BackingField: 15000
   <AircraftInputScript>k__BackingField: {fileID: 7021381587938354940}
   <Controller>k__BackingField: {fileID: 2580608668842240578}
-  <GroundDetection>k__BackingField: {fileID: 4317708881596818610}
   <TargetDetector>k__BackingField: {fileID: 3959051985528414464}
   <BufferSensorComp>k__BackingField: {fileID: 3064578059153113567}
+  <GroundDetection>k__BackingField: {fileID: 4317708881596818610}
 --- !u!114 &560283203052409767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,8 +614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bec3ebe65cdd744c8139639ca129d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DestroyForce>k__BackingField: 500
-  <Agent>k__BackingField: {fileID: 4920375695204523532}
+  <DestroyForce>k__BackingField: 100000
+  <Agent>k__BackingField: {fileID: 7965113838722594432}
   <LayerMaskForFailure>k__BackingField:
     serializedVersion: 2
     m_Bits: 128

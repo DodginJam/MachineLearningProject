@@ -4,7 +4,6 @@ using System.Linq;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using UnityEditor.Recorder.Input;
 using UnityEngine;
 
 public class FlyingAgent : Agent
@@ -22,10 +21,6 @@ public class FlyingAgent : Agent
 
     [field: SerializeField]
     public AircraftController Controller
-    { get; private set; }
-
-    [field: SerializeField]
-    public GroundDetection_Aircraft GroundDetection
     { get; private set; }
 
     private float TimeAlive
@@ -64,6 +59,7 @@ public class FlyingAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        Debug.Log("Episode Begin!");
         AircraftInputScript.ResetInputs();
 
         Controller.PlaneRigidBody.position = StartingPosition;
@@ -73,7 +69,7 @@ public class FlyingAgent : Agent
         TimeAlive = 0;
     }
 
-    public void Update()
+    protected virtual void Update()
     {
         TimeAlive += Time.deltaTime;
     }
@@ -83,6 +79,13 @@ public class FlyingAgent : Agent
     /// </summary>
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor)
+    {
+        CollectSensorObservations(sensor);
+
+        AddBufferSensorObservations(BufferSensorComp);
+    }
+
+    public virtual void CollectSensorObservations(VectorSensor sensor)
     {
         float maxExpectedVelocity = 100;
 
@@ -105,21 +108,21 @@ public class FlyingAgent : Agent
 
         // Level Flight.
         sensor.AddObservation(Controller.CurrentValues.ValuesHolder.LevelOfFlight); // 10
+    }
 
-        // Are wheels on ground.
-        sensor.AddObservation(IsGrounded()); // 11
-
+    public virtual void AddBufferSensorObservations(BufferSensorComponent bufferComp)
+    {
         int index = 0;
         // Adding observations into the buffer sensor.
         foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => (element.Value.CurrentTargetPosition - this.transform.position).sqrMagnitude))
         {
-            if (index >= BufferSensorComp.MaxNumObservables)
+            if (index >= bufferComp.MaxNumObservables)
             {
                 Debug.LogWarning($"Index at {index} - Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");
                 break;
             }
             index++;
-            float[] observationArray = new float[BufferSensorComp.ObservableSize];
+            float[] observationArray = new float[bufferComp.ObservableSize];
 
             // First 3 values as the direction of the target relative to the face of the agent.
             Vector3 localSpacePositionOfTarget = this.transform.InverseTransformPoint(target.Value.CurrentTargetPosition);
@@ -144,29 +147,22 @@ public class FlyingAgent : Agent
             float dot = Vector3.Dot(this.transform.forward, (target.Value.CurrentTargetPosition - this.transform.position).normalized);
             observationArray[7] = dot;
 
-            BufferSensorComp.AppendObservation(observationArray);
+            bufferComp.AppendObservation(observationArray);
         }
     }
 
-    bool IsGrounded()
-    {
-        if (GroundDetection == null)
-        {
-            Debug.Log("Error: Ground Detection is not assigned.");
-            return false;
-        }
-
-        return GroundDetection.IsGrounded();
-    }
-
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (Application.isPlaying)
         {
-            Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
-            Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
-            Debug.Log($"Is Grounded: {GroundDetection.IsGrounded()}");
+            PrintDebugStatements();
         }
+    }
+
+    protected virtual void PrintDebugStatements()
+    {
+        Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
+        Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
     }
 
     /// <summary>
@@ -241,10 +237,11 @@ public class FlyingAgent : Agent
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
     }
 
-    public void OnAgentCrash()
+    public virtual void OnAgentCrash()
     {
+        Debug.Log("OnAgentCrash called! Should send episode.");
         AddReward(-1.0f);
-        EndEpisode();
+        base.EndEpisode();
     }
 
     bool CheckEndEpisodeAfterStepCount()
