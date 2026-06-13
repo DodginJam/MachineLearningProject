@@ -23,7 +23,7 @@ public class FlyingAgent : Agent
     public AircraftController Controller
     { get; private set; }
 
-    private float TimeAlive
+    protected float TimeAlive
     { get; set; }
 
     [field: SerializeField]
@@ -33,6 +33,10 @@ public class FlyingAgent : Agent
     [field: SerializeField]
     public BufferSensorComponent BufferSensorComp
     { get; private set; }
+
+    [field: SerializeField]
+    public bool PrintDebugs 
+    { get; private set; } = false;
 
     protected override void Awake()
     {
@@ -45,12 +49,12 @@ public class FlyingAgent : Agent
         if (!Academy.Instance.IsCommunicatorOn)
         {
             this.MaxStep = 0;
-            Debug.Log($"Max Steps set to {this.MaxStep}");
+            //Debug.Log($"Max Steps set to {this.MaxStep}");
         }
         else
         {
             this.MaxStep = MaxStepsDuringTraining;
-            Debug.Log($"Max Steps set to {this.MaxStep}");
+            //Debug.Log($"Max Steps set to {this.MaxStep}");
         }
     }
 
@@ -59,7 +63,6 @@ public class FlyingAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        Debug.Log("Episode Begin!");
         AircraftInputScript.ResetInputs();
 
         Controller.PlaneRigidBody.position = StartingPosition;
@@ -161,8 +164,11 @@ public class FlyingAgent : Agent
 
     protected virtual void PrintDebugStatements()
     {
-        Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
-        Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
+        if (PrintDebugs)
+        {
+            Debug.Log($"ThrottleValue: {Controller.CurrentValues.FlightControls.ThrottleValue}", this.gameObject);
+            Debug.Log($"LevelOfFlight: {Controller.CurrentValues.ValuesHolder.LevelOfFlight}", this.gameObject);
+        }
     }
 
     /// <summary>
@@ -239,7 +245,7 @@ public class FlyingAgent : Agent
 
     public virtual void OnAgentCrash()
     {
-        Debug.Log("OnAgentCrash called! Should send episode.");
+        // Debug.Log("OnAgentCrash called! Should send episode.");
         AddReward(-1.0f);
         base.EndEpisode();
     }

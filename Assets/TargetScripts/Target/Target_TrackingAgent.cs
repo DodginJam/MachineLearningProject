@@ -48,7 +48,7 @@ public class Target_TrackingAgent : Target, IKillable, IMoveable, IMaterialChang
         IsDead = false;
     }
 
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Movement();
     }

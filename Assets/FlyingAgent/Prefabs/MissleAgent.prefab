@@ -1106,17 +1106,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7129540712684422517}
   - component: {fileID: 563276687047858332}
-  - component: {fileID: 8221735728157314062}
   - component: {fileID: 532168545152808944}
   - component: {fileID: 6850023392224970795}
   - component: {fileID: 7384957408409079594}
-  - component: {fileID: 2237562311032919563}
   - component: {fileID: 1479862280124104387}
   - component: {fileID: 5146011664264205232}
   - component: {fileID: 5952090362742522832}
   - component: {fileID: 3118411581743801732}
   - component: {fileID: 4882060502507785794}
-  - component: {fileID: 4196353032645088159}
   m_Layer: 3
   m_Name: MissleAgent
   m_TagString: agent
@@ -1164,34 +1161,14 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  <MaxStepsDuringTraining>k__BackingField: 10000
-  <AircraftInputScript>k__BackingField: {fileID: 3118411581743801732}
-  <Controller>k__BackingField: {fileID: 4882060502507785794}
-  <TargetDetector>k__BackingField: {fileID: 6094564341671202229}
-  <BufferSensorComp>k__BackingField: {fileID: 6850023392224970795}
-  <LockedOnTarget>k__BackingField: {fileID: 0}
-  <StartingForwardVelocity>k__BackingField: 500
---- !u!114 &8221735728157314062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7831648056464941342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55a8765c5ee13d4d946996537b7a586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 10000
   <MaxStepsDuringTraining>k__BackingField: 15000
   <AircraftInputScript>k__BackingField: {fileID: 3118411581743801732}
   <Controller>k__BackingField: {fileID: 4882060502507785794}
   <TargetDetector>k__BackingField: {fileID: 6094564341671202229}
   <BufferSensorComp>k__BackingField: {fileID: 6850023392224970795}
+  <PrintDebugs>k__BackingField: 0
+  <LockedOnTarget>k__BackingField: {fileID: 0}
+  <StartingForwardVelocity>k__BackingField: 500
 --- !u!114 &532168545152808944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1191,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 6a5436de81136fb4682558a40288c4f6, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: FlyingAgent
@@ -1253,22 +1230,6 @@ MonoBehaviour:
   DecisionPeriod: 5
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
---- !u!114 &2237562311032919563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7831648056464941342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a06f3030d99814293cea3852d2d19b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ContactPointsForGround>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1479862280124104387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,10 +1243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DestroyForce>k__BackingField: 500
-  <Agent>k__BackingField: {fileID: 8221735728157314062}
+  <Agent>k__BackingField: {fileID: 563276687047858332}
   <LayerMaskForFailure>k__BackingField:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
 --- !u!54 &5146011664264205232
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1305,7 +1266,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1325,7 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f5c9461fb6bb8438e51559241ae460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <BaseValues>k__BackingField: {fileID: 11400000, guid: 7075125bb1150b1468dcde6ee2071e22, type: 2}
+  <BaseValues>k__BackingField: {fileID: 11400000, guid: 33faaec1a36a51a49a5b949b23075f05, type: 2}
 --- !u!114 &3118411581743801732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,33 +1316,6 @@ MonoBehaviour:
   <CurrentValues>k__BackingField: {fileID: 5952090362742522832}
   <PlaneRigidBody>k__BackingField: {fileID: 5146011664264205232}
   <CentreOfMassTransform>k__BackingField: {fileID: 9216671511109490985}
---- !u!114 &4196353032645088159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7831648056464941342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd1f4f707b1b36848995a3894591bd5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Input>k__BackingField: {fileID: 3118411581743801732}
-  <BrakingSystem>k__BackingField:
-    <Brakes>k__BackingField:
-    - <Name>k__BackingField: FrontLeft
-      <BreakSurface>k__BackingField: {fileID: 0}
-      <DefaultMat>k__BackingField: {fileID: 13400000, guid: 2a7f8e58303b47e4a898907d0e826bb9, type: 2}
-      <BrakingMat>k__BackingField: {fileID: 13400000, guid: 06c3bacfb5df4404b8c1b32908fdb95b, type: 2}
-    - <Name>k__BackingField: FrontRight
-      <BreakSurface>k__BackingField: {fileID: 0}
-      <DefaultMat>k__BackingField: {fileID: 13400000, guid: 2a7f8e58303b47e4a898907d0e826bb9, type: 2}
-      <BrakingMat>k__BackingField: {fileID: 13400000, guid: 06c3bacfb5df4404b8c1b32908fdb95b, type: 2}
-    - <Name>k__BackingField: BackCentre
-      <BreakSurface>k__BackingField: {fileID: 0}
-      <DefaultMat>k__BackingField: {fileID: 13400000, guid: 2a7f8e58303b47e4a898907d0e826bb9, type: 2}
-      <BrakingMat>k__BackingField: {fileID: 13400000, guid: 06c3bacfb5df4404b8c1b32908fdb95b, type: 2}
 --- !u!1 &8869768788979110737
 GameObject:
   m_ObjectHideFlags: 0

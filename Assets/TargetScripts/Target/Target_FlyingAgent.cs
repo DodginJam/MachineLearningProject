@@ -44,7 +44,7 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
         SetSize(EnvironmentParametersFlyingAgent.Instance.GetTargetsScale());
     }
 
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Movement();
     }
@@ -98,7 +98,7 @@ public class Target_FlyingAgent : Target, IKillable, IMoveable
         MoveToPosition = endPoint;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if ((TriggerMasks.value & (1 << other.gameObject.layer)) != 0)
         {

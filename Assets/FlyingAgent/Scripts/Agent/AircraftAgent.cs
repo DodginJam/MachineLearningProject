@@ -71,6 +71,5 @@ public class AircraftAgent : FlyingAgent
     protected override void PrintDebugStatements()
     {
         base.PrintDebugStatements();
-        Debug.Log($"Is Grounded: {GroundDetection.IsGrounded()}");
     }
 }

@@ -32,11 +32,11 @@ public class CrashDetection : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Vector3 force = collision.impulse / LastFixedDeltaTimeAmount;
-        Debug.Log($"Force Of Collision: {force.sqrMagnitude} needs to be greater then: {DestroyForce * DestroyForce}");
+        // Debug.Log($"Force Of Collision: {force.sqrMagnitude} needs to be greater then: {DestroyForce * DestroyForce}");
 
         if (force.sqrMagnitude >= DestroyForce * DestroyForce)
         {
-            Debug.Log("Impact Should be called");
+            // Debug.Log("Impact Should be called");
             Impact();
         }
         else if ((LayerMaskForFailure.value & (1 << collision.gameObject.layer)) != 0)
@@ -47,7 +47,7 @@ public class CrashDetection : MonoBehaviour
 
     public void Impact()
     {
-        Debug.Log("Impact Called! Agent Should crash.");
+        // Debug.Log("Impact Called! Agent Should crash.");
         Agent.OnAgentCrash();
     }
 }

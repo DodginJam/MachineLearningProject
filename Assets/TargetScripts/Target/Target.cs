@@ -11,6 +11,11 @@ public abstract class Target : MonoBehaviour, ITarget
         Initialise();
     }
 
+    protected virtual void FixedUpdate()
+    {
+        
+    }
+
     public abstract void Initialise();
 
     public void SetTargetTyping(TargetType type)

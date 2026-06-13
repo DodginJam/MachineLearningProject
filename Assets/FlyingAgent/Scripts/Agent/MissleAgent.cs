@@ -8,10 +8,6 @@ public class MissleAgent : FlyingAgent
     public Target LockedOnTarget
     { get; set; }
 
-    [field: SerializeField]
-    public float StartingForwardVelocity
-    { get; set; }
-
     protected override void Awake()
     {
         base.Awake();
@@ -20,8 +16,6 @@ public class MissleAgent : FlyingAgent
     public override void Initialize()
     {
         base.Initialize();
-
-        Controller.PlaneRigidBody.linearVelocity = new Vector3(0, 0, StartingForwardVelocity);
     }
 
     /// <summary>
@@ -29,7 +23,13 @@ public class MissleAgent : FlyingAgent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        base.OnEpisodeBegin();
+        AircraftInputScript.ResetInputs();
+
+        Controller.PlaneRigidBody.position = StartingPosition;
+        Controller.PlaneRigidBody.rotation = Quaternion.identity;
+        Controller.ResetPlane(new Vector3(0, 0, EnvironmentParametersMissleAgent.Instance.GetStartingVelocity()), EnvironmentParametersMissleAgent.Instance.GetThrottleValue());
+
+        TimeAlive = 0;
     }
 
     protected override void Update()
