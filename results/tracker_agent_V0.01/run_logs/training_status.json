@@ -1,0 +1,74 @@
+{
+    "movement_speed": {
+        "lesson_num": 3
+    },
+    "number_of_targets": {
+        "lesson_num": 2
+    },
+    "friendly_ratio": {
+        "lesson_num": 1
+    },
+    "size_of_target": {
+        "lesson_num": 2
+    },
+    "blind_fire_penalty": {
+        "lesson_num": 1
+    },
+    "arena_size": {
+        "lesson_num": 1
+    },
+    "Tracker": {
+        "checkpoints": [
+            {
+                "steps": 2499837,
+                "file_path": "results\\tracker_agent_V0.01\\Tracker\\Tracker-2499837.onnx",
+                "reward": 0.3779601488824723,
+                "creation_time": 1782965120.7187538,
+                "auxillary_file_paths": [
+                    "results\\tracker_agent_V0.01\\Tracker\\Tracker-2499837.pt"
+                ]
+            },
+            {
+                "steps": 2999910,
+                "file_path": "results\\tracker_agent_V0.01\\Tracker\\Tracker-2999910.onnx",
+                "reward": 0.8874145345647394,
+                "creation_time": 1782965746.577486,
+                "auxillary_file_paths": [
+                    "results\\tracker_agent_V0.01\\Tracker\\Tracker-2999910.pt"
+                ]
+            },
+            {
+                "steps": 3499799,
+                "file_path": "results\\tracker_agent_V0.01\\Tracker\\Tracker-3499799.onnx",
+                "reward": 0.8009305610293578,
+                "creation_time": 1782966413.6230714,
+                "auxillary_file_paths": [
+                    "results\\tracker_agent_V0.01\\Tracker\\Tracker-3499799.pt"
+                ]
+            },
+            {
+                "steps": 3999799,
+                "file_path": "results\\tracker_agent_V0.01\\Tracker\\Tracker-3999799.onnx",
+                "reward": 0.4413211224731845,
+                "creation_time": 1782967735.647882,
+                "auxillary_file_paths": [
+                    "results\\tracker_agent_V0.01\\Tracker\\Tracker-3999799.pt"
+                ]
+            },
+            {
+                "steps": 4499799,
+                "file_path": "results\\tracker_agent_V0.01\\Tracker\\Tracker-4499799.onnx",
+                "reward": 0.5976907873101642,
+                "creation_time": 1782968971.13355,
+                "auxillary_file_paths": [
+                    "results\\tracker_agent_V0.01\\Tracker\\Tracker-4499799.pt"
+                ]
+            }
+        ]
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

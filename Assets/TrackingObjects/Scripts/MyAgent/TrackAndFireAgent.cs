@@ -179,11 +179,13 @@ public class TrackAndFireAgent : Agent
         // Vector observations - continious.
         sensor.AddObservation(Rotator.GetNormalisedRotationValue()); // Index 0
         sensor.AddObservation(Pitcher.GetNormalisedRotationValue()); // Index 1
+        sensor.AddObservation(WeaponController.IsTargetDetected(out _)); // Index 3
 
         int index = 0;
         // Adding observations into the buffer sensor.
         foreach (var target in TargetDetector.DetectedTargets.OrderBy(element => (element.Value.CurrentTargetPosition - WeaponController.transform.position).sqrMagnitude))
         {
+            Debug.Log($"DetectedTargets count: {TargetDetector.DetectedTargets.Count}");
             if (index >= BufferSensorComp.MaxNumObservables)
             {
                 Debug.LogWarning($"Index at {index} - Number of visable targets exceeded the max number of observables allowed by the buffer sesnsor. Stopping additional visable target observations.");

@@ -1,0 +1,341 @@
+default_settings: null
+behaviors:
+  Tracker:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 100000
+      learning_rate: 0.0003
+      beta: 0.0005
+      epsilon: 0.2
+      lambd: 0.99
+      num_epoch: 3
+      shared_critic: false
+      learning_rate_schedule: linear
+      beta_schedule: constant
+      epsilon_schedule: linear
+    checkpoint_interval: 500000
+    network_settings:
+      normalize: false
+      hidden_units: 128
+      num_layers: 2
+      vis_encode_type: simple
+      memory: null
+      goal_conditioning_type: hyper
+      deterministic: false
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+        network_settings:
+          normalize: false
+          hidden_units: 128
+          num_layers: 2
+          vis_encode_type: simple
+          memory: null
+          goal_conditioning_type: hyper
+          deterministic: false
+    init_path: null
+    keep_checkpoints: 5
+    even_checkpoints: false
+    max_steps: 50000000
+    time_horizon: 256
+    summary_freq: 10000
+    threaded: false
+    self_play: null
+    behavioral_cloning: null
+env_settings:
+  env_path: null
+  env_args: null
+  base_port: 5005
+  num_envs: 1
+  num_areas: 1
+  timeout_wait: 60
+  seed: -1
+  max_lifetime_restarts: 10
+  restarts_rate_limit_n: 1
+  restarts_rate_limit_period_s: 60
+engine_settings:
+  width: 84
+  height: 84
+  quality_level: 5
+  time_scale: 20
+  target_frame_rate: -1
+  capture_frame_rate: 60
+  no_graphics: false
+  no_graphics_monitor: false
+environment_parameters:
+  movement_speed:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4085
+          value: 10
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.3
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4086
+          value: 20
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.5
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4087
+          value: 40
+      name: hard
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.8
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4088
+          value: 80
+      name: harder
+      completion_criteria: null
+  number_of_targets:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4089
+          value: 1
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.65
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4090
+          value: 5
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.8
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4091
+          value: 20
+      name: hard
+      completion_criteria: null
+  friendly_ratio:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4092
+          value: 0.0
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.85
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4093
+          value: 0.2
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.95
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4094
+          value: 0.4
+      name: hard
+      completion_criteria: null
+  size_of_target:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4095
+          value: 20
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.4
+        require_reset: false
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4096
+          value: 10
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.6
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4097
+          value: 5
+      name: hard
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.9
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4098
+          value: 2.5
+      name: harder
+      completion_criteria: null
+  blind_fire_penalty:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4099
+          value: 0.0
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.7
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4100
+          value: -0.001
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.9
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4101
+          value: -0.01
+      name: hard
+      completion_criteria: null
+  arena_size:
+    curriculum:
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4102
+          value: 15
+      name: easy
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.8
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4103
+          value: 30
+      name: medium
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.85
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4104
+          value: 45
+      name: hard
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.9
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4105
+          value: 50
+      name: harder
+      completion_criteria:
+        behavior: Tracker
+        measure: reward
+        min_lesson_length: 1000
+        signal_smoothing: true
+        threshold: 0.95
+        require_reset: true
+    - value:
+        sampler_type: constant
+        sampler_parameters:
+          seed: 4106
+          value: 75
+      name: hardest
+      completion_criteria: null
+checkpoint_settings:
+  run_id: tracker_agent_V0.01
+  initialize_from: null
+  load_model: false
+  resume: false
+  force: true
+  train_model: false
+  inference: false
+  results_dir: results
+torch_settings:
+  device: null
+debug: false
