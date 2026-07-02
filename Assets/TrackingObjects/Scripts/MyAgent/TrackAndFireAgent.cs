@@ -299,7 +299,7 @@ public class TrackAndFireAgent : Agent
             return;
         }
 
-        // Reward based on the best dot product calculated - rewarding facing towards the targets closest to weapon face.
+        // Reward based on the best dot product calculated - rewarding facing towards the targets most centred to weapons face.
         if (TargetDetector.DetectedTargets.Count > 0)
         {
             // Check for target datas of only enemy types.

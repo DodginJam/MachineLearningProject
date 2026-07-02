@@ -1527,7 +1527,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: b58744a0838bc404ab3a0c0858d66329, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 4283c3996fbba244db40cfb00fef14a5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Tracker
