@@ -4,6 +4,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 using ProjectEnums;
+using System;
 
 public class TrackAndFireAgent : Agent
 {
@@ -17,6 +18,7 @@ public class TrackAndFireAgent : Agent
     [field: SerializeField, Header("Control Points")]
     public RotationPoint Rotator
     { get; private set; }
+
 
     /// <summary>
     /// The vertical rotation point of the head.
@@ -117,7 +119,7 @@ public class TrackAndFireAgent : Agent
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Rotator.SetAngle(Random.Range(0f, 359.9999f));
+        Rotator.SetAngle(UnityEngine.Random.Range(0f, 359.9999f));
         BufferSensorComp = GetComponent<BufferSensorComponent>();
     }
 
@@ -226,6 +228,8 @@ public class TrackAndFireAgent : Agent
         }
     }
 
+    public event Action<TargetType> UpdateScore;
+
     /// <summary>
     /// Called every time the TrackingAgent receives an action to take. Receives the action chosen by the TrackingAgent. It is also common to assign a reward in this method.
     /// </summary>
@@ -265,6 +269,8 @@ public class TrackAndFireAgent : Agent
             if (detectedTarget.IsDead)
             {
                 TargetDetector.RemoveTargetFromDictionary(detectedTarget.GetGameObjectsInstanceID());
+
+                UpdateScore?.Invoke(detectedTarget.TargetTyping);
 
                 // Rewarding killing an enemy, and punish anything else being killed.
                 if (detectedTarget.TargetTyping == TargetType.Enemy)

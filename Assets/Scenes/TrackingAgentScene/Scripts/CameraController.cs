@@ -1,3 +1,5 @@
+using ProjectEnums;
+using System;
 using UnityEngine;
 
 [DefaultExecutionOrder(50)]
@@ -30,6 +32,8 @@ public class CameraController : MonoBehaviour
     public PlayerController PlayerControllerOwner
     { get; set; }
 
+    public event Action<TargetType> UpdateScore;
+
     private void Awake()
     {
         if (TryGetComponent<Camera>(out Camera camera))
@@ -40,10 +44,27 @@ public class CameraController : MonoBehaviour
         InitialiseCameraController(TransformToFollow, PlayerControllerOwner);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
-        
+        PlayerControllerOwner.InputHandler.FireAction += FireWeapon;
+    }
+
+    private void OnDisable()
+    {
+        PlayerControllerOwner.InputHandler.FireAction -= FireWeapon;
+    }
+
+    void FireWeapon()
+    {
+        if (Physics.Raycast(AttachedCamera.transform.position, AttachedCamera.transform.forward, out RaycastHit hitInfo))
+        {
+            if (hitInfo.transform.TryGetComponent<Target_TrackingAgent>(out Target_TrackingAgent target_Tracking))
+            {
+                target_Tracking.Die();
+                FindFirstObjectByType<Detector>().RemoveTargetFromDictionary(target_Tracking.GetGameObjectsInstanceID());
+                UpdateScore?.Invoke(target_Tracking.TargetTyping);
+            }
+        }
     }
 
     // Update is called once per frame

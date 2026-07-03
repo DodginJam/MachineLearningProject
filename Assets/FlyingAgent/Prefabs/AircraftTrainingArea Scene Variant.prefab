@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3700583088529712242
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1392131921062658788, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1854089825683535124, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: <EnablePlayerControl>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199123008756651957, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633118759031885656, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2721901201065821578, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531153860806913077, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_Name
+      value: AircraftTrainingArea Scene Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727590527974693864, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122707390544492781, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5818100262184223669, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125912940155467551, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129479823980577977, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e0876219b8227fb45a35ad8d674f4a03, type: 3}

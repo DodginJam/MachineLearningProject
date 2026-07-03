@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-1)]
 public class PlayerInputHandler : MonoBehaviour
@@ -18,7 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 RotationInput
     { get; set; }
 
-    public event Action Pause;
+    public event Action FireAction;
 
     private void Awake()
     {
@@ -79,17 +80,27 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.started)
         {
-            Pause?.Invoke();
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            FireAction?.Invoke();
         }
     }
 
     public void EnableInputListeners()
     {
-        PlayerActionMap.Pause.performed += OnPause;
+        PlayerActionMap.Pause.started += OnPause;
+        PlayerActionMap.Fire.performed += OnFire;
     }
 
     public void DisableInputListeners()
     {
-        PlayerActionMap.Pause.performed -= OnPause;
+        PlayerActionMap.Pause.started -= OnPause;
+        PlayerActionMap.Fire.performed -= OnFire;
     }
 }
