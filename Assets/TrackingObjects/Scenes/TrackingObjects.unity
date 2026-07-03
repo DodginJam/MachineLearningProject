@@ -1378,7 +1378,7 @@ MonoBehaviour:
   <FriendlyRatio>k__BackingField: 0.5
   <SizeOfTargets>k__BackingField: 10.51
   <BlindFirePenalty>k__BackingField: 0
-  <ArenaSize>k__BackingField: 75
+  <ArenaSize>k__BackingField: 25
 --- !u!1001 &1862412289
 PrefabInstance:
   m_ObjectHideFlags: 0

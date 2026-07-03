@@ -37,16 +37,4 @@ public class InputManager : MonoBehaviour
             Debug.LogError("Unable to locate a player input component");
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

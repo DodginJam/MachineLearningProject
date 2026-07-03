@@ -21,11 +21,16 @@ public abstract class EnvironmentParameters<T> : MonoBehaviour where T : MonoBeh
         if (Instance == null)
         {
             Instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Instance = null;
     }
 }
